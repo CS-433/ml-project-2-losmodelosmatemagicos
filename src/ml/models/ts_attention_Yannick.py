@@ -6,6 +6,7 @@ import pandas as pd
 from typing import Tuple
 from shutil import copytree, rmtree
 from ml.models.model import Model
+from pathlib import Path
 
 import tensorflow as tf
 from tensorflow import keras
@@ -110,16 +111,22 @@ class TimestepAttentionModel(Model):
         return a
 
     def _get_csvlogger_path(self) -> str:
-        csv_path = '../experiments/{}{}/{}/logger/{}/'.format(self._experiment_root, self._experiment_name, self._outer_fold, self._notation)
-        csv_path += 'ct{}_nlayers{}_ncells{}_flatten{}'.format(
-            self._model_settings['cell_type'], self._model_settings['n_layers'], self._model_settings['n_cells'], self._model_settings['flatten']
-        )
-        csv_path += '_drop{}_optim{}_loss{}_bs{}_ep{}'.format(
-            self._model_settings['dropout'], self._model_settings['optimiser'], self._model_settings['loss'], self._model_settings['batch_size'], self._model_settings['epochs']
-        )
+
+        # Finding absolute path of the experiments folder
+        current_file_path = Path(__file__).resolve()
+        root_dir = current_file_path.parents[3]
+        experiments_dir = root_dir / 'experiments'
+        experiments_dir = str(experiments_dir)
+
+        add1 = '/{}{}/{}/logger/{}/'.format(self._experiment_root, self._experiment_name, self._outer_fold, self._notation)
+        add2 = 'ct{}_nlayers{}_ncells{}_flatten{}'.format(self._model_settings['cell_type'], self._model_settings['n_layers'], self._model_settings['n_cells'], self._model_settings['flatten'])
+        add3 = '_drop{}_optim{}_loss{}_bs{}_ep{}'.format(self._model_settings['dropout'], self._model_settings['optimiser'], self._model_settings['loss'], self._model_settings['batch_size'], self._model_settings['epochs'])
+        
+        clean_rel_path = (add1 + add2 + add3).replace('[', '').replace(']', '').replace('.', '_')
+        csv_path = Path(experiments_dir + clean_rel_path)
         os.makedirs(csv_path, exist_ok=True)
-        checkpoint_path = csv_path + '/f{}_model_checkpoint'.format(self._gs_fold)
-        csv_path += '/f' + str(self._gs_fold) + '_model_training.csv'
+        checkpoint_path = csv_path / Path('/f{}_model_checkpoint'.format(self._gs_fold))
+        csv_path /= Path('/f' + str(self._gs_fold) + '_model_training.csv')
         return csv_path, checkpoint_path
 
     def _get_model_checkpoint_path(self) -> str:

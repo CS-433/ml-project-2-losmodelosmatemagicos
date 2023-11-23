@@ -19,7 +19,7 @@ class DataLoader:
         """
         ################################ CHEMLAB ################################
         ##### Features #####
-        path = '../data/ml4science_data.pkl'
+        path = '../data/ml4science_data_fake.pkl'
         with open(path, 'rb') as fp:
             full_data = pickle.load(fp)
         return full_data
