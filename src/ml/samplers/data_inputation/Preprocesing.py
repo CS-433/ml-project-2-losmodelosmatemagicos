@@ -8,7 +8,7 @@ class Preprocesing:
         self.token_dict = token_dict
         self.sep = sep
     
-    def encode_sep(self, data, sep, index_break = 8):
+    def encode_sep(self, data, index_break = 8):
 
         for i in range(len(data['sequences'])):
                 for j in range(len(data['sequences'][i]['sequence'])):
@@ -19,7 +19,7 @@ class Preprocesing:
     def encode_vocabulary(self, data):
 
         if self.sep > 0:
-            self.encode_sep(data,self.sep)
+            self.encode_sep(data)
 
         for i in range(len(data['sequences'])):
             for j in range(len(data['sequences'][i]['sequence'])):
@@ -34,4 +34,5 @@ class Preprocesing:
         raise NotImplementedError
         for i in range(len(data['sequences'])):
             for j in range(len(data['sequences'][i]['sequence'])):
+                a
                 # Yannick do you modulo stuff here
