@@ -19,7 +19,8 @@ class Preprocesing:
             for j in range(len(data['sequences'][i]['sequence'])):
                 if (data['sequences'][i]['sequence'][j] != self.token_dict['[SEP]']):
                     non_zero = np.nonzero(data['sequences'][i]['sequence'][j])
-                    value = non_zero[0][0] * self.na + non_zero[0][1] - (self.ns - len(self.token_dict) - 1) # Actions index start at 1
+                    shift = self.ns - 1 - len(self.token_dict) # 4 - 1 - 3 = 0 in our case
+                    value = non_zero[0][0] * self.na + non_zero[0][1] - shift # Actions index start at 1
                     encoded_data['sequences'][i]['sequence'][j] = value
 
         return encoded_data
@@ -36,9 +37,9 @@ class Preprocesing:
         for i in range(len(data['sequences'])):
             for j in range(len(data['sequences'][i]['sequence'])):
                 value = [0] * (self.ns + self.na)
-                shift = self.ns - len(self.token_dict) - 1 # 4 - 3 - 1 = 0 in our case
-                action_idx = (data['sequences'][i]['sequence'][j] + shift) % self.na
-                state_idx = (data['sequences'][i]['sequence'][j] + shift) // self.na
+                shift = self.ns - 1 - len(self.token_dict) # 4 - 1 - 3 = 0 in our case
+                action_idx = (data['sequences'][i]['sequence'][j] - len(self.token_dict) - 1) % self.na + self.ns
+                state_idx = (data['sequences'][i]['sequence'][j] - action_idx + shift) // self.na
                 value[action_idx] = 1
                 value[state_idx] = 1
 
