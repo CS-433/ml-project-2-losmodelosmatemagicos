@@ -82,12 +82,14 @@ class Preprocesing:
             Index break value, by default 8.
         """
 
-        for i in range(len(data['sequences'])):
-                for j in range(len(data['sequences'][i]['sequence'])):
-                    is_break_idx = np.nonzero(data['sequences'][i]['sequence'][j])[0][1] == [break_idx]
-                    is_long_break = data['sequences'][0]['end'][j] - data['sequences'][0]['begin'][j] > self.sep
+        students = data['sequences']
+        for i in range(len(students)):
+                sequences = students[i]['sequence']
+                for j in range(len(sequences)):
+                    is_break_idx = np.nonzero(sequences[j])[0][1] == break_idx
+                    is_long_break = students[i]['end'][j] - students[i]['begin'][j] > self.sep
                     if (is_break_idx and is_long_break): 
-                        data['sequences'][i]['sequence'][j] = self.token_dict['[SEP]']
+                        sequences[j] = self.token_dict['[SEP]']
 
     def decode_vocabulary(self, data):
         """
