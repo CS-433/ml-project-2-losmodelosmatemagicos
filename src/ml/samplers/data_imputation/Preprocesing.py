@@ -70,7 +70,7 @@ class Preprocesing:
 
         return encoded_data
     
-    def encode_sep(self, data, index_break = 8):
+    def encode_sep(self, data, break_idx = 8):
         """
         Encodes the breaks if longer than this value "sep", in the given data.
 
@@ -84,7 +84,9 @@ class Preprocesing:
 
         for i in range(len(data['sequences'])):
                 for j in range(len(data['sequences'][i]['sequence'])):
-                    if (((np.nonzero(data['sequences'][i]['sequence'][j]))[0][1] == [index_break]) and ((data['sequences'][0]['end'][j] - data['sequences'][0]['begin'][j]) > self.sep ) ): 
+                    is_break_idx = np.nonzero(data['sequences'][i]['sequence'][j])[0][1] == [break_idx]
+                    is_long_break = data['sequences'][0]['end'][j] - data['sequences'][0]['begin'][j] > self.sep
+                    if (is_break_idx and is_long_break): 
                         data['sequences'][i]['sequence'][j] = self.token_dict['[SEP]']
 
     def decode_vocabulary(self, data):
