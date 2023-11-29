@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import logging
 import pickle
+from pathlib import PurePath
 
 import tensorflow as tf
 import os
@@ -85,7 +86,7 @@ class Model:
 
     def _get_model_checkpoint_path(self) -> str:
         _, checkpoint_path = self._get_csvlogger_path()
-        return checkpoint_path
+        return PurePath(checkpoint_path)
 
     def load_model_weights(self, x:np.array, checkpoint_path:str):
         """Given a data point x, this function sets the model of this object
@@ -103,6 +104,7 @@ class Model:
         )
         checkpoint = tf.train.Checkpoint(self._model)
         temporary_path = '../experiments/temp_checkpoints/training/'
+        temporary_path = PurePath(temporary_path)
         if os.path.exists(temporary_path):
             rmtree(temporary_path)
             copytree(checkpoint_path, temporary_path, dirs_exist_ok=True)
@@ -124,6 +126,7 @@ class Model:
         )
         checkpoint = tf.train.Checkpoint(self._model)
         temporary_path = '../experiments/temp_checkpoints/training/'
+        temporary_path = PurePath(temporary_path)
         if os.path.exists(temporary_path):
             rmtree(temporary_path)
             copytree(checkpoint_path, temporary_path, dirs_exist_ok=True)
@@ -203,9 +206,9 @@ class Model:
 
     def save_sklearn(self):
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/models/'
-        os.makedirs(path, exist_ok=True)
+        os.makedirs(PurePath(path), exist_ok=True)
         path += self._name + '_l' + self._settings['data']['adjuster']['limit'] + '_f' + str(self._fold) + '.pkl'
-        with open(path, 'wb') as fp:
+        with open(PurePath(path), 'wb') as fp:
             pickle.dump(self, fp)
         return path
 
@@ -216,16 +219,16 @@ class Model:
 
     def save_fold_sklearn(self, fold: int) -> str:
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/models/'
-        os.makedirs(path, exist_ok=True)
+        os.makedirs(PurePath(path), exist_ok=True)
         path += self._name + '_l' + str(self._settings['data']['adjuster']['limit']) + '_f' + str(fold) + '.pkl'
-        with open(path, 'wb') as fp:
+        with open(PurePath(path), 'wb') as fp:
             pickle.dump(self, fp)
         return path
 
     def save_fold_early_sklearn(self, fold: int) -> str:
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/models/' + self._notation + '_f' + str(fold) + '_l' + str(self._maxlen) + '/'
-        os.makedirs(path, exist_ok=True)
-        self._model.save(path)
+        os.makedirs(PurePath(path), exist_ok=True)
+        self._model.save(PurePath(path))
         return path
 
     ############ TENSORFLOW
@@ -246,11 +249,11 @@ class Model:
     
     def save_tensorflow(self) -> str:
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/models/' + self._notation + '/'
-        os.makedirs(path, exist_ok=True)
-        self._model.save(path)
+        os.makedirs(PurePath(path), exist_ok=True)
+        self._model.save(PurePath(path))
         self._model = path
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/lstm_history.pkl'
-        with open(path, 'wb') as fp:
+        with open(PurePath(path), 'wb') as fp:
             pickle.dump(self._history.history, fp)
         return path
     
@@ -260,14 +263,14 @@ class Model:
             
     def save_fold_tensorflow(self, fold: int) -> str:
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/models/' + self._notation + '_f' + str(fold) + '/'
-        os.makedirs(path, exist_ok=True)
-        self._model.save(path)
+        os.makedirs(PurePath(path), exist_ok=True)
+        self._model.save(PurePath(path))
         return path
 
     def save_fold_early_tensorflow(self, fold: int) -> str:
         path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/models/' + self._notation + '_f' + str(fold) + '_l' + str(self._maxlen) + '/'
         os.makedirs(path, exist_ok=True)
-        self._model.save(path)
+        self._model.save(PurePath(path))
         return path
 
     

@@ -2,10 +2,11 @@ import os
 import yaml
 import pickle
 import logging
+from pathlib import PurePath
 import argparse
 import numpy as np
-import pandas as pd
 from typing import Tuple
+
 
 from utils.config_handler import ConfigHandler
 from features.data_loader import DataLoader
@@ -23,6 +24,7 @@ def oversamplesimple(settings):
     xval.train(sequences, labels, demographics)
 
     config_path = '../experiments/' + settings['experiment']['root_name'] + settings['experiment']['name'] + '/config.yaml'
+    config_path = PurePath(config_path)
     with open(config_path, 'wb') as fp:
         pickle.dump(settings, fp)
 
@@ -44,11 +46,8 @@ def _process_arguments(settings):
 
 
     settings['experiment']['labels'] = 'binconcepts'
-    settings['data'] = {
-        'others': {'gender': ['3', '4']},
-        'adjuster': {'limit': 819}
-    }
-    settings['ml']['splitter']['stratifier_col'] = ['label']
+    settings['data']['others'] = {'gender': ['3', '4']},
+    settings['data']['adjuster'] = {'limit': 819}
 
     return settings
 
@@ -60,7 +59,8 @@ def main(settings):
 
 
 if __name__ == '__main__': 
-    with open('./configs/config.yaml', 'r') as f:
+    config_path = PurePath('./configs/config.yaml')
+    with open(config_path, 'r') as f:
         settings = yaml.load(f, Loader=yaml.FullLoader)
 
     parser = argparse.ArgumentParser(description='Oversample')

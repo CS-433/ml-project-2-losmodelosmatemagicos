@@ -14,9 +14,11 @@ from ml.scorers.binaryclassification_scorer import BinaryClfScorer
 
 from ml.splitters.splitter import Splitter
 from ml.splitters.threefoldsplitter import ThreeFoldSplitter
+from ml.splitters.stratified_split import MultipleStratifiedKSplit
 
 from ml.crossvalidators.crossvalidator import CrossValidator
 from ml.crossvalidators.threefoldvalidator import ThreeCrossValidator
+from ml.crossvalidators.nonnested_cv import NonNestedRankingCrossVal
 
 class MLPipeline:
     """This script assembles the machine learning component and creates the training pipeline according to:
@@ -49,7 +51,7 @@ class MLPipeline:
         return self._model
 
     def _choose_splitter(self) -> Splitter:
-        self._splitter = ThreeFoldSplitter
+        self._splitter = MultipleStratifiedKSplit
         return self._splitter
     
     def _choose_sampler(self):
@@ -72,7 +74,7 @@ class MLPipeline:
 
     def _choose_xvalidator(self):
         self._gridsearch = {}
-        self._xval = ThreeCrossValidator(self._settings, self._splitter, self._sampler, self._model, self._scorer)
+        self._xval = NonNestedRankingCrossVal(self._settings, self._splitter, self._sampler, self._model, self._scorer)
                 
     def _build_pipeline(self):
         self._choose_splitter()

@@ -1,5 +1,5 @@
 import pickle
-
+from pathlib import PurePath
 import numpy as np
 
 class DataLoader:
@@ -19,7 +19,8 @@ class DataLoader:
         """
         ################################ CHEMLAB ################################
         ##### Features #####
-        path = '\\ic1files\D-VET\Projects\ChemLab\ml4science-data'
+        path = '../data/ml4science_data.pkl'
+        path = PurePath(path)
         with open(path, 'rb') as fp:
             full_data = pickle.load(fp)
         return full_data
@@ -51,7 +52,7 @@ class DataLoader:
 
         for idx in indices:
             # x, y
-            sequences.append(full_data[idx]['sequence'])
+            sequences.append(full_data[idx][self._settings['data']['key']])
             labels.append(full_data[idx][label])
 
             # demographics

@@ -7,7 +7,6 @@ import logging
 from pathlib import PurePath
 from typing import Tuple
 from sklearn.model_selection import train_test_split
-from collections import Counter
 
 from ml.crossvalidators.crossvalidator import CrossValidator
 from ml.splitters.splitter import Splitter
@@ -15,7 +14,7 @@ from ml.samplers.sampler import Sampler
 from ml.models.model import Model
 from ml.scorers.scorer import Scorer
 
-class ThreeCrossValidator(CrossValidator):
+class NonNestedRankingCrossVal(CrossValidator):
     """Implements non nested cross validation: 
             For each fold, get train and test set:
                 Train your model on the train set
@@ -28,7 +27,6 @@ class ThreeCrossValidator(CrossValidator):
         super().__init__(settings, model, scorer)
         self._name = 'nonnested cross validator'
         self._notation = 'nonnested_cval'
-
         self._splitter = splitter(settings)
         self._sampler = sampler(settings)
         self._fairness_metrics = [
@@ -45,8 +43,7 @@ class ThreeCrossValidator(CrossValidator):
         logging.debug('x:{}, y:{}'.format(sequences, labels))
 
 
-        for f in range(self._settings['ml']['nfolds']):
-            train_index, test_index = self._splitter.split(sequences, demographics['stratifier_col'])
+        for f, (train_index, test_index) in enumerate(self._splitter.split(sequences, demographics['stratifier_col'])):
             print(' test index: {}'.format(test_index[0:5]))
             logging.debug('    length train: {}, length test: {}'.format(len(train_index), len(test_index)))
             logging.debug('    outer fold: {}'.format(f))
@@ -71,7 +68,7 @@ class ThreeCrossValidator(CrossValidator):
             
             # Inner loop
             x_resampled, y_resampled, idx_resampled = self._sampler.sample(x_train, oversampler_train, y_train, demographics_train)
-            results[f]['oversampled_indexes'] = idx_resampled
+            results[f]['oversample_indexes'] = idx_resampled
             
             model = self._model(self._settings)
             if model.get_settings()['save_best_model']:
@@ -87,7 +84,6 @@ class ThreeCrossValidator(CrossValidator):
                 train_x, train_y = x_resampled, y_resampled
                 val_x, val_y = x_test, y_test
 
-            print('Y train balance: {}, Y TEST balance: {}'.format(Counter(train_y), Counter(y_test)))
             model.set_outer_fold(f)
             model.fit(train_x, train_y, x_val=val_x, y_val=val_y)
             results[f]['x_resampled'] = x_resampled
@@ -106,7 +102,6 @@ class ThreeCrossValidator(CrossValidator):
             # Predict
             y_pred = model.predict(x_test)
             y_proba = model.predict_proba(x_test)
-            print('Instances: test: {}, preds: {}'.format(np.unique(y_pred), np.unique(y_test)))
             test_results = self._scorer.get_scores(y_test, y_pred, y_proba)
             for id_d in demographics.keys():
                 if '_col' not in id_d:
@@ -127,12 +122,11 @@ class ThreeCrossValidator(CrossValidator):
         return results
     
     def save_results(self, results):
-        path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/results/'
-        path = PurePath(path) 
-        os.makedirs(path, exist_ok=True)
+        path = '../experiments/' + self._experiment_root + '/' + self._experiment_name + '/results/' 
+        os.makedirs(PurePath(path), exist_ok=True)
         
-        path = path / (self._notation + '_m' + self._model_notation + '_l' + str(self._settings['data']['adjuster']['limit']) + '.pkl')
-        with open(path, 'wb') as fp:
+        path += self._notation + '_m' + self._model_notation + '_l' + str(self._settings['data']['adjuster']['limit']) + '.pkl'
+        with open(PurePath(path), 'wb') as fp:
             pickle.dump(results, fp)
             
             

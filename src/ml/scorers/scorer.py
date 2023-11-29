@@ -13,7 +13,7 @@ class Scorer:
         self._settings = dict(settings)
 
         self._scoring_metrics = [
-            'accuracy', 'balanced_accuracy', 'precision', 'recall', 'roc', 'balanced_auc', 'overall_auc', 'mse', 'cce'
+            'accuracy', 'balanced_accuracy', 'precision', 'recall', 'roc', 'balanced_auc', 'overall_auc', 'mse', 'cce', 'tp', 'fp', 'tn', 'fn'
         ]
         
         

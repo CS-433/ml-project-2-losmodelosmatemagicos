@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 import pandas as pd
 from typing import Tuple
+from pathlib import PurePath
 from shutil import copytree, rmtree
 from ml.models.model import Model
 
@@ -117,7 +118,7 @@ class TimestepAttentionModel(Model):
         csv_path += '_drop{}_optim{}_loss{}_bs{}_ep{}'.format(
             self._model_settings['dropout'], self._model_settings['optimiser'], self._model_settings['loss'], self._model_settings['batch_size'], self._model_settings['epochs']
         )
-        os.makedirs(csv_path, exist_ok=True)
+        os.makedirs(PurePath(csv_path), exist_ok=True)
         checkpoint_path = csv_path + '/f{}_model_checkpoint'.format(self._gs_fold)
         csv_path += '/f' + str(self._gs_fold) + '_model_training.csv'
         return csv_path, checkpoint_path
@@ -157,10 +158,10 @@ class TimestepAttentionModel(Model):
 
         # checkpoint_path += '/variables'
         temporary_path = '../experiments/temp_checkpoints/training/'
-        if os.path.exists(temporary_path):
-            rmtree(temporary_path)
-            copytree(checkpoint_path, temporary_path, dirs_exist_ok=True)
-        checkpoint.restore(temporary_path)
+        if os.path.exists(PurePath(temporary_path)):
+            rmtree(PurePath(temporary_path))
+            copytree(PurePath(checkpoint_path), PurePath(temporary_path), dirs_exist_ok=True)
+        checkpoint.restore(PurePath(temporary_path))
         # print('post-weight check: {}'.format(self._model.layers[2].weights[0][0]))
 
     def _init_model(self, x:np.array):
@@ -203,7 +204,7 @@ class TimestepAttentionModel(Model):
             
         # csv loggers
         csv_path, checkpoint_path = self._get_csvlogger_path()
-        csv_logger = CSVLogger(csv_path, append=True, separator=';')
+        csv_logger = CSVLogger(PurePath(csv_path), append=True, separator=';')
         self._callbacks.append(csv_logger)
 
         if self._model_settings['save_best_model']:
@@ -235,7 +236,7 @@ class TimestepAttentionModel(Model):
         checkpoint = tf.train.Checkpoint(self._model)
 
         temporary_path = '../experiments/temp_checkpoints/training/'
-        checkpoint.restore(checkpoint_path)
+        checkpoint.restore(PurePath(checkpoint_path))
 
         
     def fit(self, x_train:list, y_train:list, x_val:list, y_val:list):
@@ -257,7 +258,7 @@ class TimestepAttentionModel(Model):
 
         if self._model_settings['save_best_model']:
             checkpoint_path = self._get_model_checkpoint_path()
-            self.load_model_weights(x_train, checkpoint_path)
+            self.load_model_weights(x_train, PurePath(checkpoint_path))
             self._best_epochs = np.argmax(self._history.history['val_auc'])
             print('best epoch: {}'.format(self._best_epochs))
 

@@ -2,14 +2,16 @@
 
 ---
 experiment:
-  root_name: story/
+  root_name: baseline/1hot
   name: x
+data:
+  key: 1hot-sequence
+   # if you insert a new sequence in the student's dictionary, change the key here
 ml:
-  nfolds: 3
-  test_size: 0.2
-  epochs: 1
+  nfolds: 10
+  # test_size: 0.1
+  epochs: 30
   oversampler: 
-    mode: ros
     oversampling_factor: 1.5
     oversampling_col:
       - label
@@ -17,9 +19,10 @@ ml:
     rebalancing_mode: equal_balancing # can be minor or major too
     addyourownparameters: helloworld
   splitter:
-    stratifier_col: label
+    stratifier_col: 
+      - stratifier_column
 seeds:
-  splitter: 21
+  splitter: 219
   oversampler: 13
   model: 139
   numpy: 36
