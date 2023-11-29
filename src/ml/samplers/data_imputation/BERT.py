@@ -1,24 +1,12 @@
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras.layers import TextVectorization
-from dataclasses import dataclass
+from Config import Config
 import pandas as pd
 import numpy as np
 import glob
 import re
 from pprint import pprint
-
-@dataclass
-class Config:
-    MAX_LEN = 256
-    BATCH_SIZE = 32
-    LR = 0.001
-    VOCAB_SIZE = 30000
-    EMBED_DIM = 128
-    NUM_HEAD = 8  
-    FF_DIM = 128 
-    NUM_LAYERS = 1
 
 
 def bert_module(config: Config, query, key, value, i):
@@ -26,14 +14,9 @@ def bert_module(config: Config, query, key, value, i):
     attention_output = layers.MultiHeadAttention(
         num_heads=config.NUM_HEAD,
         key_dim=config.EMBED_DIM // config.NUM_HEAD,
-        name="encoder_{}/multiheadattention".format(i),
-    )(query, key, value)
-    attention_output = layers.Dropout(0.1, name="encoder_{}/att_dropout".format(i))(
-        attention_output
-    )
-    attention_output = layers.LayerNormalization(
-        epsilon=1e-6, name="encoder_{}/att_layernormalization".format(i)
-    )(query + attention_output)
+        name="encoder_{}/multiheadattention".format(i),)(query, key, value)
+    attention_output = layers.Dropout(0.1, name="encoder_{}/att_dropout".format(i))(attention_output)
+    attention_output = layers.LayerNormalization(epsilon=1e-6, name="encoder_{}/att_layernormalization".format(i))(query + attention_output)
 
     # Feed-forward layer
     ffn = keras.Sequential(
@@ -44,12 +27,9 @@ def bert_module(config: Config, query, key, value, i):
         name="encoder_{}/ffn".format(i),
     )
     ffn_output = ffn(attention_output)
-    ffn_output = layers.Dropout(0.1, name="encoder_{}/ffn_dropout".format(i))(
-        ffn_output
-    )
-    sequence_output = layers.LayerNormalization(
-        epsilon=1e-6, name="encoder_{}/ffn_layernormalization".format(i)
-    )(attention_output + ffn_output)
+    ffn_output = layers.Dropout(0.1, name="encoder_{}/ffn_dropout".format(i))(ffn_output)
+    sequence_output = layers.LayerNormalization(epsilon=1e-6, name="encoder_{}/ffn_layernormalization".format(i))(attention_output + ffn_output)
+
     return sequence_output
 
 
