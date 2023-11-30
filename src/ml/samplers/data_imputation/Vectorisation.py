@@ -102,7 +102,7 @@ class Vectorisation:
 
         # this automatically adds zero padding at the end of the sequence
         encoded_data = np.zeros(shape=(len(decoded_data), self.config.MAX_LEN), dtype=int)
-        assert encoded_data.shape == seps.shape
+        assert seps is None or encoded_data.shape == seps.shape
 
         # assigns a unique token to every combination of state and action
         for stud_idx, stud in enumerate(decoded_data):
