@@ -1,9 +1,9 @@
 import numpy as np
-from Config import Config
 
 class Vectorisation:
     """
-    Manages the vectorisation encoding and decoding of state-action sequences
+    Manages the vectorisation encoding and decoding of state-action sequences.
+    Workflow: ( dic -> ) numpy array -> encoding -> decoding -> numpy array ( -> dic )
 
     Attributes
     ----------
@@ -28,16 +28,67 @@ class Vectorisation:
         Decodes the vocabulary in the given data.
     """
 
-    def __init__(self, config: Config, special_token_dict: dict, sep: float = 0) -> None:
+    def __init__(self, max_len, ns, na, token_dict: dict, sep: float = 0, sep_idx: int = 8) -> None:
         """
         Initializes the Preprocesing object with the given parameters.
         """
 
-        self.config = config
-        self.token_dict = special_token_dict
+        self.ns = ns
+        self.na = na
+        self.MAX_LEN = max_len
+        self.token_dict = token_dict
         self.sep = sep
+        self.sep_idx = sep_idx
 
-    def encode_vocabulary(self, data: dict):
+    def encode_dict(self, data: dict) -> np.array:
+
+        self.data_dict = data.copy()
+
+        if self.sep > 0: seps = self.seps_from_dict(data, sep_idx=self.sep_idx)
+        else: seps = None
+
+        # extracting the sequences from the data as a list of lists (#students, #sequences, #states + #actions)
+        data_as_list = [student['sequence'] for student in data['sequences']]
+        encoded_data = self.encode(data_as_list, seps)
+
+        return encoded_data
+
+    def decode_dict(self, synth_data: np.array) -> dict:
+        
+        decoded_data = self.decode(synth_data)
+        for i in range(self.data_dict['sequences']):
+            self.data_dict['sequences'][i]['sequence'] = decoded_data[i]
+
+        return self.data_dict
+
+    
+    def seps_from_dict(self, data: dict, sep_idx) -> np.array:
+        """
+        Encodes the breaks if longer than this value "sep", in the given data.
+
+        Parameters
+        ----------
+        data : dict
+            Data to be encoded.
+        index_break : int, optional
+            Index break value, by default 8.
+        """
+
+        # make a copy of the data to be able to return sampled data in the same shape
+        self.data = data.copy()
+
+        seps = np.zeros(shape=(len(data['sequences']), self.MAX_LEN))
+
+        for stud_idx, stud in enumerate(data['sequences']):
+                sequences = stud['sequence']
+                for j in range(min(len(sequences), self.MAX_LEN)): # avoids overshoot if max sequence length > MAX_LEN
+                    is_break_idx = np.nonzero(sequences[j])[0][1] == sep_idx
+                    is_long_break = stud['end'][j] - stud['begin'][j] > self.sep
+                    if (is_break_idx and is_long_break): 
+                        seps[stud_idx][j] = True
+        return seps
+
+    def encode(self, data: list, seps: np.array=None) -> np.array:
         """
         Encodes the vocabulary in the given data.
 
@@ -52,51 +103,24 @@ class Vectorisation:
             Encoded data.
         """
 
-        # make a copy of the data to be able to return sampled data in the same shape
-        self.data = data.copy()
-
-        # if possible, shorten the sequences to avoid unnecessary padding
-        student_seq = [len(data['sequences'][i]['sequence']) for i in range(len(data['sequences']))]
-        self.config.MAX_LEN = min(self.config.MAX_LEN, max(student_seq))
-
         # this automatically adds zero padding at the end of the sequence
-        encoded_data = np.zeros(shape=(len(data['sequences']), self.config.MAX_LEN))
+        encoded_data = np.zeros(shape=(len(data['sequences']), self.MAX_LEN))
+        assert encoded_data.shape == seps.shape
 
-        if self.sep > 0:
-            self.encode_sep(encoded_data)
+        # assigns a unique token to every combination of state and action
+        for stud_idx, stud in enumerate(data):
+            non_zero = np.nonzero(stud)
+            shift = self.ns - len(self.token_dict) # 4 - 3 = 1 in our case
+            value = non_zero[-1][0::2] * self.na + non_zero[-1][1::2] - shift
+            encoded_data[stud_idx, :len(value)] = value # no risk of overshoot if max sequence length > MAX_LEN
 
-        for i in range(len(data['sequences'])):
-            for j in range(len(data['sequences'][i]['sequence'])):
-                if (data['sequences'][i]['sequence'][j] != self.token_dict['[SEP]']):
-                    non_zero = np.nonzero(data['sequences'][i]['sequence'][j])
-                    shift = self.ns - 1 - len(self.token_dict) # 4 - 1 - 3 = 0 in our case
-                    value = non_zero[0][0] * self.na + non_zero[0][1] - shift # Actions index start at 1
-                    encoded_data[i][j] = value
+        # encoding seps after the rest to avoid overwriting 
+        if seps is not None:
+            encoded_data[seps] = self.token_dict['[SEP]']
 
         return encoded_data
     
-    def encode_sep(self, data: dict, break_idx: int = 8):
-        """
-        Encodes the breaks if longer than this value "sep", in the given data.
-
-        Parameters
-        ----------
-        data : dict
-            Data to be encoded.
-        index_break : int, optional
-            Index break value, by default 8.
-        """
-
-        students = data['sequences']
-        for i in range(len(students)):
-                sequences = students[i]['sequence']
-                for j in range(len(sequences)):
-                    is_break_idx = np.nonzero(sequences[j])[0][1] == break_idx
-                    is_long_break = students[i]['end'][j] - students[i]['begin'][j] > self.sep
-                    if (is_break_idx and is_long_break): 
-                        sequences[j] = self.token_dict['[SEP]']
-
-    def decode_vocabulary(self, synth_data: np.array):
+    def decode(self, synth_data: np.array) -> list:
         """
         Decodes the vocabulary in the given data.
 
@@ -111,15 +135,29 @@ class Vectorisation:
             Decoded data.
         """
         
-        for i in range(len(self.data['sequences'])):
-            for j in range(len(self.data['sequences'][i]['sequence'])):
+        num_stud, num_seq = synth_data.shape
+        assert num_seq == self.MAX_LEN
+
+        decoded_data = []
+
+        for i in range(num_stud):
+            stud_decoded_data = []
+            for j in range(num_seq):
                 value = [0] * (self.ns + self.na)
-                shift = self.ns - 1 - len(self.token_dict) # 4 - 1 - 3 = 0 in our case
-                action_idx = (synth_data[i][j] - len(self.token_dict) - 1) % self.na + self.ns
-                state_idx = (synth_data[i][j] - action_idx + shift) // self.na
-                value[action_idx] = 1
-                value[state_idx] = 1
+                if synth_data[i][j] == self.token_dict['[PAD]']: break # end of sequence if padding is reached
+                if synth_data[i][j] == self.token_dict['[SEP]']: # handles special token for breaks
+                    value[self.sep_idx] = 1
+                    # no previous action -> state is 3; previous action -> state unchanged after break
+                    if len(stud_decoded_data) == 0: value[3] = 1
+                    else: value[:4] = stud_decoded_data[-1][:4]
+                else:
+                    shift = self.ns - len(self.token_dict) # 4 - 3 = 1 in our case
+                    action_idx = (synth_data[i][j] - len(self.token_dict) - 1) % self.na + self.ns
+                    state_idx = (synth_data[i][j] - action_idx + shift) // self.na
+                    value[action_idx] = 1
+                    value[state_idx] = 1
 
-                self.data['sequences'][i]['sequence'][j] = value
+                stud_decoded_data.append(value)
+            decoded_data.append(stud_decoded_data)
 
-        return self.data
+        return decoded_data
