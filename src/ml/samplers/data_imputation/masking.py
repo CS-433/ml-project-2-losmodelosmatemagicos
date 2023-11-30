@@ -47,7 +47,9 @@ def get_masked_input_and_labels(encoded_texts: np.array ,special_token_dict: dic
 
     # Set 10% to a random token of the 90% tokens modified, aka 10%/90% = 1/9 (values by default)
     inp_mask_2random = inp_mask_2mask & (np.random.rand(*encoded_texts.shape) < (ratio_random_seq/ratio_seq_masked) )
-    encoded_texts_masked[inp_mask_2random] = np.random.randint(len(special_token_dict), max(encoded_texts)+1 , inp_mask_2random.sum() )# low = 3 ( included ) /// high = last_token + 1 (not included)
+    encoded_texts_masked[inp_mask_2random] = np.random.randint(len(special_token_dict), # low = len(special_token_dict) ( included, is not a problem cuz special_token_dict starts at 0 )
+                                                               max(encoded_texts)+1, # high = last_token + 1 (not included)
+                                                               inp_mask_2random.sum() ) 
 
     # Prepare sample_weights to pass to .fit() method
     sample_weights = np.ones(labels.shape)
