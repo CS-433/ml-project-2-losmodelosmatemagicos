@@ -62,7 +62,6 @@ class Vectorisation:
 
         return self.data_dict
 
-    
     def seps_from_dict(self, data: dict) -> np.array:
         """
         Encodes the breaks if longer than this value "sep", in the given data.
@@ -154,7 +153,7 @@ class Vectorisation:
                     else: value[:4] = stud_decoded_data[-1][:4]
                 else:
                     shift = self.ns - len(self.token_dict) # 4 - 3 = 1 in our case
-                    action_idx = (synth_data[i][j] - len(self.token_dict) - 1) % self.na + self.ns
+                    action_idx = (synth_data[i][j] - len(self.token_dict)) % self.na + self.ns
                     state_idx = (synth_data[i][j] - action_idx + shift) // self.na
                     value[action_idx] = 1
                     value[state_idx] = 1
