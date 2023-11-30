@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 class Vectorisation:
     """
@@ -42,13 +43,13 @@ class Vectorisation:
 
     def encode_dict(self, data: dict) -> np.array:
 
-        self.data_dict = data.copy()
+        self.data_dict = copy.deepcopy(data)
 
-        if self.sep > 0: seps = self.seps_from_dict(data, sep_idx=self.sep_idx)
+        if self.sep > 0: seps = self.seps_from_dict(data)
         else: seps = None
 
         # extracting the sequences from the data as a list of lists (#students, #sequences, #states + #actions)
-        data_as_list = [student['sequence'] for student in data['sequences']]
+        data_as_list = [self.data_dict['sequences'][i]['sequence'] for i in range(len(data['sequences']))]
         encoded_data = self.encode(data_as_list, seps)
 
         return encoded_data
@@ -56,13 +57,13 @@ class Vectorisation:
     def decode_dict(self, synth_data: np.array) -> dict:
         
         decoded_data = self.decode(synth_data)
-        for i in range(self.data_dict['sequences']):
+        for i in range(len(self.data_dict['sequences'])):
             self.data_dict['sequences'][i]['sequence'] = decoded_data[i]
 
         return self.data_dict
 
     
-    def seps_from_dict(self, data: dict, sep_idx) -> np.array:
+    def seps_from_dict(self, data: dict) -> np.array:
         """
         Encodes the breaks if longer than this value "sep", in the given data.
 
@@ -77,15 +78,16 @@ class Vectorisation:
         # make a copy of the data to be able to return sampled data in the same shape
         self.data = data.copy()
 
-        seps = np.zeros(shape=(len(data['sequences']), self.MAX_LEN))
+        seps = np.zeros(shape=(len(data['sequences']), self.MAX_LEN), dtype=bool)
 
-        for stud_idx, stud in enumerate(data['sequences']):
+        for i in range(len(data['sequences'])):
+                stud = data['sequences'][i]
                 sequences = stud['sequence']
                 for j in range(min(len(sequences), self.MAX_LEN)): # avoids overshoot if max sequence length > MAX_LEN
-                    is_break_idx = np.nonzero(sequences[j])[0][1] == sep_idx
+                    is_break_idx = np.nonzero(sequences[j])[0][1] == self.sep_idx
                     is_long_break = stud['end'][j] - stud['begin'][j] > self.sep
                     if (is_break_idx and is_long_break): 
-                        seps[stud_idx][j] = True
+                        seps[i][j] = True
         return seps
 
     def encode(self, data: list, seps: np.array=None) -> np.array:
@@ -104,7 +106,7 @@ class Vectorisation:
         """
 
         # this automatically adds zero padding at the end of the sequence
-        encoded_data = np.zeros(shape=(len(data['sequences']), self.MAX_LEN))
+        encoded_data = np.zeros(shape=(len(data), self.MAX_LEN), dtype=int)
         assert encoded_data.shape == seps.shape
 
         # assigns a unique token to every combination of state and action
@@ -112,7 +114,7 @@ class Vectorisation:
             non_zero = np.nonzero(stud)
             shift = self.ns - len(self.token_dict) # 4 - 3 = 1 in our case
             value = non_zero[-1][0::2] * self.na + non_zero[-1][1::2] - shift
-            encoded_data[stud_idx, :len(value)] = value # no risk of overshoot if max sequence length > MAX_LEN
+            encoded_data[stud_idx, :len(value)] = value[:self.MAX_LEN] # no risk of overshoot if max sequence length > MAX_LEN
 
         # encoding seps after the rest to avoid overwriting 
         if seps is not None:
