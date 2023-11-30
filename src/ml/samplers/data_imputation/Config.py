@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 @dataclass
-class Vectorization_info:
+class ConfigVectorisation:
     NUM_STATES: int = 4
     NUM_ACTIONS: int = 6
     TOKEN_DICT: dict = {'[PAD]': 0, '[MASK]': 1, '[SEP]': 2}
@@ -9,7 +9,7 @@ class Vectorization_info:
     SEP_LENGTH: int = 15  # Hyperparameter
 
 @dataclass
-class Bert_info:
+class ConfigBert:
     EMBED_DIM: int = 128
     NUM_HEAD: int = 8
     FF_DIM: int = 128
@@ -21,5 +21,5 @@ class Config:
     MAX_LEN: int = 256
     BATCH_SIZE: int = 32  
     VOCAB_SIZE: int = 30000 
-    Vectorization_info: Vectorization_info = Vectorization_info()
-    Bert_info: Bert_info = Bert_info()
+    vectorisation: ConfigVectorisation = ConfigVectorisation()
+    bert: ConfigBert = ConfigBert()
