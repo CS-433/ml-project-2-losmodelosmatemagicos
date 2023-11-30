@@ -149,7 +149,7 @@ class MaskedTextGenerator(keras.callbacks.Callback):
             tokens = np.copy(self.sample_tokens[0])
             tokens[masked_index[0]] = p
             result = {
-                "input_text": self.decode(self.sample_tokens[0].numpy()),
+                "input_text": self.decode(self.sample_tokens[0]),
                 "prediction": self.decode(tokens),
                 "probability": v,
                 "predicted mask token": self.convert_ids_to_tokens(p),
