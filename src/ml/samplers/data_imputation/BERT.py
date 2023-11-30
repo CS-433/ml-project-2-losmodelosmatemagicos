@@ -47,13 +47,12 @@ def get_pos_encoding_matrix(max_len, d_emb):
     return pos_enc
 
 
-loss_fn = keras.losses.SparseCategoricalCrossentropy(
-    reduction=tf.keras.losses.Reduction.NONE
-)
-loss_tracker = tf.keras.metrics.Mean(name="loss")
-
-
 class MaskedLanguageModel(tf.keras.Model):
+    def __init__(self, inputs, outputs, name, loss_fn, loss_tracker):
+        super(MaskedLanguageModel, self).__init__(inputs=inputs, outputs=outputs, name=name)
+        self.loss_fn = loss_fn
+        self.loss_tracker = loss_tracker
+
     def train_step(self, inputs):
         if len(inputs) == 3:
             features, labels, sample_weight = inputs
@@ -63,7 +62,7 @@ class MaskedLanguageModel(tf.keras.Model):
 
         with tf.GradientTape() as tape:
             predictions = self(features, training=True)
-            loss = loss_fn(labels, predictions, sample_weight=sample_weight)
+            loss = self.loss_fn(labels, predictions, sample_weight=sample_weight)
 
         # Compute gradients
         trainable_vars = self.trainable_variables
@@ -73,10 +72,10 @@ class MaskedLanguageModel(tf.keras.Model):
         self.optimizer.apply_gradients(zip(gradients, trainable_vars))
 
         # Compute our own metrics
-        loss_tracker.update_state(loss, sample_weight=sample_weight)
+        self.loss_tracker.update_state(loss, sample_weight=sample_weight)
 
         # Return a dict mapping metric names to current value
-        return {"loss": loss_tracker.result()}
+        return {"loss": self.loss_tracker.result()}
 
     @property
     def metrics(self):
@@ -85,7 +84,7 @@ class MaskedLanguageModel(tf.keras.Model):
         # or at the start of `evaluate()`.
         # If you don't implement this property, you have to call
         # `reset_states()` yourself at the time of your choosing.
-        return [loss_tracker]
+        return [self.loss_tracker]
 
 
 def create_masked_language_bert_model(config: Config):
@@ -109,15 +108,15 @@ def create_masked_language_bert_model(config: Config):
     mlm_output = layers.Dense(config.VOCAB_SIZE, name="mlm_cls", activation="softmax")(
         encoder_output
     )
-    mlm_model = MaskedLanguageModel(inputs, mlm_output, name="masked_bert_model")
+    mlm_model = MaskedLanguageModel(inputs, mlm_output, name="masked_bert_model", loss_fn=loss_fn, loss_tracker=loss_tracker)
 
     optimizer = keras.optimizers.Adam(learning_rate=config.LR)
     mlm_model.compile(optimizer=optimizer)
     return mlm_model
 
 
-id2token = dict(enumerate(vectorize_layer.get_vocabulary()))
-token2id = {y: x for x, y in id2token.items()}
+##id2token = dict(enumerate(vectorize_layer.get_vocabulary()))
+##token2id = {y: x for x, y in id2token.items()}
 
 
 class MaskedTextGenerator(keras.callbacks.Callback):
