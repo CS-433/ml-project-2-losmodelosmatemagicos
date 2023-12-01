@@ -1,4 +1,6 @@
 class Config:
+    '''Configuration class for centralised management of simulation parameters'''
+    
     def __init__(self, MAX_LEN=256, BATCH_SIZE=32, VOCAB_SIZE=30000):
         self.MAX_LEN = MAX_LEN
         self.BATCH_SIZE = BATCH_SIZE

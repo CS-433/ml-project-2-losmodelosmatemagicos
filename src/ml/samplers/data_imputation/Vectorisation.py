@@ -6,81 +6,36 @@ from Config import Config
 class Vectorisation:
     """
     Manages the vectorisation encoding and decoding of state-action sequences.
-    Workflow: ( dic -> ) numpy array -> encoding -> decoding -> numpy array ( -> dic )
-
-    Dictionary structure: ( e.g. data_dict['sequences'][i]['sequence'] )
-
-    {
-        'sequences': [
-            {
-                'sequence': [0, 1, 0, 0, 0.5568, 0, 0, 0, ...] <- state-action pair
-                'begin': [0, 0, 0, ...], <- beginning of the sequence
-                'end': [0, 0, 0, ...] <- end of the sequence
-            },
-            ...
-        ]
-    }
-
-    Vectorisation structure: List of vectors ( e.g. data[i] )
-
-    stud2 = [[0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 1, 0, 0, 0, 0, 0, 1],]
-
-    stud3 = [[0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-            [0, 0, 0, 1, 0, 0, 0, 0, 1, 0]]
-
-    data = [stud1, stud2]
+    Every state-action sequence is transformed into a unique token, taking care of special tokens (padding, breaks).
+ 
+    Workflow:        [ dict -> ] list -> np.array -> list [ -> dict ]
+    Dict structure:  dict['sequences'][i]['sequence'][j]) where (i, j) = (num_students, num_sequences)
+    List structure:  nested list of vectors shape = (num_students, num_sequences, ns + na)
+    Array structure: np.array of shape = (num_students, MAX_LEN)
 
     Attributes
     ----------
-    config : Config
-        The configuration object containing vectorisation parameters.
-    ns : int
-        The number of states. (inside congif)
-    na : int
-        The number of actions. (inside congif)
+    config : The configuration object containing vectorisation parameters.
+    ns : The number of states
+    na : The number of actions
 
     Methods
     -------
-    __init__(self, config: Config) -> None:
-        Initializes the Vectorisation object with the given configuration.
-
-    encode_dict(self, decoded_data: dict) -> np.array:
-        Encodes the given dictionary data into a numpy array.
-    decode_dict(self, encoded_data: np.array) -> dict:
-        Decodes the given numpy array data into a dictionary.
-    seps_from_dict(self, decoded_data: dict) -> np.array:
-        Encodes the breaks if longer than the specified length in the given data.
-
-    encode(self, decoded_data: list, seps: np.array=None) -> np.array:
-        Encodes the vocabulary in the given data.
-    decode(self, encoded_data: np.array) -> list:
-        Decodes the vocabulary in the given data.
+    encode_dict:    dict -> np.array encoding
+    decode_dict:    np.array -> dict decoding
+    seps_from_dict: Returns sequence location of special token [SEP]
+    encode:         list -> np.array encoding
+    decode:         np.array -> list decoding
     """
 
     def __init__(self, config: Config) -> None:
-        """
-        Initializes the Vectorisation object with the given configuration.
-        """
         self.config = config
         self.ns = self.config.vectorisation.NUM_STATES
         self.na = self.config.vectorisation.NUM_ACTIONS
 
     def encode_dict(self, decoded_data: dict) -> np.array:
-        """
-        Encodes the given dictionary data into a numpy array.
+        """ dict -> np.array encoding. Special token SEP is automatically encoded. A dict is saved for decoding. """
 
-        Parameters
-        ----------
-        decoded_data : dict
-            The dictionary data to be encoded.
-
-        Returns
-        -------
-        np.array
-            The encoded numpy array data.
-        """
         # make a copy of the data to be able to return sampled data in the same shape
         self.data_dict = copy.deepcopy(decoded_data)
 
@@ -99,19 +54,8 @@ class Vectorisation:
         return encoded_data
 
     def decode_dict(self, encoded_data: np.array) -> dict:
-        """
-        Decodes the given numpy array data into a dictionary.
+        """ np.array -> dict decoding """
 
-        Parameters
-        ----------
-        encoded_data : np.array
-            The numpy array data to be decoded.
-
-        Returns
-        -------
-        dict
-            The decoded dictionary data.
-        """
         decoded_data = self.decode(encoded_data)
         for i in range(len(self.data_dict["sequences"])):
             self.data_dict["sequences"][i]["sequence"] = decoded_data[i]
@@ -120,17 +64,9 @@ class Vectorisation:
 
     def seps_from_dict(self, decoded_data: dict) -> np.array:
         """
-        Encodes the breaks if longer than the specified "SEP_LENGTH" from config.
+        Encodes the breaks longer than the specified config.SEP_LENGTH.
 
-        Parameters
-        ----------
-        decoded_data : dict
-            The data to be encoded.
-
-        Returns
-        -------
-        np.array
-            The encoded breaks.
+        Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise
         """
         seps = np.zeros(
             shape=(len(decoded_data["sequences"]), self.config.MAX_LEN), dtype=bool
@@ -154,21 +90,8 @@ class Vectorisation:
         return seps
 
     def encode(self, decoded_data: list, seps: np.array = None) -> np.array:
-        """
-        Encodes the vocabulary in the given data.
+        """ list -> np.array encoding. If boolean array for breaks is provided, SEP tokens are encoded"""
 
-        Parameters
-        ----------
-        decoded_data : list
-            The data to be encoded.
-        seps : np.array, optional
-            The encoded breaks, by default None.
-
-        Returns
-        -------
-        np.array
-            The encoded data.
-        """
         # this automatically adds zero padding at the end of the sequence
         encoded_data = np.zeros(
             shape=(len(decoded_data), self.config.MAX_LEN), dtype=int
@@ -191,19 +114,8 @@ class Vectorisation:
         return encoded_data
 
     def decode(self, encoded_data: np.array) -> list:
-        """
-        Decodes the vocabulary in the given data.
-
-        Parameters
-        ----------
-        encoded_data : np.array
-            The data to be decoded.
-
-        Returns
-        -------
-        list
-            The decoded data.
-        """
+        """ np.array -> list decoding """
+        
         num_stud, num_seq = encoded_data.shape
         assert num_seq == self.config.MAX_LEN
 

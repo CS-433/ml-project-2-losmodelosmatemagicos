@@ -90,11 +90,10 @@ class MaskedLanguageModel(tf.keras.Model):
 
     @property
     def metrics(self):
-        # We list our `Metric` objects here so that `reset_states()` can be
-        # called automatically at the start of each epoch
-        # or at the start of `evaluate()`.
-        # If you don't implement this property, you have to call
-        # `reset_states()` yourself at the time of your choosing.
+        """
+        We list our `Metric` objects here so that `reset_states()` can be called automatically at the start of each epoch or at the start of `evaluate()`.
+        If you don't implement this property, you have to call `reset_states()` yourself at the time of your choosing.
+        """
         return [self.loss_tracker]
 
 
@@ -134,10 +133,6 @@ def create_masked_language_bert_model(config: Config):
     optimizer = keras.optimizers.Adam(learning_rate=config.LR)
     mlm_model.compile(optimizer=optimizer)
     return mlm_model
-
-
-##id2token = dict(enumerate(vectorize_layer.get_vocabulary()))
-##token2id = {y: x for x, y in id2token.items()}
 
 
 class MaskedTextGenerator(keras.callbacks.Callback):
