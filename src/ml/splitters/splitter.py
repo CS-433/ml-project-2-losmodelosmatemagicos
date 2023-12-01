@@ -3,28 +3,27 @@ import numpy as np
 import pandas as pd
 from typing import Tuple
 
+
 class Splitter:
-    """This implements the superclass which creates the folds according to some criteria
-    """
-    
+    """This implements the superclass which creates the folds according to some criteria"""
+
     def __init__(self, settings: dict):
-        self._name = 'splitter'
-        self._notation = 'split'
-        self._random_seed = settings['seeds']['splitter']
+        self._name = "splitter"
+        self._notation = "split"
+        self._random_seed = settings["seeds"]["splitter"]
         self._settings = dict(settings)
-        
-        self._nfolds = settings['ml']['nfolds']
-        
-        
+
+        self._nfolds = settings["ml"]["nfolds"]
+
     def get_name(self):
         return self._name
 
     def get_notation(self):
         return self._notation
 
-    def set_indices(self, indices:list):
-        """Puts the indices from nested xvalidation (corresponding to the indices as 
-        given into the id_dictionary) in memory in the object. Useful for certain 
+    def set_indices(self, indices: list):
+        """Puts the indices from nested xvalidation (corresponding to the indices as
+        given into the id_dictionary) in memory in the object. Useful for certain
         fixed splitters.
 
         Args:
@@ -35,8 +34,8 @@ class Splitter:
 
     def get_indices(self):
         return self._indices
-        
-    def split(self, x:list, y:list)-> Tuple[list, list]:
+
+    def split(self, x: list, y: list) -> Tuple[list, list]:
         """Splitting data into different indices
 
         Args:
@@ -50,5 +49,3 @@ class Splitter:
 
     def next_split(self, x, y):
         raise NotImplementedError
-        
-        

@@ -3,7 +3,7 @@ class Config:
         self.MAX_LEN = MAX_LEN
         self.BATCH_SIZE = BATCH_SIZE
         self.VOCAB_SIZE = VOCAB_SIZE
-        self.TOKEN_DICT = {'[PAD]': 0, '[MASK]': 1, '[SEP]': 2}
+        self.TOKEN_DICT = {"[PAD]": 0, "[MASK]": 1, "[SEP]": 2}
         self.vectorisation = self.ConfigVectorisation()
         self.bert = self.ConfigBert()
 
@@ -15,7 +15,9 @@ class Config:
             self.SEP_LENGTH = SEP_LENGTH
 
     class ConfigBert:
-        def __init__(self, EMBED_DIM=128, NUM_HEAD=8, FF_DIM=128, NUM_LAYERS=1, LR=0.001):
+        def __init__(
+            self, EMBED_DIM=128, NUM_HEAD=8, FF_DIM=128, NUM_LAYERS=1, LR=0.001
+        ):
             self.EMBED_DIM = EMBED_DIM
             self.NUM_HEAD = NUM_HEAD
             self.FF_DIM = FF_DIM

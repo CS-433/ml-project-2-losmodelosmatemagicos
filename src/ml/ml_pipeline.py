@@ -20,26 +20,26 @@ from ml.crossvalidators.crossvalidator import CrossValidator
 from ml.crossvalidators.threefoldvalidator import ThreeCrossValidator
 from ml.crossvalidators.nonnested_cv import NonNestedRankingCrossVal
 
+
 class MLPipeline:
     """This script assembles the machine learning component and creates the training pipeline according to:
-    
-        - splitter
-        - sampler
-        - model
-        - xvalidator
-        - scorer
+
+    - splitter
+    - sampler
+    - model
+    - xvalidator
+    - scorer
     """
-    
-    def __init__(self, settings:dict):
-        logging.debug('initialising the xval')
-        self._name = 'training maker'
-        self._notation = 'trnmkr'
+
+    def __init__(self, settings: dict):
+        logging.debug("initialising the xval")
+        self._name = "training maker"
+        self._notation = "trnmkr"
         self._settings = dict(settings)
-        self._experiment_root = self._settings['experiment']['root_name']
-        self._experiment_name = settings['experiment']['name']
-        
+        self._experiment_root = self._settings["experiment"]["root_name"]
+        self._experiment_name = settings["experiment"]["name"]
+
         self._build_pipeline()
-    
 
     def get_sampler(self):
         return self._sampler
@@ -53,36 +53,37 @@ class MLPipeline:
     def _choose_splitter(self) -> Splitter:
         self._splitter = MultipleStratifiedKSplit
         return self._splitter
-    
+
     def _choose_sampler(self):
-        if self._settings['ml']['oversampler']['mode'] == 'ros':
+        if self._settings["ml"]["oversampler"]["mode"] == "ros":
             self._sampler = RandomOversampler
-        if self._settings['ml']['oversampler']['mode'] == 'augmentation':
+        if self._settings["ml"]["oversampler"]["mode"] == "augmentation":
             self._sampler = TemplateOversampler
-        if self._settings['ml']['oversampler']['mode'] == 'none':
+        if self._settings["ml"]["oversampler"]["mode"] == "none":
             self._sampler = NoSampler
-            
+
     def _choose_model(self):
         self._model = TimestepAttentionModel
 
     def _get_num_classes(self):
         self._n_classes = 2
-        self._settings['experiment']['n_classes'] = self._n_classes
+        self._settings["experiment"]["n_classes"] = self._n_classes
 
     def _choose_scorer(self):
         self._scorer = BinaryClfScorer
 
     def _choose_xvalidator(self):
         self._gridsearch = {}
-        self._xval = NonNestedRankingCrossVal(self._settings, self._splitter, self._sampler, self._model, self._scorer)
-                
+        self._xval = NonNestedRankingCrossVal(
+            self._settings, self._splitter, self._sampler, self._model, self._scorer
+        )
+
     def _build_pipeline(self):
         self._choose_splitter()
         self._choose_sampler()
         self._choose_model()
         self._choose_scorer()
         self._choose_xvalidator()
-        
-    def train(self, sequences:list, labels:list, demographics:list):
+
+    def train(self, sequences: list, labels: list, demographics: list):
         results = self._xval.xval(sequences, labels, demographics)
-        

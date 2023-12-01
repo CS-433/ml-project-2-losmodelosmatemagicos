@@ -14,9 +14,14 @@ def bert_module(config: Config, query, key, value, i):
     attention_output = layers.MultiHeadAttention(
         num_heads=config.NUM_HEAD,
         key_dim=config.EMBED_DIM // config.NUM_HEAD,
-        name="encoder_{}/multiheadattention".format(i),)(query, key, value)
-    attention_output = layers.Dropout(0.1, name="encoder_{}/att_dropout".format(i))(attention_output)
-    attention_output = layers.LayerNormalization(epsilon=1e-6, name="encoder_{}/att_layernormalization".format(i))(query + attention_output)
+        name="encoder_{}/multiheadattention".format(i),
+    )(query, key, value)
+    attention_output = layers.Dropout(0.1, name="encoder_{}/att_dropout".format(i))(
+        attention_output
+    )
+    attention_output = layers.LayerNormalization(
+        epsilon=1e-6, name="encoder_{}/att_layernormalization".format(i)
+    )(query + attention_output)
 
     # Feed-forward layer
     ffn = keras.Sequential(
@@ -27,8 +32,12 @@ def bert_module(config: Config, query, key, value, i):
         name="encoder_{}/ffn".format(i),
     )
     ffn_output = ffn(attention_output)
-    ffn_output = layers.Dropout(0.1, name="encoder_{}/ffn_dropout".format(i))(ffn_output)
-    sequence_output = layers.LayerNormalization(epsilon=1e-6, name="encoder_{}/ffn_layernormalization".format(i))(attention_output + ffn_output)
+    ffn_output = layers.Dropout(0.1, name="encoder_{}/ffn_dropout".format(i))(
+        ffn_output
+    )
+    sequence_output = layers.LayerNormalization(
+        epsilon=1e-6, name="encoder_{}/ffn_layernormalization".format(i)
+    )(attention_output + ffn_output)
 
     return sequence_output
 
@@ -49,7 +58,9 @@ def get_pos_encoding_matrix(max_len, d_emb):
 
 class MaskedLanguageModel(tf.keras.Model):
     def __init__(self, inputs, outputs, name, loss_fn, loss_tracker):
-        super(MaskedLanguageModel, self).__init__(inputs=inputs, outputs=outputs, name=name)
+        super(MaskedLanguageModel, self).__init__(
+            inputs=inputs, outputs=outputs, name=name
+        )
         self.loss_fn = loss_fn
         self.loss_tracker = loss_tracker
 
@@ -112,7 +123,13 @@ def create_masked_language_bert_model(config: Config):
         reduction=tf.keras.losses.Reduction.NONE
     )
     loss_tracker = tf.keras.metrics.Mean(name="loss")
-    mlm_model = MaskedLanguageModel(inputs, mlm_output, name="masked_bert_model", loss_fn=loss_fn, loss_tracker=loss_tracker)
+    mlm_model = MaskedLanguageModel(
+        inputs,
+        mlm_output,
+        name="masked_bert_model",
+        loss_fn=loss_fn,
+        loss_tracker=loss_tracker,
+    )
 
     optimizer = keras.optimizers.Adam(learning_rate=config.LR)
     mlm_model.compile(optimizer=optimizer)
@@ -158,4 +175,3 @@ class MaskedTextGenerator(keras.callbacks.Callback):
                 "predicted mask token": self.convert_ids_to_tokens(p),
             }
             pprint(result)
-

@@ -2,6 +2,7 @@ import numpy as np
 import copy
 from Config import Config
 
+
 class Vectorisation:
     """
     Manages the vectorisation encoding and decoding of state-action sequences.
@@ -9,8 +10,8 @@ class Vectorisation:
 
     Dictionary structure: ( e.g. data_dict['sequences'][i]['sequence'] )
 
-    {   
-        'sequences': [   
+    {
+        'sequences': [
             {
                 'sequence': [0, 1, 0, 0, 0.5568, 0, 0, 0, ...] <- state-action pair
                 'begin': [0, 0, 0, ...], <- beginning of the sequence
@@ -57,7 +58,7 @@ class Vectorisation:
     decode(self, encoded_data: np.array) -> list:
         Decodes the vocabulary in the given data.
     """
-    
+
     def __init__(self, config: Config) -> None:
         """
         Initializes the Vectorisation object with the given configuration.
@@ -89,7 +90,10 @@ class Vectorisation:
             seps = None
 
         # extracting the sequences from the data as a list of lists (#students, #sequences, #states + #actions)
-        data_as_list = [self.data_dict['sequences'][i]['sequence'] for i in range(len(self.data_dict['sequences']))]
+        data_as_list = [
+            self.data_dict["sequences"][i]["sequence"]
+            for i in range(len(self.data_dict["sequences"]))
+        ]
         encoded_data = self.encode(data_as_list, seps)
 
         return encoded_data
@@ -109,8 +113,8 @@ class Vectorisation:
             The decoded dictionary data.
         """
         decoded_data = self.decode(encoded_data)
-        for i in range(len(self.data_dict['sequences'])):
-            self.data_dict['sequences'][i]['sequence'] = decoded_data[i]
+        for i in range(len(self.data_dict["sequences"])):
+            self.data_dict["sequences"][i]["sequence"] = decoded_data[i]
 
         return self.data_dict
 
@@ -128,14 +132,23 @@ class Vectorisation:
         np.array
             The encoded breaks.
         """
-        seps = np.zeros(shape=(len(decoded_data['sequences']), self.config.MAX_LEN), dtype=bool)
+        seps = np.zeros(
+            shape=(len(decoded_data["sequences"]), self.config.MAX_LEN), dtype=bool
+        )
 
-        for i in range(len(decoded_data['sequences'])):
-            stud = decoded_data['sequences'][i]
-            sequences = stud['sequence']
-            for j in range(min(len(sequences), self.config.MAX_LEN)):  # avoids overshoot if max sequence length > MAX_LEN
-                is_break_idx = np.nonzero(sequences[j])[0][1] == self.config.vectorisation.SEP_IDX
-                is_long_break = stud['end'][j] - stud['begin'][j] > self.config.vectorisation.SEP_LENGTH
+        for i in range(len(decoded_data["sequences"])):
+            stud = decoded_data["sequences"][i]
+            sequences = stud["sequence"]
+            for j in range(
+                min(len(sequences), self.config.MAX_LEN)
+            ):  # avoids overshoot if max sequence length > MAX_LEN
+                is_break_idx = (
+                    np.nonzero(sequences[j])[0][1] == self.config.vectorisation.SEP_IDX
+                )
+                is_long_break = (
+                    stud["end"][j] - stud["begin"][j]
+                    > self.config.vectorisation.SEP_LENGTH
+                )
                 if is_break_idx and is_long_break:
                     seps[i][j] = True
         return seps
@@ -157,7 +170,9 @@ class Vectorisation:
             The encoded data.
         """
         # this automatically adds zero padding at the end of the sequence
-        encoded_data = np.zeros(shape=(len(decoded_data), self.config.MAX_LEN), dtype=int)
+        encoded_data = np.zeros(
+            shape=(len(decoded_data), self.config.MAX_LEN), dtype=int
+        )
         assert seps is None or encoded_data.shape == seps.shape
 
         # assigns a unique token to every combination of state and action
@@ -165,11 +180,13 @@ class Vectorisation:
             non_zero = np.nonzero(stud)
             shift = self.ns - len(self.config.TOKEN_DICT)  # 4 - 3 = 1 in our case
             value = non_zero[-1][0::2] * self.na + non_zero[-1][1::2] - shift
-            encoded_data[stud_idx, :len(value)] = value[:self.config.MAX_LEN]  # no risk of overshoot if max sequence length > MAX_LEN
+            encoded_data[stud_idx, : len(value)] = value[
+                : self.config.MAX_LEN
+            ]  # no risk of overshoot if max sequence length > MAX_LEN
 
         # encoding seps after the rest to avoid overwriting
         if seps is not None:
-            encoded_data[seps] = self.config.TOKEN_DICT['[SEP]']
+            encoded_data[seps] = self.config.TOKEN_DICT["[SEP]"]
 
         return encoded_data
 
@@ -196,18 +213,24 @@ class Vectorisation:
             stud_decoded_data = []
             for j in range(num_seq):
                 value = [0] * (self.ns + self.na)
-                if encoded_data[i][j] == self.config.TOKEN_DICT['[PAD]']:
+                if encoded_data[i][j] == self.config.TOKEN_DICT["[PAD]"]:
                     break  # end of sequence if padding is reached
-                if encoded_data[i][j] == self.config.TOKEN_DICT['[SEP]']:  # handles special token for breaks
+                if (
+                    encoded_data[i][j] == self.config.TOKEN_DICT["[SEP]"]
+                ):  # handles special token for breaks
                     value[self.config.vectorisation.SEP_IDX] = 1
                     # no previous action -> state is 3; previous action -> state unchanged after break
                     if len(stud_decoded_data) == 0:
                         value[self.ns - 1] = 1
                     else:
-                        value[:self.ns] = stud_decoded_data[-1][:self.ns]
+                        value[: self.ns] = stud_decoded_data[-1][: self.ns]
                 else:
-                    shift = self.ns - len(self.config.TOKEN_DICT)  # 4 - 3 = 1 in our case
-                    action_idx = (encoded_data[i][j] - len(self.config.TOKEN_DICT)) % self.na + self.ns
+                    shift = self.ns - len(
+                        self.config.TOKEN_DICT
+                    )  # 4 - 3 = 1 in our case
+                    action_idx = (
+                        encoded_data[i][j] - len(self.config.TOKEN_DICT)
+                    ) % self.na + self.ns
                     state_idx = (encoded_data[i][j] - action_idx + shift) // self.na
                     value[action_idx] = 1
                     value[state_idx] = 1
