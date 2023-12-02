@@ -14,10 +14,9 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         top_k (int, optional): The number of top predictions to consider. Defaults to 5.
     """
 
-    def __init__(self, sample_tokens, mask_token_id, mapping_dict, top_k=5):
+    def __init__(self, sample_tokens, mask_token_id, top_k=5):
         self.sample_tokens = sample_tokens
         self.mask_token_id = mask_token_id
-        self.mapping_dict = mapping_dict
         self.k = top_k
 
     def on_epoch_end(self, epoch, logs=None):
