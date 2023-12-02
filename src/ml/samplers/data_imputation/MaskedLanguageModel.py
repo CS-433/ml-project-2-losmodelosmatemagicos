@@ -15,7 +15,7 @@ class MaskedLanguageModel(tf.keras.Model):
     
     def __init__(self, inputs, outputs, name):
         super(MaskedLanguageModel, self).__init__(inputs=inputs, outputs=outputs, name=name)
-        self.loss_fn = keras.losses.SparseCategoricalCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
+        self.loss_fn = keras.losses.SparseCategoricalCrossentropy(reduction=keras.losses.Reduction.NONE)
         self.loss_tracker = keras.metrics.Mean(name="loss")
 
     def train_step(self, inputs):
