@@ -1,6 +1,7 @@
 from tensorflow import keras
 import numpy as np
 from pprint import pprint
+import Vectorisation
 
 
 class MaskedTextGenerator(keras.callbacks.Callback):
@@ -44,10 +45,10 @@ class MaskedTextGenerator(keras.callbacks.Callback):
             tokens = np.copy(self.sample_tokens[0])
             tokens[masked_index[0]] = p
             result = {
-                "input_text": self.decode(self.sample_tokens[0]),
-                "prediction": self.decode(tokens),
+                "input_text": Vectorisation.decode_dict(self.sample_tokens[0]),
+                "prediction": Vectorisation.decode_dict(tokens),
                 "probability": v,
-                "predicted mask token": self.convert_ids_to_tokens(p),
+                "predicted mask token id": p,
             }
             pprint(result)
 
