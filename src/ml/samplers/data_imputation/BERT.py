@@ -87,14 +87,10 @@ def create_masked_language_bert_model(config: Config):
         encoder_output = bert_module(encoder_output, encoder_output, encoder_output, i)
 
     mlm_output = layers.Dense(config.VOCAB_SIZE, name="mlm_cls", activation="softmax")(encoder_output)
-    loss_fn = keras.losses.SparseCategoricalCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
-    loss_tracker = tf.keras.metrics.Mean(name="loss")
     mlm_model = MaskedLanguageModel(
         inputs,
         mlm_output,
-        name="masked_bert_model",
-        loss_fn=loss_fn,
-        loss_tracker=loss_tracker,
+        name="masked_bert_model"
     )
 
     optimizer = keras.optimizers.Adam(learning_rate=config.LR)
