@@ -1,6 +1,7 @@
 from tensorflow import keras
 import numpy as np
 from pprint import pprint
+import Vectorisation
 
 
 class MaskedTextGenerator(keras.callbacks.Callback):
@@ -14,10 +15,9 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         top_k (int, optional): The number of top predictions to consider. Defaults to 5.
     """
 
-    def __init__(self, sample_tokens, mask_token_id, mapping_dict, top_k=5):
+    def __init__(self, sample_tokens, mask_token_id, top_k=5):
         self.sample_tokens = sample_tokens
         self.mask_token_id = mask_token_id
-        self.mapping_dict = mapping_dict
         self.k = top_k
 
     def on_epoch_end(self, epoch, logs=None):
@@ -45,10 +45,10 @@ class MaskedTextGenerator(keras.callbacks.Callback):
             tokens = np.copy(self.sample_tokens[0])
             tokens[masked_index[0]] = p
             result = {
-                "input_text": self.decode(self.sample_tokens[0]),
-                "prediction": self.decode(tokens),
+                "input_text": Vectorisation.decode_dict(self.sample_tokens[0]),
+                "prediction": Vectorisation.decode_dict(tokens),
                 "probability": v,
-                "predicted mask token": self.convert_ids_to_tokens(p),
+                "predicted mask token id": p,
             }
             pprint(result)
 
