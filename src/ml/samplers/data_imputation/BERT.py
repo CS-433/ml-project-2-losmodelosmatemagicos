@@ -31,8 +31,8 @@ def bert_module(config: Config, query, key, value, i):
     # Feed-forward layer
     ffn = keras.Sequential(
         [
-            layers.Dense(config.FF_DIM, activation="relu"),
-            layers.Dense(config.EMBED_DIM),
+            layers.Dense(config.bert.FF_DIM, activation="relu"),
+            layers.Dense(config.bert.EMBED_DIM),
         ],
         name="encoder_{}/ffn".format(i))
     
@@ -84,7 +84,7 @@ def create_masked_language_bert_model(config: Config):
 
     encoder_output = embeddings
     for i in range(config.bert.NUM_LAYERS):
-        encoder_output = bert_module(encoder_output, encoder_output, encoder_output, i)
+        encoder_output = bert_module(config, encoder_output, encoder_output, encoder_output, i)
 
     mlm_output = layers.Dense(config.VOCAB_SIZE, name="mlm_cls", activation="softmax")(encoder_output)
     mlm_model = MaskedLanguageModel(
@@ -93,7 +93,7 @@ def create_masked_language_bert_model(config: Config):
         name="masked_bert_model"
     )
 
-    optimizer = keras.optimizers.Adam(learning_rate=config.LR)
+    optimizer = keras.optimizers.Adam(learning_rate=config.bert.LR)
     mlm_model.compile(optimizer=optimizer)
 
     return mlm_model
