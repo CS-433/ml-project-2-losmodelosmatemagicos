@@ -1,7 +1,7 @@
 # Our Data
 *.pkl
 experiments/
-.keras
+*.keras
 
 
 
