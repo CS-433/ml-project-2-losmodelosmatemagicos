@@ -1,7 +1,6 @@
 from tensorflow import keras
 import numpy as np
 from pprint import pprint
-import Vectorisation
 
 
 class MaskedTextGenerator(keras.callbacks.Callback):
@@ -32,8 +31,8 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         """
         prediction = self.model.predict(self.sample_tokens)
 
-        masked_index = np.where(self.sample_tokens == self.mask_token_id)
-        masked_index = masked_index[1]
+        masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
+        # masked_index = masked_index[1]
         mask_prediction = prediction[0][masked_index]
 
         top_indices = mask_prediction[0].argsort()[-self.k :][::-1]
@@ -45,8 +44,8 @@ class MaskedTextGenerator(keras.callbacks.Callback):
             tokens = np.copy(self.sample_tokens[0])
             tokens[masked_index[0]] = p
             result = {
-                "input_text": Vectorisation.decode_dict(self.sample_tokens[0]),
-                "prediction": Vectorisation.decode_dict(tokens),
+                "input_seq": self.sample_tokens[0],
+                "prediction": tokens,
                 "probability": v,
                 "predicted mask token id": p,
             }

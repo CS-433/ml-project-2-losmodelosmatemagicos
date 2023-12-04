@@ -1,7 +1,7 @@
 class Config:
     '''Configuration class for centralised management of simulation parameters'''
     
-    def __init__(self, MAX_LEN=512, BATCH_SIZE=16):
+    def __init__(self, MAX_LEN=128, BATCH_SIZE=16):
         self.MAX_LEN = MAX_LEN
         self.BATCH_SIZE = BATCH_SIZE
         self.TOKEN_DICT = {"[PAD]": 0, "[MASK]": 1, "[SEP]": 2}
