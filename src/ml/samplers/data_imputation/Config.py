@@ -1,13 +1,13 @@
 class Config:
     '''Configuration class for centralised management of simulation parameters'''
     
-    def __init__(self, MAX_LEN=256, BATCH_SIZE=32, VOCAB_SIZE=30000):
+    def __init__(self, MAX_LEN=512, BATCH_SIZE=16):
         self.MAX_LEN = MAX_LEN
         self.BATCH_SIZE = BATCH_SIZE
-        self.VOCAB_SIZE = VOCAB_SIZE
         self.TOKEN_DICT = {"[PAD]": 0, "[MASK]": 1, "[SEP]": 2}
         self.vectorisation = self.ConfigVectorisation()
         self.bert = self.ConfigBert()
+        self.VOCAB_SIZE = self.vectorisation.NUM_ACTIONS * self.vectorisation.NUM_STATES + len(self.TOKEN_DICT)
 
     class ConfigVectorisation:
         def __init__(self, NUM_STATES=4, NUM_ACTIONS=6, SEP_IDX=8, SEP_LENGTH=15):
@@ -18,7 +18,7 @@ class Config:
 
     class ConfigBert:
         def __init__(
-            self, EMBED_DIM=128, NUM_HEAD=8, FF_DIM=128, NUM_LAYERS=1, LR=0.001
+            self, EMBED_DIM=256, NUM_HEAD=8, FF_DIM=128, NUM_LAYERS=1, LR=0.001
         ):
             self.EMBED_DIM = EMBED_DIM
             self.NUM_HEAD = NUM_HEAD
