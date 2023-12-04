@@ -10,6 +10,7 @@ class Vectorisation:
  
     Workflow:        [ dict -> ] list -> np.array -> list [ -> dict ]
     Dict structure:  dict['sequences'][i]['sequence'][j]) where (i, j) = (num_students, num_sequences)
+                                         ['begin'][j]) and ['end'][j]) being others keys of dict['sequences'][i]
     List structure:  nested list of vectors shape = (num_students, num_sequences, ns + na)
     Array structure: np.array of shape = (num_students, MAX_LEN)
 
