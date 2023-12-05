@@ -10,7 +10,6 @@ class MaskedTextGenerator(keras.callbacks.Callback):
     Args:
         sample_tokens (numpy.ndarray): The input tokens to generate predictions for.
         mask_token_id (int): The ID of the mask token in the token mapping dictionary.
-        mapping_dict (dict): A dictionary mapping token IDs to their corresponding tokens.
         top_k (int, optional): The number of top predictions to consider. Defaults to 5.
     """
 
@@ -32,7 +31,6 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         prediction = self.model.predict(self.sample_tokens)
 
         masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
-        # masked_index = masked_index[1]
         mask_prediction = prediction[0][masked_index]
 
         top_indices = mask_prediction[0].argsort()[-self.k :][::-1]
