@@ -85,6 +85,14 @@ class TemplateOversampler(Sampler):
                 # print('not shuffling')
                 shuffled_sequences.append(sequences[idx])
             # 3) Actual part which you can implement for your data augmentation
+
+
+
+
+
+
+
+
             ### End EDIT BLOCK
 
             # Saving the data
