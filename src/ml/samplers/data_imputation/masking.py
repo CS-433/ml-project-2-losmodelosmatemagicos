@@ -54,7 +54,7 @@ def mask_input_and_labels(
     # Set 10% to a random token of the total tokens but form the 90% tokens modified, aka 10%/90% = 1/9 (values by default)
     mask_idx_2random = mask_idx_2mask & (np.random.rand(*encoded_data.shape) < (ratio_random_seq / ratio_seq_masked))
     encoded_data_masked[mask_idx_2random] = np.random.randint(
-        len(special_token_dict),  # low = len(special_token_dict) ( included, is not a problem cuz special_token_dict starts at 0 )
+        len(special_token_dict),  # low = len(special_token_dict) ( included, is not a problem because special_token_dict starts at 0 )
         np.max(encoded_data) + 1,  # high = last_token + 1 (not included)
         mask_idx_2random.sum(),
     )

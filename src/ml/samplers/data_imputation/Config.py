@@ -18,7 +18,7 @@ class Config:
 
     class ConfigBert:
         def __init__(
-            self, EMBED_DIM=256, NUM_HEAD=8, FF_DIM=128, NUM_LAYERS=1, LR=0.001
+            self, EMBED_DIM=256, NUM_HEAD=8, FF_DIM=64, NUM_LAYERS=1, LR=0.001
         ):
             self.EMBED_DIM = EMBED_DIM
             self.NUM_HEAD = NUM_HEAD
