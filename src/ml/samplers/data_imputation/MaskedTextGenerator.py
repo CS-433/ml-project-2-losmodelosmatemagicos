@@ -30,24 +30,43 @@ class MaskedTextGenerator(keras.callbacks.Callback):
             logs (dict, optional): Dictionary of logs containing the training metrics. Defaults to None.
         """
         prediction = self.model.predict(self.sample_tokens)
+        print(prediction.shape)
 
         masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
         # masked_index = masked_index[1]
         mask_prediction = prediction[0][masked_index]
+        print(mask_prediction.shape)
 
+        
         top_indices = mask_prediction[0].argsort()[-self.k :][::-1]
+        print(top_indices)
         values = mask_prediction[0][top_indices]
 
-        for i in range(len(top_indices)):
-            p = top_indices[i]
-            v = values[i]
-            tokens = np.copy(self.sample_tokens[0])
-            tokens[masked_index[0]] = p
-            result = {
-                "input_seq": self.sample_tokens[0],
-                "prediction": tokens,
-                "probability": v,
-                "predicted mask token id": p,
-            }
-            pprint(result)
+        p = top_indices[:self.k]
+        v = values[:self.k]
+        result = {
+            "input_seq": self.sample_tokens[0],
+            "prediction": p,
+            "probability": v
+        }
+        pprint(result)
+
+        
+        masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
+        mask_prediction = prediction[0][masked_index]
+        print(mask_prediction.shape)
+        
+        best_results = mask_prediction[:self.k].argsort()
+        print(best_results.shape)
+        print(best_results)
+        values = mask_prediction[0][top_indices]
+        preds = mask_prediction[:self.k][0]
+        probs = mask_prediction[0][preds]
+
+        result = {
+            "input_seq": self.sample_tokens[0],
+            "predictions": preds,
+            "max probability": probs
+        }
+        pprint(result)
 

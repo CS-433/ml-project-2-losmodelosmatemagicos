@@ -34,6 +34,7 @@ def mask_input_and_labels(
         Array of sample weights to be used during training.
 
     """
+    np.random.seed(32)
     # we mask 15% of all sequence tokens for each student at random (values by default)
     mask_idx = np.random.rand(*encoded_data.shape) < ratio_mask_per_seq
 
