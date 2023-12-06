@@ -1,6 +1,5 @@
 from tensorflow import keras
 import numpy as np
-from pprint import pprint
 
 
 class MaskedTextGenerator(keras.callbacks.Callback):
@@ -13,7 +12,7 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         top_k (int, optional): The number of top predictions to consider. Defaults to 5.
     """
 
-    def __init__(self, sample_tokens, mask_token_id, top_k=5):
+    def __init__(self, sample_tokens, mask_token_id, top_k=10):
         self.sample_tokens = sample_tokens
         self.mask_token_id = mask_token_id
         self.k = top_k
@@ -31,7 +30,7 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         prediction = self.model.predict(self.sample_tokens)
         print(prediction.shape)
 
-        masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
+        '''masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
         mask_prediction = prediction[0][masked_index]
         print(mask_prediction.shape)
 
@@ -47,24 +46,17 @@ class MaskedTextGenerator(keras.callbacks.Callback):
             "prediction": p,
             "probability": v
         }
-        pprint(result)
+        pprint(result)'''
 
         
-        masked_index = np.where(self.sample_tokens[0] == self.mask_token_id)
-        mask_prediction = prediction[0][masked_index]
-        print(mask_prediction.shape)
+        masked_index = np.where(self.sample_tokens[0] == self.mask_token_id) # find where the first student sequence was masked
+        mask_prediction = prediction[0][masked_index] # get the predictions for the masked tokens shape=(#masked_inputs, VOCAB_SIZE)
+        print('mask pred shape:', mask_prediction.shape)
         
-        best_results = mask_prediction[:self.k].argsort()
-        print(best_results.shape)
-        print(best_results)
-        values = mask_prediction[0][top_indices]
-        preds = mask_prediction[:self.k][0]
-        probs = mask_prediction[0][preds]
+        best_results = mask_prediction[:self.k].argmax(axis=1) # getting max prediction for the 5 first masked predictions
+        best_results_probs = mask_prediction[np.arange(self.k), best_results] # getting the probabilities for the 5 first masked predictions
 
-        result = {
-            "input_seq": self.sample_tokens[0],
-            "predictions": preds,
-            "max probability": probs
-        }
-        pprint(result)
+        print("input_seq\n", self.sample_tokens[0])
+        print("predictions\n", best_results)
+        print("max probability\n", [round(prob, 2) for prob in best_results_probs])
 
