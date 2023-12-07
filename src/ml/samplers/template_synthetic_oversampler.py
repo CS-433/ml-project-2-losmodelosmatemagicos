@@ -9,7 +9,8 @@ from ml.samplers.sampler import Sampler
 
 
 class TemplateOversampler(Sampler):
-    """This class oversamples the minority class to rebalance the distribution at 50/50. It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
+    """This class oversamples the minority class to rebalance the distribution at 50/50. 
+    It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
     Args:
         Sampler (Sampler): Inherits from the Sampler class
@@ -22,9 +23,7 @@ class TemplateOversampler(Sampler):
 
         self._rebalancing_mode = self._settings["ml"]["oversampler"]["rebalancing_mode"]
 
-    def _oversample(
-        self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict
-    ) -> Tuple[list, list, list]:
+    def _oversample(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
         """Oversamples x based on oversampler, according to the sampling_strategy.
         The way it works is that it has at least one instance in its original form, then it chooses the instances to resample.
         For each instance you resample, *right now*, it decides whether to make it synthetic or not. In your project you will need
@@ -75,10 +74,7 @@ class TemplateOversampler(Sampler):
         for idx in potential_shuffles:
             # print(sequences[0])
             # exit(1)
-            if (
-                np.random.rand()
-                < 1 / self._settings["ml"]["oversampler"]["shuffler"]["shuffling_coin"]
-            ):
+            if (np.random.rand() < 1 / self._settings["ml"]["oversampler"]["shuffler"]["shuffling_coin"]):
                 # print('shuffling')
                 shuffled_sequences.append(self._shuffler.shuffle(sequences[idx]))
             else:
@@ -104,22 +100,13 @@ class TemplateOversampler(Sampler):
         [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
         [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
         [shuffled_indices.append(idx) for idx in range(len(labels))]
-        [
-            shuffled_oversampler.append(oversampler[idx])
-            for idx in range(len(oversampler))
-        ]
+        [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
-        print(
-            "distrbution os after the sampling: {}".format(
-                sorted(Counter(shuffled_oversampler).items())
-            )
-        )
+        print("distrbution os after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
         print("labels after sampling: {}".format(Counter(shuffled_labels)))
         return shuffled_sequences, shuffled_labels, shuffled_indices
 
-    def sample(
-        self, sequences: list, oversampler: list, labels: list, demographics: list
-    ) -> Tuple[list, list]:
+    def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
         Functions are right now in the sampler.py file
 

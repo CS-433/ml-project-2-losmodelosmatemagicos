@@ -7,6 +7,7 @@ def mask_input_and_labels(
     ratio_mask_per_seq: float = 0.15,
     ratio_seq_masked: float = 0.9,
     ratio_random_seq: float = 0.1,
+    seed: int = None,
 ):
     """
     Generate masked input and corresponding labels for masked language modeling.
@@ -34,7 +35,7 @@ def mask_input_and_labels(
         Array of sample weights to be used during training.
 
     """
-    np.random.seed(32)
+    if seed is not None: np.random.seed(seed)
     # we mask 15% of all sequence tokens for each student at random (values by default)
     mask_idx = np.random.rand(*encoded_data.shape) < ratio_mask_per_seq
 

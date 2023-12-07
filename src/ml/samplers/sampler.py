@@ -40,9 +40,7 @@ class Sampler:
         """
         raise NotImplementedError
 
-    def _equal_oversampling(
-        self, sequences: list, oversampler: list, labels: list
-    ) -> Tuple[list, list]:
+    def _equal_oversampling(self, sequences: list, oversampler: list, labels: list) -> Tuple[list, list]:
         """Oversamples based on some attributes determined in the config file (oversampler / oversampling_col)
         Rebalances all classes equally
 
@@ -56,9 +54,7 @@ class Sampler:
         """
         return self._oversample(sequences, labels, oversampler, "all")
 
-    def _major_oversampling(
-        self, sequences: list, oversampler: list, labels: list
-    ) -> Tuple[list, list]:
+    def _major_oversampling(self, sequences: list, oversampler: list, labels: list) -> Tuple[list, list]:
         """Oversamples based on some attributes determined in the config file (oversampler / oversampling_col)
         Oversamples the majority class and kicks out all other instances from other classes
 
@@ -87,9 +83,7 @@ class Sampler:
 
         return self._oversample(sequences, labels, oversampler, sampler)
 
-    def _minor_oversampling(
-        self, sequences: list, oversampler: list, labels: list
-    ) -> Tuple[list, list]:
+    def _minor_oversampling(self, sequences: list, oversampler: list, labels: list) -> Tuple[list, list]:
         """Oversamples based on some attributes determined in the config file (oversampler / oversampling_col)
         Only oversamples the minority class
 
@@ -102,11 +96,7 @@ class Sampler:
             Tuple[list, list]: _description_
         """
         distribution_os = Counter(oversampler)
-        print(
-            "distribution os before the sampling: {}".format(
-                sorted(distribution_os.items())
-            )
-        )
+        print("distribution os before the sampling: {}".format(sorted(distribution_os.items())))
 
         sampler = {cluster: distribution_os[cluster] for cluster in distribution_os}
 
@@ -122,9 +112,7 @@ class Sampler:
 
         return self._oversample(sequences, labels, oversampler, sampler)
 
-    def sample(
-        self, sequences: list, oversampler: list, labels: list, demographics: list
-    ) -> Tuple[list, list]:
+    def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
 
         1. equal oversampling: All instances are oversampled by n, determined by imbalanced-learn

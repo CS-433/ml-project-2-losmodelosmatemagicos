@@ -69,9 +69,7 @@ def get_pos_encoding_matrix(max_len, d_emb):
 def create_masked_language_bert_model(config: Config):
     inputs = layers.Input((config.MAX_LEN,), dtype=tf.int64)
 
-    word_embeddings = layers.Embedding(
-        config.VOCAB_SIZE, config.bert.EMBED_DIM, name="word_embedding"
-    )(inputs)
+    word_embeddings = layers.Embedding(config.VOCAB_SIZE, config.bert.EMBED_DIM, name="word_embedding")(inputs)
 
     position_embeddings = layers.Embedding(
         input_dim=config.MAX_LEN,
