@@ -23,9 +23,7 @@ class RandomOversampler(Sampler):
 
         self._ros = ros(random_state=0)
 
-    def _oversample(
-        self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict
-    ) -> Tuple[list, list, list]:
+    def _oversample(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
         """Oversamples x based on oversampler, according to the sampling_strategy.
         The way it works is that it has at least one instance in its original form, then it chooses the instances to resample.
         For each instance you resample, *right now*, it decides whether to make it synthetic or not. In your project you will need
@@ -79,23 +77,14 @@ class RandomOversampler(Sampler):
         [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
         [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
         [shuffled_indices.append(idx) for idx in range(len(labels))]
-        [
-            shuffled_oversampler.append(oversampler[idx])
-            for idx in range(len(oversampler))
-        ]
+        [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
-        print(
-            "distribution os after the sampling: {}".format(
-                sorted(Counter(shuffled_oversampler).items())
-            )
-        )
+        print("distribution os after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
         print("labels after sampling: {}".format(Counter(shuffled_labels)))
         print("labels after sampling: {}".format(Counter(shuffled_oversampler)))
         return shuffled_sequences, shuffled_labels, shuffled_indices
 
-    def sample(
-        self, sequences: list, oversampler: list, labels: list, demographics: list
-    ) -> Tuple[list, list]:
+    def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
         Functions are right now in the sampler.py file
 

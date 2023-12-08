@@ -8,7 +8,7 @@ from imblearn.over_sampling import RandomOverSampler as ros
 from ml.samplers.sampler import Sampler
 
 
-class TemplateOversampler(Sampler):
+class SyntheticOversampler(Sampler):
     """This class oversamples the minority class to rebalance the distribution at 50/50. 
     It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
@@ -51,23 +51,17 @@ class TemplateOversampler(Sampler):
         indices = [[idx] for idx in range(len(sequences))]
         indices_resampled, _ = self._ros.fit_resample(indices, oversampler)
 
-        #### Part where you code your data augmentation technique
-        # Begin block
         # 1) the indices in indices_resampled are the indices of the data you have to augment.
         # Here, it makes sure that all sequences are at least once in their original shape in the training set
         potential_shuffles = [idx[0] for idx in indices_resampled]
         [potential_shuffles.remove(idx) for idx in range(len(sequences))]
         assert len(potential_shuffles) == (len(indices_resampled) - len(indices))
-        # 1) the indices in indices_resampled are the indices of the data you have to augment.
-        # Here, it makes sure that all sequences are at least once in their original shape in the training set
-        # End block
 
         # 2) Objects storing the sequences which you will edit. Here, I called it shuffled because I shuffled the sequences, but you will do other nicer things than shuffles (hopefully ;))
         shuffled_sequences = []
         shuffled_oversampler = []
         shuffled_labels = []
         shuffled_indices = []
-        # 2)
 
         ### Begin EDIT BLOCK
         # 3) Actual part which you can change

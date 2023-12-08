@@ -7,7 +7,7 @@ from ml.models.ts_attention import TimestepAttentionModel
 from ml.samplers.sampler import Sampler
 from ml.samplers.random_oversampler import RandomOversampler
 from ml.samplers.no_sampler import NoSampler
-from ml.samplers.template_synthetic_oversampler import TemplateOversampler
+from ml.samplers.synthetic_oversampler import SyntheticOversampler
 
 from ml.scorers.scorer import Scorer
 from ml.scorers.binaryclassification_scorer import BinaryClfScorer
@@ -58,7 +58,7 @@ class MLPipeline:
         if self._settings["ml"]["oversampler"]["mode"] == "ros":
             self._sampler = RandomOversampler
         if self._settings["ml"]["oversampler"]["mode"] == "augmentation":
-            self._sampler = TemplateOversampler
+            self._sampler = SyntheticOversampler
         if self._settings["ml"]["oversampler"]["mode"] == "none":
             self._sampler = NoSampler
 
@@ -74,9 +74,7 @@ class MLPipeline:
 
     def _choose_xvalidator(self):
         self._gridsearch = {}
-        self._xval = NonNestedRankingCrossVal(
-            self._settings, self._splitter, self._sampler, self._model, self._scorer
-        )
+        self._xval = NonNestedRankingCrossVal(self._settings, self._splitter, self._sampler, self._model, self._scorer)
 
     def _build_pipeline(self):
         self._choose_splitter()
