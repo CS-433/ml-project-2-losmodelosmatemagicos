@@ -1,23 +1,28 @@
 import numpy as np
 import tensorflow as tf
 
-from masking import mask_input_and_labels
+import masking
 import BERT
 from Config import Config
+from Vectorisation import Vectorisation
 
 
 class BertPipline:
 
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, vectorisation: Vectorisation):
         self.config = config
+        self.vec = vectorisation
 
     def train(self, sequences: list):
         """
         This function trains the model on the masked language model task.
         Args:
-            sequences (list): list of sequences already 1-hot encoded
+            sequences (list): list of sequences 
         """
-        x_masked_encoded, y_masked_encoded, sample_weights = mask_input_and_labels(sequences, self.config.TOKEN_DICT)
+        # Sequences are already in list format
+        sequences = self.vec.encode(sequences)
+
+        x_masked_encoded, y_masked_encoded, sample_weights = masking.mask_input_and_labels(sequences, self.config.TOKEN_DICT)
 
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_masked_encoded, y_masked_encoded, sample_weights))
         mlm_ds = mlm_ds.shuffle(1000).batch(self.config.BATCH_SIZE)

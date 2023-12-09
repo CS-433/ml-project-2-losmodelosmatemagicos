@@ -20,10 +20,15 @@ def oversamplesimple(settings):
     print(settings["experiment"])
 
     dl = DataLoader(settings)
-    sequences, labels, demographics = dl.load_data()
+    #sequences, labels, demographics = dl.load_data()
+    sequences, labels, demographics, full_data = dl.load_data() # need to modify the function to return also "full_data"
 
     # save sequences and labels and demographics
     # Save the variables
+
+    with open('full_data.pkl', 'wb') as f:
+        pickle.dump(full_data, f)
+
     with open('sequences.pkl', 'wb') as f:
         pickle.dump(sequences, f)
 
