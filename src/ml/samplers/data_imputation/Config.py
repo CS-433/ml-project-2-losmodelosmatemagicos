@@ -25,3 +25,4 @@ class Config:
             self.FF_DIM = FF_DIM
             self.NUM_LAYERS = NUM_LAYERS
             self.LR = LR
+            self.epoch = 20

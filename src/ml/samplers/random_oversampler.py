@@ -64,16 +64,35 @@ class RandomOversampler(Sampler):
         potential_shuffles = [idx[0] for idx in indices_resampled]
         [potential_shuffles.remove(idx) for idx in range(len(sequences))]
         assert len(potential_shuffles) == (len(indices_resampled) - len(indices))
+
+        # 2) Objects storing the sequences which you will edit. Here, I called it shuffled because I shuffled the sequences, but you will do other nicer things than shuffles (hopefully ;))
         shuffled_sequences = []
         shuffled_oversampler = []
         shuffled_labels = []
         shuffled_indices = []
+
+        ### Begin EDIT BLOCK
+        # 3) Actual part which you can change
         for idx in potential_shuffles:
             shuffled_sequences.append(sequences[idx])
+
+
+
+
+
+
+
+
+
+
+
+            ### End EDIT BLOCK
+            # Saving the data
             shuffled_labels.append(labels[idx])
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
+        # Adding the original sequences
         [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
         [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
         [shuffled_indices.append(idx) for idx in range(len(labels))]

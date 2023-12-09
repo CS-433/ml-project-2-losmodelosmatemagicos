@@ -7,6 +7,8 @@ from collections import Counter
 from imblearn.over_sampling import RandomOverSampler as ros
 from ml.samplers.sampler import Sampler
 
+from ml.samplers.data_imputation.BertPipline import BertPipline
+from ml.samplers.data_imputation.Config import Config
 
 class SyntheticOversampler(Sampler):
     """This class oversamples the minority class to rebalance the distribution at 50/50. 
@@ -42,6 +44,16 @@ class SyntheticOversampler(Sampler):
             shuffled labels: associated labels to the shuffled sequences
             shuffled indices: indices of the shuffled sequences (just to keep track what data comes from where. Optional, for reproducibility)
         """
+        print(
+            "distribution os before the sampling: {}".format(
+                sorted(Counter(oversampler).items())
+            )
+        )
+        print(
+            "distribution os before the sampling: {}".format(
+                sorted(Counter(labels).items())
+            )
+        )
         assert len(labels) == len(sequences)
         self._ros = ros(
             random_state=self._settings["seeds"]["oversampler"],
@@ -69,22 +81,27 @@ class SyntheticOversampler(Sampler):
             # print(sequences[0])
             # exit(1)
             if (np.random.rand() < 1 / self._settings["ml"]["oversampler"]["shuffler"]["shuffling_coin"]):
-                # print('shuffling')
+                print('shuffling')
                 shuffled_sequences.append(self._shuffler.shuffle(sequences[idx]))
             else:
-                # print('not shuffling')
+                print('not shuffling')
                 shuffled_sequences.append(sequences[idx])
             # 3) Actual part which you can implement for your data augmentation
+            print("Our part of the code !!!! ;) ")
+
+            config = Config()
+            bert = BertPipline(config)
+            bert_masked_model = bert.train(shuffled_sequences)
+
+            # Decide if only take mask predictions or overall sequences
+            new_sequences = bert.predict(shuffled_sequences, bert_masked_model)
 
 
-
-
-
-
-
+            # Need to decide how deal with the info of labes and indices of the new sequences
+            # We replace the original sequence by some of the new one ? Or we add them at the end ?
+            shuffled_sequences.append(new_sequences)
 
             ### End EDIT BLOCK
-
             # Saving the data
             shuffled_labels.append(labels[idx])
             shuffled_indices.append(idx)
