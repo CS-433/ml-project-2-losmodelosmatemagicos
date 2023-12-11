@@ -7,7 +7,7 @@ from collections import Counter
 from imblearn.over_sampling import RandomOverSampler as ros
 from ml.samplers.sampler import Sampler
 
-from ml.samplers.data_imputation.BertPipline import BertPipline
+from ml.samplers.data_imputation.BertPipeline import BertPipeline
 from ml.samplers.data_imputation.Config import Config
 
 class SyntheticOversampler(Sampler):
@@ -90,7 +90,7 @@ class SyntheticOversampler(Sampler):
             print("Our part of the code !!!! ;) ")
 
             config = Config()
-            bert = BertPipline(config)
+            bert = BertPipeline(config)
             bert_masked_model = bert.train(shuffled_sequences)
 
             # Decide if only take mask predictions or overall sequences

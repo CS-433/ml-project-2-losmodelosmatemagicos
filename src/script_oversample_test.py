@@ -9,7 +9,7 @@ from typing import Tuple
 
 
 from utils.config_handler import ConfigHandler
-from features.data_loader import DataLoader
+from features.data_loader_test_for_full_data import DataLoader
 from ml.ml_pipeline import MLPipeline
 
 

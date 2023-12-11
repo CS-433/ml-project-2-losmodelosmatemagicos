@@ -7,7 +7,7 @@ from Config import Config
 from Vectorisation import Vectorisation
 
 
-class BertPipline:
+class BertPipeline:
 
     def __init__(self, config: Config, vectorisation: Vectorisation):
         self.config = config
