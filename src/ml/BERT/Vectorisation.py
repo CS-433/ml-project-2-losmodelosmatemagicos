@@ -65,7 +65,7 @@ class Vectorisation:
 
     def seps_from_dict(self, decoded_data: dict) -> np.array:
         """
-        Encodes the breaks longer than the specified config.SEP_LENGTH.
+        Encodes the breaks longer than the specified config.SEP_LENGTH from a dict.
 
         Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise
         """
@@ -86,6 +86,25 @@ class Vectorisation:
                     stud["end"][j] - stud["begin"][j]
                     > self.config.vectorisation.SEP_LENGTH
                 )
+                if is_break_idx and is_long_break:
+                    seps[i][j] = True
+        return seps
+    
+    def sep_from_seq(self, decoded_data):
+        """
+        Encodes the breaks longer than the specified config.SEP_LENGTH from a list of sequences.
+
+        Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise
+        """
+        seps = np.zeros(shape=(len(decoded_data), self.config.MAX_LEN), dtype=bool)
+
+        for i in range(len(decoded_data)):
+            sequences = decoded_data[i]
+            for j in range(min(len(sequences), self.config.MAX_LEN)):  # avoids overshoot if max sequence length > MAX_LEN
+                action_idx = np.nonzero(sequences[j])[0][1]
+                is_break_idx = (action_idx == self.config.vectorisation.SEP_IDX)
+                is_long_break = sequences[j][action_idx] > self.config.vectorisation.SEP_LENGTH
+
                 if is_break_idx and is_long_break:
                     seps[i][j] = True
         return seps
