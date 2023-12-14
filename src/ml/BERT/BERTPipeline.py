@@ -7,7 +7,7 @@ from Config import Config
 from Vectorisation import Vectorisation
 
 
-class BertPipeline:
+class BERTPipeline:
 
     def __init__(self, config: Config, vectorisation: Vectorisation):
         self.config = config
@@ -25,12 +25,12 @@ class BertPipeline:
         x_masked_encoded, y_masked_encoded, sample_weights = masking.mask_input_and_labels(sequences, self.config.TOKEN_DICT)
 
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_masked_encoded, y_masked_encoded, sample_weights))
-        mlm_ds = mlm_ds.shuffle(1000).batch(self.config.BATCH_SIZE)
+        mlm_ds = mlm_ds.batch(self.config.BATCH_SIZE)
 
         bert_masked_model = BERT.create_masked_language_bert_model(self.config)
         bert_masked_model.summary()
 
-        bert_masked_model.fit(mlm_ds, self.config.bert.epoch ) # No need of callbacks
+        bert_masked_model.fit(mlm_ds, epochs=self.config.bert.epoch ) # No need of callbacks
         
         # No know yet if we want to save the model
         # bert_masked_model.save("bert_models/bert_mlm.keras") 
