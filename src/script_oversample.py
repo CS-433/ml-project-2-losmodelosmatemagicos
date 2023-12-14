@@ -7,6 +7,10 @@ import argparse
 import numpy as np
 from typing import Tuple
 
+# This adds the BERT path to the python path, needed for the imports inside BERT modules
+import sys
+import sys
+sys.path.append('./ml/BERT')
 
 from utils.config_handler import ConfigHandler
 from features.data_loader import DataLoader

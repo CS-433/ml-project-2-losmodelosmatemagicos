@@ -7,7 +7,8 @@ import argparse
 import numpy as np
 from typing import Tuple
 
-
+import sys
+sys.path.append('./ml/BERT')
 from utils.config_handler import ConfigHandler
 from features.data_loader_test_for_full_data import DataLoader
 from ml.ml_pipeline import MLPipeline
@@ -37,19 +38,6 @@ def oversamplesimple(settings):
 
     with open('demographics.pkl', 'wb') as f:
         pickle.dump(demographics, f)
-
-    # xval = MLPipeline(settings)
-    # xval.train(sequences, labels, demographics)
-
-    # config_path = (
-    #     "../experiments/"
-    #     + settings["experiment"]["root_name"]
-    #     + settings["experiment"]["name"]
-    #     + "/config.yaml"
-    # )
-    # config_path = PurePath(config_path)
-    # with open(config_path, "wb") as fp:
-    #     pickle.dump(settings, fp)
 
 
 def _process_arguments(settings):
@@ -101,24 +89,3 @@ if __name__ == "__main__":
     settings.update(vars(parser.parse_args()))
     main(settings)
 
-
-def run_script(settings):
-    # run the baseline:
-    "$python script_oversample.py --mode baseline"
-
-    # run the model with simple oversampling (rebalancing the labels)
-    "$python script_oversample.py --mode labels"
-
-    # run the model with data augmentation (rebalancing the labels, with data augmentation)
-    "$python script_oversample.py --mode augmentation"
-    ## instructions
-    ## 1) Go to src/models/samplers/weier_oversampler.py; In the function oversample:
-    ### - Look into the comment blocks ;) There are instruction to create the file
-    ### - Either edit directly into the file, or create a new one in src/models/samplers/your_file.py
-    ## 2) Go to src/ml/xal_maker.py;
-    ### - add your file ml.sampler.your_file to the imports
-    ### - in def _choose_sampler(self), add an if statement such that you have:
-    ###   if self._pipeline_settings['oversampler'] == 'yourfile' -> chose a keyword you want to use
-    ####     self._sampler = YourSampler
-    ## 3) Decide how to run your experiment. you can add an if statement in _process_argument (you can set mode via --mode xxx.) Or keep --mode augmentation, and
-    ###   change settings['ml']['pipeline']['oversampler'] to your keyword

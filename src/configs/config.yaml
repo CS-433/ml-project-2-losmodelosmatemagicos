@@ -5,7 +5,7 @@ experiment:
   root_name: baseline/1hot
   name: x
 data:
-  key: 1hot-sequence
+  key: break_sequence
    # if you insert a new sequence in the student's dictionary, change the key here
 ml:
   nfolds: 10

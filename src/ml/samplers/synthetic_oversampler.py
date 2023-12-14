@@ -7,8 +7,8 @@ from collections import Counter
 from imblearn.over_sampling import RandomOverSampler as ros
 from ml.samplers.sampler import Sampler
 
-from ml.samplers.data_imputation.BertPipeline import BertPipeline
-from ml.samplers.data_imputation.Config import Config
+from ml.BERT.BERTPipeline import BertPipeline
+from ml.BERT.Config import Config
 
 class SyntheticOversampler(Sampler):
     """This class oversamples the minority class to rebalance the distribution at 50/50. 

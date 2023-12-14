@@ -1,14 +1,18 @@
 import pickle
 import numpy as np
-import masking
-import BERT
-import tensorflow as tf
 
-from Config import Config
-from Vectorisation import Vectorisation
+# This adds the BERT path to the python path, needed for the imports inside BERT modules
+import sys
+sys.path.append('./ml/BERT') 
+
+from ml.BERT.Config import Config
+from ml.BERT.Vectorisation import Vectorisation
+import ml.BERT.masking as masking
+import ml.BERT.BERT as BERT
+
+import tensorflow as tf
 from sklearn.model_selection import KFold
 from itertools import product
-from MaskedTextGenerator import MaskedTextGenerator
 
 def cross_validation():
 
@@ -22,7 +26,7 @@ def cross_validation():
     }
     num_folds = 10
 
-    with open("./ml4science_data.pkl", "rb") as fp:
+    with open("../data/ml4science_data.pkl", "rb") as fp:
         full_data = pickle.load(fp)
 
     data_list = [full_data["sequences"][i]["sequence"] for i in range(len(full_data["sequences"]))]
