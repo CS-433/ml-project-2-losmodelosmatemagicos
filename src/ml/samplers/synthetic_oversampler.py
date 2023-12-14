@@ -9,6 +9,7 @@ from ml.samplers.sampler import Sampler
 
 from ml.BERT.BERTPipeline import BERTPipeline
 from ml.BERT.Config import Config
+from ml.BERT.Vectorisation import Vectorisation
 
 class SyntheticOversampler(Sampler):
     """This class oversamples the minority class to rebalance the distribution at 50/50. 
@@ -77,29 +78,19 @@ class SyntheticOversampler(Sampler):
 
         ### Begin EDIT BLOCK
         # 3) Actual part which you can change
-        for idx in potential_shuffles:
-            # print(sequences[0])
-            # exit(1)
-            if (np.random.rand() < 1 / self._settings["ml"]["oversampler"]["shuffler"]["shuffling_coin"]):
-                print('shuffling')
-                shuffled_sequences.append(self._shuffler.shuffle(sequences[idx]))
-            else:
-                print('not shuffling')
-                shuffled_sequences.append(sequences[idx])
-            # 3) Actual part which you can implement for your data augmentation
-            print("Our part of the code !!!! ;) ")
+        for idx in potential_shuffles: 
 
+            print(len(shuffled_sequences))
             config = Config()
-            bert = BERTPipeline(config)
-            bert_masked_model = bert.train(shuffled_sequences)
-
-            # Decide if only take mask predictions or overall sequences
-            new_sequences = bert.predict(shuffled_sequences, bert_masked_model)
+            vec = Vectorisation(config)
+            bert = BERTPipeline(config, vec)
+            bert.train(shuffled_sequences)
+            pred = bert.predict(shuffled_sequences)
 
 
             # Need to decide how deal with the info of labes and indices of the new sequences
             # We replace the original sequence by some of the new one ? Or we add them at the end ?
-            shuffled_sequences.append(new_sequences)
+            shuffled_sequences.append(pred)
 
             ### End EDIT BLOCK
             # Saving the data
