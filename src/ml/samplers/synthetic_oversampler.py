@@ -1,6 +1,7 @@
 import logging
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 from typing import Tuple
 from collections import Counter
 
@@ -10,6 +11,7 @@ from ml.samplers.sampler import Sampler
 from ml.BERT.BERTPipeline import BERTPipeline
 from ml.BERT.Config import Config
 from ml.BERT.Vectorisation import Vectorisation
+import ml.BERT.masking as masking
 
 class SyntheticOversampler(Sampler):
     """This class oversamples the minority class to rebalance the distribution at 50/50. 
@@ -80,17 +82,24 @@ class SyntheticOversampler(Sampler):
         # 3) Actual part which you can change
         for idx in potential_shuffles: 
 
-            print(len(shuffled_sequences))
+            # vectorisation and masking
             config = Config()
             vec = Vectorisation(config)
-            bert = BERTPipeline(config, vec)
-            bert.train(shuffled_sequences)
-            pred = bert.predict(shuffled_sequences)
+            seps = vec.sep_from_seq(shuffled_sequences)
+            encoded_sequences = vec.encode(shuffled_sequences, seps)
+            x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
+            mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
+            print(len(shuffled_sequences))
 
+            # running BERT and predicting
+            bert = BERTPipeline(config)
+            bert.train(mlm_ds)
+            pred = bert.predict(x_tr)
+            decoded_pred = vec.decode(pred)
 
             # Need to decide how deal with the info of labes and indices of the new sequences
             # We replace the original sequence by some of the new one ? Or we add them at the end ?
-            shuffled_sequences.append(pred)
+            shuffled_sequences.append(decoded_pred)
 
             ### End EDIT BLOCK
             # Saving the data
