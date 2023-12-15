@@ -23,7 +23,7 @@ def cross_validation(param=True):
         "FF_DIM": [32, 64, 128, 256],
         "NUM_LAYERS": [1, 2, 4],
         "LR": [0.0001, 0.001, 0.01],
-        "EPOCH": [10, 20, 30]
+        "EPOCH": [10, 50, 100]
     }
     num_folds = 10
 
@@ -68,8 +68,11 @@ def cross_validation(param=True):
                     train_data = [data_list[i] for i in train_index]
                     test_data = [data_list[i] for i in test_index]
 
-                    train_data_encoded = vectorisation.encode(train_data)
-                    test_data_encoded = vectorisation.encode(test_data)
+                    seps_train = vectorisation.sep_from_seq(train_data)
+                    seps_test = vectorisation.sep_from_seq(test_data)
+
+                    train_data_encoded = vectorisation.encode(train_data, seps_train)
+                    test_data_encoded = vectorisation.encode(test_data, seps_test)
 
                     x_masked_train, y_masked_train, sample_weights_train = masking.mask_input_and_labels(train_data_encoded, config.TOKEN_DICT, seed=32)
                     x_masked_test, y_masked_test, sample_weights_test = masking.mask_input_and_labels(test_data_encoded, config.TOKEN_DICT, seed=32)
@@ -80,7 +83,7 @@ def cross_validation(param=True):
                     mlm_ds_test = mlm_ds_test.shuffle(1000).batch(config.BATCH_SIZE)
 
                     bert_masked_model = BERT.create_masked_language_bert_model(config)
-                    bert_masked_model.fit(mlm_ds_train, epochs=20, validation_data=mlm_ds_test)
+                    bert_masked_model.fit(mlm_ds_train, epochs=config.bert.epoch)
 
                     predictions = bert_masked_model.predict(x_masked_test)
                     predictions_max = np.argmax(predictions, axis=2)
@@ -112,7 +115,7 @@ def cross_validation(param=True):
             print(f"{key}: {value['value_mask']} with an accuracy of {value['accuracy_mask']}, and all accuracies: {value['all_accuracies_mask']}")
 
         # Save best hyperparameters to a file
-        with open("best_hyperparameters_no_combinations.json", "w") as file:
+        with open("ml/BERT/best_hyperparameters_no_combinations.json", "w") as file:
             json.dump(best_hyperparameters, file, indent=4)
 
     else:
