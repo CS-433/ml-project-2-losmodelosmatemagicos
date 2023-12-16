@@ -85,11 +85,12 @@ class SyntheticOversampler(Sampler):
             # vectorisation and masking
             config = Config()
             vec = Vectorisation(config)
-            seps = vec.sep_from_seq(shuffled_sequences)
-            encoded_sequences = vec.encode(shuffled_sequences, seps)
+            sequences_to_encode = [sequences[idx]]
+            
+            seps = vec.sep_from_seq(sequences_to_encode)
+            encoded_sequences = vec.encode(sequences_to_encode, seps)
             x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
             mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
-            print(len(shuffled_sequences))
 
             # running BERT and predicting
             bert = BERTPipeline(config)
@@ -99,7 +100,9 @@ class SyntheticOversampler(Sampler):
 
             # Need to decide how deal with the info of labes and indices of the new sequences
             # We replace the original sequence by some of the new one ? Or we add them at the end ?
+
             shuffled_sequences.append(decoded_pred)
+            print(len(shuffled_sequences))
 
             ### End EDIT BLOCK
             # Saving the data

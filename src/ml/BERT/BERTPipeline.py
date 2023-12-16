@@ -15,15 +15,15 @@ class BERTPipeline:
         Args:
             sequences (list): list of sequences 
         """
-
         mlm_ds = mlm_ds.batch(self.config.BATCH_SIZE)
 
         bert_masked_model = BERT.create_masked_language_bert_model(self.config)
-        bert_masked_model.summary()
+        #bert_masked_model.summary() # We make 10 CV so is too much to print the summary
 
-        bert_masked_model.fit(mlm_ds, epochs=self.config.bert.epoch ) # No need of callbacks
+        bert_masked_model.fit(mlm_ds, epochs=self.config.bert.epoch, verbose=0) # No need of callbacks 
+        # verbose=0 to not print anything ; verbose=2 to see the progress bar 
         
-        # No know yet if we want to save the model
+        # If we want to save the model
         # bert_masked_model.save("bert_models/bert_mlm.keras") 
 
         self.model = bert_masked_model
