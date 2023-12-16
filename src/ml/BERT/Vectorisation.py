@@ -24,7 +24,8 @@ class Vectorisation:
     -------
     encode_dict:    dict -> np.array encoding
     decode_dict:    np.array -> dict decoding
-    seps_from_dict: Returns sequence location of special token [SEP]
+    seps_from_dict: Returns sequence location of special token [SEP] (from dict)
+    sep_from_seq:   Returns sequence location of special token [SEP] (from list)
     encode:         list -> np.array encoding
     decode:         np.array -> list decoding
     """
@@ -67,7 +68,7 @@ class Vectorisation:
         """
         Encodes the breaks longer than the specified config.SEP_LENGTH from a dict.
 
-        Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise
+        Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise.
         """
         seps = np.zeros(
             shape=(len(decoded_data["sequences"]), self.config.MAX_LEN), dtype=bool
@@ -94,7 +95,7 @@ class Vectorisation:
         """
         Encodes the breaks longer than the specified config.SEP_LENGTH from a list of sequences.
 
-        Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise
+        Returns: Boolean array shape = (num_students, MAX_LEN). True if sequence is a break and False otherwise.
         """
         seps = np.zeros(shape=(len(decoded_data), self.config.MAX_LEN), dtype=bool)
 

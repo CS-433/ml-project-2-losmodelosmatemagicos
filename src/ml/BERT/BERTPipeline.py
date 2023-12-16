@@ -1,10 +1,7 @@
 import numpy as np
 import tensorflow as tf
-
-import masking 
 import BERT
 from Config import Config
-from Vectorisation import Vectorisation
 
 
 class BERTPipeline:
