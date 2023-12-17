@@ -115,26 +115,39 @@ def cross_validation(param=True):
             print(f"{key}: {value['value_mask']} with an accuracy of {value['accuracy_mask']}, and all accuracies: {value['all_accuracies_mask']}")
 
         # Save best hyperparameters to a file
-        with open("ml/BERT/best_hyperparameters_no_combinations.json", "w") as file:
+        with open("ml/BERT/best_hyperparameters_no_combinations_best_param_default.json", "w") as file:
             json.dump(best_hyperparameters, file, indent=4)
 
     else:
-        accuracy_list = []
+        accuracy_seq_list = []
+        accuracy_mask_list = []
         hyperparameters_combinations = []
 
         for hyperparameter in product(*hyperparameters.values()):
-            config = Config(NUM_LAYERS=hyperparameter[0], LR=hyperparameter[1]) # To change according to the hyperparameters to test
+            print(f"\n\nTesting this combination: {hyperparameter}")
+            config = Config(EMBED_DIM=hyperparameter[0], 
+                            NUM_HEAD=hyperparameter[1], 
+                            FF_DIM=hyperparameter[2], 
+                            NUM_LAYERS=hyperparameter[3], 
+                            LR=hyperparameter[4], 
+                            EPOCH=hyperparameter[5]) # To change according to the hyperparameters to test
             vectorisation = Vectorisation(config)
 
             hyperparameters_combinations.append(hyperparameter)
-            accuracies = []
+            accuracies_seq = []
+            accuracies_mask = []
 
-            for train_index, test_index in kf.split(data_list):
+            for i, (train_index, test_index) in enumerate(kf.split(data_list)):
+                print("\n\n=========================================")
+                print(f"In fold {i + 1}\n")
                 train_data = [data_list[i] for i in train_index]
                 test_data = [data_list[i] for i in test_index]
 
-                train_data_encoded = vectorisation.encode(train_data)
-                test_data_encoded = vectorisation.encode(test_data)
+                seps_train = vectorisation.sep_from_seq(train_data)
+                seps_test = vectorisation.sep_from_seq(test_data)
+
+                train_data_encoded = vectorisation.encode(train_data, seps_train)
+                test_data_encoded = vectorisation.encode(test_data, seps_test)
 
                 x_masked_train, y_masked_train, sample_weights_train = masking.mask_input_and_labels(train_data_encoded, config.TOKEN_DICT, seed=32)
                 x_masked_test, y_masked_test, sample_weights_test = masking.mask_input_and_labels(test_data_encoded, config.TOKEN_DICT, seed=32)
@@ -145,19 +158,40 @@ def cross_validation(param=True):
                 mlm_ds_test = mlm_ds_test.shuffle(1000).batch(config.BATCH_SIZE)
 
                 bert_masked_model = BERT.create_masked_language_bert_model(config)
-
-                bert_masked_model.fit(mlm_ds_train, epochs=20, validation_data=mlm_ds_test)
+                bert_masked_model.fit(mlm_ds_train, epochs=config.bert.epoch)
 
                 predictions = bert_masked_model.predict(x_masked_test)
                 predictions_max = np.argmax(predictions, axis=2)
 
-                accuracy = np.sum((predictions_max == y_masked_test) * (x_masked_test == config.TOKEN_DICT['[MASK]'])) / np.sum(x_masked_test == config.TOKEN_DICT['[MASK]'])
-                accuracies.append(accuracy)
+                accuracy_seq = np.sum((predictions_max == y_masked_test) * (y_masked_test != 0)) / np.sum(y_masked_test != 0)
+                accuracies_seq.append(accuracy_seq)
+                accuracy_mask = np.sum((predictions_max == y_masked_test) * (x_masked_test == config.TOKEN_DICT['[MASK]'])) / np.sum(x_masked_test == config.TOKEN_DICT['[MASK]'])
+                accuracies_mask.append(accuracy_mask)
 
-            accuracy_list.append(np.mean(accuracies))
+            accuracy_seq_list.append(np.mean(accuracies_seq))
+            accuracy_mask_list.append(np.mean(accuracies_mask))
 
-        print(f"The best hyperparameters values for {list(hyperparameters.keys())} are {hyperparameters_combinations[np.argmax(accuracy_list)]} with an accuracy of {np.max(accuracy_list)}")
+        print(f"The best hyperparameters values for the sequences are {hyperparameters_combinations[np.argmax(accuracy_seq_list)]} with an accuracy of {np.max(accuracy_seq_list)}")
+        print(f"The best hyperparameters values for the masks are {hyperparameters_combinations[np.argmax(accuracy_mask_list)]} with an accuracy of {np.max(accuracy_mask_list)}")
+
+        # Save best hyperparameters to a file
+        with open("ml/BERT/best_hyperparameters_combinations", "a") as file:
+            file.write(f"Best hyperparameters values for the sequences are {hyperparameters_combinations[np.argmax(accuracy_seq_list)]} with an accuracy of {np.max(accuracy_seq_list)}\n")
+            file.write(f"Best hyperparameters values for the masks are {hyperparameters_combinations[np.argmax(accuracy_mask_list)]} with an accuracy of {np.max(accuracy_mask_list)}\n")
+            
+            for i in range(len(hyperparameters_combinations)):
+                file.write("Hyperparameters combinations:\n")
+                file.write(
+                    f"EMBED_DIM: {hyperparameters_combinations[i][0]}\
+                        \nNUM_HEAD: {hyperparameters_combinations[i][1]}\
+                        \nFF_DIM: {hyperparameters_combinations[i][2]}\
+                        \nNUM_LAYERS: {hyperparameters_combinations[i][3]}\
+                        \nLR: {hyperparameters_combinations[i][4]}\
+                        \nEPOCH: {hyperparameters_combinations[i][5]}\n"
+                        )
+                file.write(f"Accuracy for the sequence: {accuracy_seq_list[i]}\n")
+                file.write(f"Accuracy for the mask: {accuracy_mask_list[i]}\n\n")
             
 
 if __name__ == "__main__":
-    cross_validation()
+    cross_validation(param=False)
