@@ -9,7 +9,7 @@ class BERTPipeline:
     def __init__(self, config: Config):
         self.config = config
 
-    def train(self, mlm_ds: tf.data.Dataset):
+    def train(self, mlm_ds: tf.data.Dataset, verbose=0):
         """
         This function trains the model on the masked language model task.
         Args:
@@ -20,7 +20,7 @@ class BERTPipeline:
         bert_masked_model = BERT.create_masked_language_bert_model(self.config)
         #bert_masked_model.summary() # We make 10 CV so is too much to print the summary
 
-        bert_masked_model.fit(mlm_ds, epochs=self.config.bert.epoch, verbose=0) # No need of callbacks 
+        bert_masked_model.fit(mlm_ds, epochs=self.config.bert.epoch, verbose=verbose) # No need of callbacks 
         # verbose=0 to not print anything ; verbose=2 to see the progress bar 
         
         # If we want to save the model
@@ -28,7 +28,7 @@ class BERTPipeline:
 
         self.model = bert_masked_model
     
-    def predict(self, sequences: list):
+    def predict(self, sequences: list, only_masked=True, verbose=0):
         """
         This function predicts (or at least try...) the masked tokens in the sequences, to create synthetic data.
         Args:
@@ -37,7 +37,8 @@ class BERTPipeline:
         Returns:
             predictions (list): list of predictions for the masked tokens
         """
-        predictions = self.model.predict(sequences)
+        predictions = self.model.predict(sequences, verbose=verbose)
         predictions_max = np.argmax(predictions, axis=2)
+        if only_masked: predictions_max = np.where(sequences==self.config.TOKEN_DICT['[MASK]'], predictions_max, sequences)
 
         return predictions_max
