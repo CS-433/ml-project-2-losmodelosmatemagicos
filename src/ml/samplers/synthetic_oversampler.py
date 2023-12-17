@@ -79,30 +79,36 @@ class SyntheticOversampler(Sampler):
         shuffled_indices = []
 
         ### Begin EDIT BLOCK
-        # 3) Actual part which you can change
+
+        config = Config()
+        vec = Vectorisation(config)
+
+        train_sequences = sequences
+        train_seps = vec.sep_from_seq(train_sequences)
+        encoded_sequences = vec.encode(train_sequences, train_seps)
+
+        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
+        mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
+
+        bert = BERTPipeline(config)
+        bert.train(mlm_ds)
+
         for idx in potential_shuffles: 
 
-            # vectorisation and masking
-            config = Config()
-            vec = Vectorisation(config)
-            sequences_to_encode = [sequences[idx]]
-            
-            seps = vec.sep_from_seq(sequences_to_encode)
-            encoded_sequences = vec.encode(sequences_to_encode, seps)
-            x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
-            mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
+            # Vectorisation and masking of predicted sequences
+            test_sequences = [sequences[idx]]
+            test_seps = vec.sep_from_seq(test_sequences)
+            encoded_sequences = vec.encode(test_sequences, test_seps)
 
-            # running BERT and predicting
-            bert = BERTPipeline(config)
-            bert.train(mlm_ds)
+            # Predicting the new sequences
             pred = bert.predict(x_tr)
             decoded_pred = vec.decode(pred)
 
             # Need to decide how deal with the info of labes and indices of the new sequences
             # We replace the original sequence by some of the new one ? Or we add them at the end ?
-
-            shuffled_sequences.append(decoded_pred)
-            print(len(shuffled_sequences))
+            shuffled_sequences.extend(decoded_pred)
+            
+            print("Suffled sequences len : ",len(shuffled_sequences))
 
             ### End EDIT BLOCK
             # Saving the data
