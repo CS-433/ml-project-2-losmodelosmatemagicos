@@ -48,12 +48,12 @@ class SyntheticOversampler(Sampler):
             shuffled indices: indices of the shuffled sequences (just to keep track what data comes from where. Optional, for reproducibility)
         """
         print(
-            "distribution os before the sampling: {}".format(
+            "distribution demografics before the sampling: {}".format(
                 sorted(Counter(oversampler).items())
             )
         )
         print(
-            "distribution os before the sampling: {}".format(
+            "distribution labels before the sampling: {}".format(
                 sorted(Counter(labels).items())
             )
         )
@@ -94,21 +94,21 @@ class SyntheticOversampler(Sampler):
         bert.train(mlm_ds)
 
         for idx in potential_shuffles: 
-
             # Vectorisation and masking of predicted sequences
-            test_sequences = [sequences[idx]]
-            test_seps = vec.sep_from_seq(test_sequences)
-            encoded_sequences = vec.encode(test_sequences, test_seps)
+            pred_sequences = [sequences[idx]]
+            pred_seps = vec.sep_from_seq(pred_sequences)
+            pred_encoded_sequences = vec.encode(pred_sequences, pred_seps)
+
+            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT)
 
             # Predicting the new sequences
-            pred = bert.predict(x_tr)
+            pred = bert.predict(x_pred)
             decoded_pred = vec.decode(pred)
+            
 
             # Need to decide how deal with the info of labes and indices of the new sequences
             # We replace the original sequence by some of the new one ? Or we add them at the end ?
             shuffled_sequences.extend(decoded_pred)
-            
-            print("Suffled sequences len : ",len(shuffled_sequences))
 
             ### End EDIT BLOCK
             # Saving the data
@@ -122,7 +122,7 @@ class SyntheticOversampler(Sampler):
         [shuffled_indices.append(idx) for idx in range(len(labels))]
         [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
-        print("distrbution os after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
+        print("distrbution demografics after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
         print("labels after sampling: {}".format(Counter(shuffled_labels)))
         return shuffled_sequences, shuffled_labels, shuffled_indices
 
