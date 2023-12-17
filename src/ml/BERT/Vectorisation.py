@@ -172,3 +172,6 @@ class Vectorisation:
             decoded_data.append(stud_decoded_data)
 
         return decoded_data
+
+    def add_time_info(self, decoded_data: list, original_seq: list) -> list:
+        """ list -> list. Adds time information to the sequences. """
