@@ -108,7 +108,7 @@ class SyntheticOversampler(Sampler):
             # We replace the original sequence by some of the new one ? Or we add them at the end ?
             shuffled_sequences.extend(decoded_pred)
             
-            print("Suffled sequences len : ",len(shuffled_sequences))
+            print("Shuffled sequences len : ",len(shuffled_sequences))
 
             ### End EDIT BLOCK
             # Saving the data
