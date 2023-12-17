@@ -15,78 +15,64 @@ from utils.config_handler import ConfigHandler
 from features.data_loader import DataLoader
 from ml.ml_pipeline import MLPipeline
 
-
 def oversamplesimple(settings):
     ch = ConfigHandler(settings)
     ch.get_oversample_experiment_name()
 
-    print(settings["experiment"])
+    print(settings['experiment'])
 
     dl = DataLoader(settings)
     sequences, labels, demographics = dl.load_data()
     xval = MLPipeline(settings)
     xval.train(sequences, labels, demographics)
 
-    config_path = (
-        "../experiments/"
-        + settings["experiment"]["root_name"]
-        + settings["experiment"]["name"]
-        + "/config.yaml"
-    )
+    config_path = '../experiments/' + settings['experiment']['root_name'] + settings['experiment']['name'] + '/config.yaml'
     config_path = PurePath(config_path)
-    with open(config_path, "wb") as fp:
+    with open(config_path, 'wb') as fp:
         pickle.dump(settings, fp)
 
 
 def _process_arguments(settings):
     # Oversampling
-    if settings["mode"] == "baseline":
-        settings["ml"]["oversampler"]["mode"] = "none"
-    elif settings["mode"] == "labels":
-        settings["ml"]["oversampler"]["mode"] = "ros"
-        settings["ml"]["oversampler"]["rebalancing_mode"] = "equal_balancing"
-    elif settings["mode"] == "augmentation":
-        settings["ml"]["oversampler"]["mode"] = "augmentation"
-        settings["ml"]["oversampler"]["rebalancing_mode"] = "equal_balancing"
+    if settings['mode'] == 'baseline': 
+        settings['ml']['oversampler']['mode'] = 'none'
+    elif settings['mode'] == 'labels':
+        settings['ml']['oversampler']['mode'] = 'ros'
+        settings['ml']['oversampler']['rebalancing_mode'] = 'equal_balancing'
+    elif settings['mode'] == 'augmentation':
+        settings['ml']['oversampler']['mode'] = 'augmentation'
+        settings['ml']['oversampler']['rebalancing_mode'] = 'equal_balancing'
 
-    oversampling_attributes = "_".join(
-        settings["ml"]["oversampler"]["oversampling_col"]
-    )
-    settings["experiment"]["root_name"] += "/{}_oversampling/{}".format(
-        settings["ml"]["oversampler"]["rebalancing_mode"], oversampling_attributes
-    )
 
-    settings["experiment"]["labels"] = "binconcepts"
-    settings["data"]["others"] = ({"gender": ["3", "4"]},)
-    settings["data"]["adjuster"] = {"limit": 819}
+    oversampling_attributes = '_'.join(settings['ml']['oversampler']['oversampling_col'])
+    settings['experiment']['root_name'] += '/{}_oversampling/{}'.format(settings['ml']['oversampler']['rebalancing_mode'], oversampling_attributes)
+
+
+    settings['experiment']['labels'] = 'binconcepts'
+    settings['data']['others'] = {'gender': ['3', '4']},
+    settings['data']['adjuster'] = {'limit': 819}
 
     return settings
 
 
 def main(settings):
-    np.random.seed(settings["seeds"]["numpy"])
+    np.random.seed(settings['seeds']['numpy'])
     settings = _process_arguments(settings)
     oversamplesimple(settings)
 
 
-if __name__ == "__main__":
-    config_path = PurePath("./configs/config.yaml")
-    with open(config_path, "r") as f:
+if __name__ == '__main__': 
+    config_path = PurePath('./configs/config.yaml')
+    with open(config_path, 'r') as f:
         settings = yaml.load(f, Loader=yaml.FullLoader)
 
-    parser = argparse.ArgumentParser(description="Oversample")
+    parser = argparse.ArgumentParser(description='Oversample')
     # Tasks
-    parser.add_argument(
-        "--mode",
-        dest="mode",
-        default=".",
-        action="store",
-        help="list of the criteria by which to oversample, separated by dots: gender.age",
-    )
+    parser.add_argument('--mode', dest='mode', default='.', action='store', help='list of the criteria by which to oversample, separated by dots: gender.age')
 
+    
     settings.update(vars(parser.parse_args()))
     main(settings)
-
 
 def run_script(settings):
     # run the baseline:

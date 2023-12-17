@@ -2,10 +2,11 @@
 
 ---
 experiment:
-  root_name: baseline/1hot
+  root_name: augmentation/break_sequence
   name: x
 data:
   key: break_sequence
+  # available keys: 1hot-sequence, nobreak, nobreak-1hot-sequence, sequence
    # if you insert a new sequence in the student's dictionary, change the key here
 ml:
   nfolds: 10
