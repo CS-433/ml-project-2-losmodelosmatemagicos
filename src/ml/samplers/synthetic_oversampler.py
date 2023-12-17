@@ -104,7 +104,7 @@ class SyntheticOversampler(Sampler):
             # Predicting the new sequences
             pred = bert.predict(x_pred)
             decoded_pred = vec.decode(pred)
-            
+            decoded_pred = vec.add_time_info(decoded_pred, pred_sequences)
 
             # Need to decide how deal with the info of labes and indices of the new sequences
             # We replace the original sequence by some of the new one ? Or we add them at the end ?

@@ -173,5 +173,13 @@ class Vectorisation:
 
         return decoded_data
 
-    def add_time_info(self, decoded_data: list, original_seq: list) -> list:
+    def add_time_info(self, decoded_data: list, sequences: list) -> list:
         """ list -> list. Adds time information to the sequences. """
+
+        for i in range(len(sequences)):
+            for j in range(min(len(sequences[i]), self.config.MAX_LEN)):  # avoids overshoot if max sequence length > MAX_LEN
+                action_idx_decoded = np.nonzero(decoded_data[i][j])[0][1]
+                action_idx_seq = np.nonzero(sequences[i][j])[0][1]
+                decoded_data[i][j][action_idx_decoded] = sequences[i][j][action_idx_seq]
+
+        return decoded_data
