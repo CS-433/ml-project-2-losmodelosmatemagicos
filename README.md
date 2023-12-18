@@ -23,6 +23,19 @@ python script_oversample.py --mode [baseline | labels | augmentation]
 ```
 The `--mode` argument allows you to choose the method you want to use to oversample the data. 
 
+When choosing `augmentation`, there are 4 different strategies:
+| Description | Example |
+| ----------- | ------- |
+| Balanced demographics with 50% original data and 50% synthetic data | [ooo] [-----] -> [oooooOOOOO] [-----.....] |
+| Balanced demographics with 100% synthetic data | [ooo] [-----] -> [OOOOO] [.....] |
+| Original demographics with 100% synthetic data |[ooo] [-----] -> [OOO] [.....] |
+| Balanced demographics which are rebalanced with synthetic data | [ooo] [-----] -> [oooOO] [-----] |
+
+o: sequence of demographic 1, O: SYNTHETIC sequence of demographic 1 \
+-: sequence of demographic 2, .: SYNTHETIC sequence of demographic 2 
+
+which can be selected in the `config.yaml` file by modifying the `type` value under `experiment` with values between 1-4 respectively (default to 1).
+
 # Folders and files
 List of all the files we implemented or modified for the scope of this project. (modified files are marked with a *)
 
