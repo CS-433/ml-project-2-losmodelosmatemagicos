@@ -50,16 +50,26 @@ class SyntheticOversampler(Sampler):
             shuffled labels: associated labels to the shuffled sequences
             shuffled indices: indices of the shuffled sequences (just to keep track what data comes from where. Optional, for reproducibility)
         """
-
-        return self._os_half_half(sequences, labels, oversampler, sampling_strategy)
-
-        
-    def _os_half_half(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
-        '''1. [ooo] [-----] -> [oooooOOOOO] [-----.....] -> balanced demographics, 50% synthetic, 50% original -> os_half_half'''
+        experiment = self._settings['experiment']['type']
+        print(f'Running experiment {experiment}')
 
         print("distribution demographics before the sampling: {}".format(sorted(Counter(oversampler).items())))
         print("distribution labels before the sampling: {}".format(sorted(Counter(labels).items())))
         assert len(labels) == len(sequences)
+
+        if experiment==1: ss, sl, si, so = self._os_half_half(sequences, labels, oversampler, sampling_strategy)
+        if experiment==2: ss, sl, si, so = self._os_full_balanced(sequences, labels, oversampler, sampling_strategy)
+        if experiment==3: ss, sl, si, so = self._os_full_og(sequences, labels, oversampler, sampling_strategy)
+        if experiment==4: ss, sl, si, so = self._os_synth_rebalance(sequences, labels, oversampler, sampling_strategy)
+
+        print("distribution demographics after the sampling: {}".format(sorted(Counter(so).items())))
+        print("distribution labels after sampling: {}".format(sorted(Counter(sl).items())))
+
+        return ss, sl, si
+
+        
+    def _os_half_half(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
+        '''1. [ooo] [-----] -> [oooooOOOOO] [-----.....] -> balanced demographics, 50% synthetic, 50% original -> os_half_half'''
 
         self._ros = ros(
             random_state=self._settings["seeds"]["oversampler"],
@@ -110,15 +120,16 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        print("distribution demographics after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
-        print("labels after sampling: {}".format(Counter(shuffled_labels)))
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+            # Adding the original sequences
+            shuffled_sequences.append(sequences[idx])
+            shuffled_labels.append(labels[idx])
+            shuffled_indices.append(idx)
+            shuffled_oversampler.append(oversampler[idx])
+
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def _os_full_balanced(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
-        ''' 2. [ooo] [-----] -> [OOOOO] [.....]           -> balanced demographics, 100% synthetic              -> os_full_balanced'''
-        print("distribution demographics before the sampling: {}".format(sorted(Counter(oversampler).items())))
-        print("distribution labels before the sampling: {}".format(sorted(Counter(labels).items())))
-        assert len(labels) == len(sequences)
+        ''' 2. [ooo] [-----] -> [OOOOO] [.....] -> balanced demographics, 100% synthetic -> os_full_balanced'''
 
         self._ros = ros(
             random_state=self._settings["seeds"]["oversampler"],
@@ -169,21 +180,10 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        # Adding the original sequences
-        [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
-        [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
-        [shuffled_indices.append(idx) for idx in range(len(labels))]
-        [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
-
-        print("distribution demographics after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
-        print("labels after sampling: {}".format(Counter(shuffled_labels)))
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def _os_full_og(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
-        ''' 3. [ooo] [-----] -> [OOO] [.....]             -> original demographics distribution, 100% synthetic -> os_full_og'''
-        print("distribution demographics before the sampling: {}".format(sorted(Counter(oversampler).items())))
-        print("distribution labels before the sampling: {}".format(sorted(Counter(labels).items())))
-        assert len(labels) == len(sequences)
+        ''' 3. [ooo] [-----] -> [OOO] [.....] -> original demographics distribution, 100% synthetic -> os_full_og'''
 
         # potential_shuffles contains the original unbalanced data
         indices = [[idx] for idx in range(len(sequences))]
@@ -227,16 +227,10 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        print("distribution demographics after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
-        print("labels after sampling: {}".format(Counter(shuffled_labels)))
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def _os_synth_rebalance(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
-        '''4. [ooo] [-----] -> [oooOO] [-----]           -> balanced demographics, rebalanced with synthetic   -> os_synth_rebalanced'''
-        
-        print("distribution demographics before the sampling: {}".format(sorted(Counter(oversampler).items())))
-        print("distribution labels before the sampling: {}".format(sorted(Counter(labels).items())))
-        assert len(labels) == len(sequences)
+        '''4. [ooo] [-----] -> [oooOO] [-----] -> balanced demographics, rebalanced with synthetic   -> os_synth_rebalanced'''
 
         self._ros = ros(
             random_state=self._settings["seeds"]["oversampler"],
@@ -301,9 +295,7 @@ class SyntheticOversampler(Sampler):
         [shuffled_indices.append(idx) for idx in range(len(labels))]
         [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
-        print("distribution demographics after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
-        print("labels after sampling: {}".format(Counter(shuffled_labels)))
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
