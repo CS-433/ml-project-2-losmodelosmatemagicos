@@ -1,6 +1,6 @@
 ---
 experiment:
-  root_name: augmentation/break_sequence
+  root_name: baseline/break_sequence
   name: x
   type: 1 # 1 to 4
 data:
@@ -9,7 +9,7 @@ data:
 ml:
   nfolds: 10
   # test_size: 0.1
-  epochs: 3 # 30
+  epochs: 30 # 30
   oversampler: 
     oversampling_factor: 1.5
     oversampling_col:
