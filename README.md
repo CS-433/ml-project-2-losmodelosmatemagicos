@@ -32,7 +32,7 @@ When choosing `augmentation`, there are 4 different strategies:
 | Balanced demographics which are rebalanced with synthetic data | [ooo] [-----] -> [oooOO] [-----] |
 
 o: sequence of demographic 1, O: SYNTHETIC sequence of demographic 1 \
--: sequence of demographic 2, .: SYNTHETIC sequence of demographic 2 \
+-: sequence of demographic 2, .: SYNTHETIC sequence of demographic 2 
 
 which can be selected in the `config.yaml` file by modifying the `type` value under `experiment` with values between 1-4 respectively (default to 1).
 
