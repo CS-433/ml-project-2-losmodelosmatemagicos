@@ -67,11 +67,7 @@ class Sampler:
             Tuple[list, list]: _description_
         """
         distribution_os = Counter(oversampler)
-        print(
-            "distribution os before the sampling: {}".format(
-                sorted(distribution_os.items())
-            )
-        )
+        print("distribution os before the sampling: {}".format(sorted(distribution_os.items())))
 
         sampler = {cluster: distribution_os[cluster] for cluster in distribution_os}
 

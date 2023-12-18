@@ -10,13 +10,13 @@ data:
 ml:
   nfolds: 10
   # test_size: 0.1
-  epochs: 30
+  epochs: 30 # 30
   oversampler: 
     oversampling_factor: 1.5
     oversampling_col:
       - label
       - language
-    rebalancing_mode: equal_balancing # can be minor or major too
+    rebalancing_mode: equal_balancing # {equal_balancing, minor,  major}
     addyourownparameters: helloworld
   splitter:
     stratifier_col: 
