@@ -18,10 +18,10 @@ from itertools import product
 def cross_validation(param=True):
 
     hyperparameters = {
-        "EMBED_DIM": [32, 64, 128, 256],
+        "EMBED_DIM": [32, 128, 256],
         "NUM_HEAD": [2, 4, 8],
-        "FF_DIM": [32, 64, 128, 256],
-        "NUM_LAYERS": [1, 2, 4],
+        "FF_DIM": [32, 128, 256],
+        "NUM_LAYERS": [1],
         "LR": [0.0001, 0.001, 0.01],
         "EPOCH": [10, 50, 100]
     }
@@ -171,6 +171,19 @@ def cross_validation(param=True):
             accuracy_seq_list.append(np.mean(accuracies_seq))
             accuracy_mask_list.append(np.mean(accuracies_mask))
 
+            with open("ml/BERT/hyperparameters_combinations", "a") as file:
+                file.write("Hyperparameters combinations:\n")
+                file.write(
+                    f"EMBED_DIM: {hyperparameter[0]}\
+                        \nNUM_HEAD: {hyperparameter[1]}\
+                        \nFF_DIM: {hyperparameter[2]}\
+                        \nNUM_LAYERS: {hyperparameter[3]}\
+                        \nLR: {hyperparameter[4]}\
+                        \nEPOCH: {hyperparameter[5]}\n"
+                        )
+                file.write(f"Accuracy for the sequence: {np.mean(accuracies_seq)}\n")
+                file.write(f"Accuracy for the mask: {np.mean(accuracies_mask)}\n\n")
+
         print(f"The best hyperparameters values for the sequences are {hyperparameters_combinations[np.argmax(accuracy_seq_list)]} with an accuracy of {np.max(accuracy_seq_list)}")
         print(f"The best hyperparameters values for the masks are {hyperparameters_combinations[np.argmax(accuracy_mask_list)]} with an accuracy of {np.max(accuracy_mask_list)}")
 
@@ -178,20 +191,7 @@ def cross_validation(param=True):
         with open("ml/BERT/best_hyperparameters_combinations", "a") as file:
             file.write(f"Best hyperparameters values for the sequences are {hyperparameters_combinations[np.argmax(accuracy_seq_list)]} with an accuracy of {np.max(accuracy_seq_list)}\n")
             file.write(f"Best hyperparameters values for the masks are {hyperparameters_combinations[np.argmax(accuracy_mask_list)]} with an accuracy of {np.max(accuracy_mask_list)}\n")
-            
-            for i in range(len(hyperparameters_combinations)):
-                file.write("Hyperparameters combinations:\n")
-                file.write(
-                    f"EMBED_DIM: {hyperparameters_combinations[i][0]}\
-                        \nNUM_HEAD: {hyperparameters_combinations[i][1]}\
-                        \nFF_DIM: {hyperparameters_combinations[i][2]}\
-                        \nNUM_LAYERS: {hyperparameters_combinations[i][3]}\
-                        \nLR: {hyperparameters_combinations[i][4]}\
-                        \nEPOCH: {hyperparameters_combinations[i][5]}\n"
-                        )
-                file.write(f"Accuracy for the sequence: {accuracy_seq_list[i]}\n")
-                file.write(f"Accuracy for the mask: {accuracy_mask_list[i]}\n\n")
-            
+
 
 if __name__ == "__main__":
     cross_validation(param=False)

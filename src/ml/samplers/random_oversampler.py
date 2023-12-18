@@ -1,5 +1,5 @@
 import logging
-import numpy as np
+import numpy as np 
 import pandas as pd
 from typing import Tuple
 from collections import Counter
@@ -8,24 +8,23 @@ from imblearn.over_sampling import RandomOverSampler as ros
 
 from ml.samplers.sampler import Sampler
 
-
 class RandomOversampler(Sampler):
     """This class oversamples the minority class to rebalance the distribution at 50/50. It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
     Args:
         Sampler (Sampler): Inherits from the Sampler class
     """
-
+    
     def __init__(self, settings):
         super().__init__(settings)
-        self._name = "random oversampling"
-        self._notation = "rdmos"
-
+        self._name = 'random oversampling'
+        self._notation = 'rdmos'
+        
         self._ros = ros(random_state=0)
-
-    def _oversample(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
+        
+    def _oversample(self, sequences:list, labels:list, oversampler:list, sampling_strategy:dict) -> Tuple[list, list, list]:
         """Oversamples x based on oversampler, according to the sampling_strategy.
-        The way it works is that it has at least one instance in its original form, then it chooses the instances to resample.
+        The way it works is that it has at least one instance in its original form, then it chooses the instances to resample. 
         For each instance you resample, *right now*, it decides whether to make it synthetic or not. In your project you will need
         to try different options.
 
@@ -42,68 +41,43 @@ class RandomOversampler(Sampler):
             shuffled labels: associated labels to the shuffled sequences
             shuffled indices: indices of the shuffled sequences (just to keep track what data comes from where. Optional, for reproducibility)
         """
-        print(
-            "distribution os before the sampling: {}".format(
-                sorted(Counter(oversampler).items())
-            )
-        )
-        print(
-            "distribution os before the sampling: {}".format(
-                sorted(Counter(labels).items())
-            )
-        )
+        print('distribution os before the sampling: {}'.format(sorted(Counter(oversampler).items())))
+        print('distribution os before the sampling: {}'.format(sorted(Counter(labels).items())))
         assert len(labels) == len(sequences)
         self._ros = ros(
-            random_state=self._settings["seeds"]["oversampler"],
-            sampling_strategy=sampling_strategy,
+            random_state = self._settings['seeds']['oversampler'],
+            sampling_strategy=sampling_strategy
         )
 
         indices = [[idx] for idx in range(len(sequences))]
         indices_resampled, _ = self._ros.fit_resample(indices, oversampler)
 
+
         potential_shuffles = [idx[0] for idx in indices_resampled]
         [potential_shuffles.remove(idx) for idx in range(len(sequences))]
         assert len(potential_shuffles) == (len(indices_resampled) - len(indices))
-
-        # 2) Objects storing the sequences which you will edit. Here, I called it shuffled because I shuffled the sequences, but you will do other nicer things than shuffles (hopefully ;))
         shuffled_sequences = []
         shuffled_oversampler = []
         shuffled_labels = []
         shuffled_indices = []
-
-        ### Begin EDIT BLOCK
-        # 3) Actual part which you can change
         for idx in potential_shuffles:
             shuffled_sequences.append(sequences[idx])
-
-
-
-
-
-
-
-
-
-
-
-            ### End EDIT BLOCK
-            # Saving the data
             shuffled_labels.append(labels[idx])
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        # Adding the original sequences
         [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
         [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
         [shuffled_indices.append(idx) for idx in range(len(labels))]
         [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
-        print("distribution os after the sampling: {}".format(sorted(Counter(shuffled_oversampler).items())))
-        print("labels after sampling: {}".format(Counter(shuffled_labels)))
-        print("labels after sampling: {}".format(Counter(shuffled_oversampler)))
-        return shuffled_sequences, shuffled_labels, shuffled_indices
 
-    def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
+        print('distribution os after the sampling: {}'.format(sorted(Counter(shuffled_oversampler).items())))
+        print('labels after sampling: {}'.format(Counter(shuffled_labels)))
+        print('labels after sampling: {}'.format(Counter(shuffled_oversampler)))
+        return shuffled_sequences, shuffled_labels, shuffled_indices     
+
+    def sample(self, sequences:list, oversampler:list, labels:list, demographics:list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
         Functions are right now in the sampler.py file
 
@@ -121,14 +95,14 @@ class RandomOversampler(Sampler):
         Returns:
             Tuple[list, list]: _description_
         """
-        if self._settings["ml"]["oversampler"]["rebalancing_mode"] == "equal_balancing":
+        if self._settings['ml']['oversampler']['rebalancing_mode'] == 'equal_balancing':
             return self._equal_oversampling(sequences, oversampler, labels)
 
-        elif "major" in self._settings["ml"]["oversampler"]["rebalancing_mode"]:
+        elif 'major' in self._settings['ml']['oversampler']['rebalancing_mode']:
             return self._major_oversampling(sequences, oversampler, labels)
-
-        elif "minor" in self._settings["ml"]["oversampler"]["rebalancing_mode"]:
-            return self._minor_oversampling(sequences, oversampler, labels)
+        
+        elif 'minor' in self._settings['ml']['oversampler']['rebalancing_mode']:
+            return self._minor_oversampling(sequences, oversampler, labels)  
 
     def get_indices(self) -> np.array:
         return self._indices

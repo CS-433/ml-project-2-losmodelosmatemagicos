@@ -1,47 +1,36 @@
 ---
 experiment:
-  root_name: tests
+  root_name: baseline/
   labels: pass
   n_classes: 2
   regexes: 
-    - "tests/(.*)/label_language/"
+    - "baseline/(.*)/equal_balancing"
   exclude:
   - exclude
-  - "_23_0"
-  - "_23_1"
-  - "_23_2"
-  - "_23_3"
-  - "_23_4"
-  - "_23_5"
-  - "_23_6"
-  - "_23_7"
-  - "_23_8"
-  - "_23_9"
-    # - gender
 data:
   metrics:
     - roc
     # - recall 
     # - precision
-    - balanced_accuracy
-    - tp 
-    - fp
-    - fn
+    # - balanced_accuracy
+    # - tp 
+    # - fp
+    # - fn
   fairness_metrics:
-    - fn
-    - tp
+    # - fn
+    # - tp
     - fp
     # - pp 
     # - recall
     # - precision
-    - balanced_accuracy
-    - roc
+    # - balanced_accuracy
+    # - roc
   demographics:
     # beerslaw
-    - label
-    - gender
+    # - label
+    # - gender
     - language
-    - year
+    # - year
     # - field
   combined_demographics:
     - language
@@ -65,8 +54,7 @@ data:
 #     - no_os
 #   filtering_columns:
 #     - mean
-style:
-  xspacing: 0.5
+  xspacing: 0.2
   groupspacing: 0.8
   xmargins: 1
   bar_width: 0.09
