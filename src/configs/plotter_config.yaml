@@ -1,10 +1,10 @@
 ---
 experiment:
-  root_name: baseline/
+  root_name: augmentation/
   labels: pass
   n_classes: 2
   regexes: 
-    - "baseline/(.*)/equal_balancing"
+    - "augmentation/(.*)/equal_balancing"
   exclude:
   - exclude
 data:
