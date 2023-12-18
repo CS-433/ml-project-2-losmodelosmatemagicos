@@ -118,7 +118,7 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-            # Adding the original sequences
+            # Adding the original BALANCED sequences
             shuffled_sequences.append(sequences[idx])
             shuffled_labels.append(labels[idx])
             shuffled_indices.append(idx)
@@ -249,8 +249,6 @@ class SyntheticOversampler(Sampler):
         shuffled_labels = []
         shuffled_indices = []
 
-        ### Begin EDIT BLOCK
-
         config = Config()
         vec = Vectorisation(config)
 
@@ -283,7 +281,7 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        # Adding the original sequences
+        # Adding the original (not balanced) sequences
         [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
         [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
         [shuffled_indices.append(idx) for idx in range(len(labels))]
