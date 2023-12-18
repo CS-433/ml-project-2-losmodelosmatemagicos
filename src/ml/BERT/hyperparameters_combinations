@@ -1,0 +1,1340 @@
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.10586508900731402
+Accuracy for the mask: 0.10512123894553611
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.2176425823004033
+Accuracy for the mask: 0.16978665435214174
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.296480369123533
+Accuracy for the mask: 0.19046054607322244
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.2823324916369513
+Accuracy for the mask: 0.17818581715654014
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7500039249682383
+Accuracy for the mask: 0.37080236619950635
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8148207121885142
+Accuracy for the mask: 0.42240143166736904
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7504749707208923
+Accuracy for the mask: 0.3871947078266927
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7986277055183371
+Accuracy for the mask: 0.4678021735578361
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7707556800519587
+Accuracy for the mask: 0.4968499686666731
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.12313987014276688
+Accuracy for the mask: 0.11945416106513644
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.2497075323794061
+Accuracy for the mask: 0.19043063403816732
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.32979999453749026
+Accuracy for the mask: 0.18478733844272394
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.3129251870498068
+Accuracy for the mask: 0.20331428897362983
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.786039449515197
+Accuracy for the mask: 0.38460428925572215
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.826167171734892
+Accuracy for the mask: 0.41665573624702057
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7335235692667459
+Accuracy for the mask: 0.3794737499283235
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7873637357908406
+Accuracy for the mask: 0.43934982882139195
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7573885118968156
+Accuracy for the mask: 0.4544552429435231
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.1572158085473762
+Accuracy for the mask: 0.14857291514496737
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.2532362627324512
+Accuracy for the mask: 0.1928344799135117
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.3569032132945406
+Accuracy for the mask: 0.19656260281686516
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.3104423290894732
+Accuracy for the mask: 0.1863875583030446
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7902703773972486
+Accuracy for the mask: 0.378321073818777
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.814904833010039
+Accuracy for the mask: 0.3912276841756849
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7058031561332907
+Accuracy for the mask: 0.358817539889658
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7843952527810888
+Accuracy for the mask: 0.42869530086549
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7492137201832497
+Accuracy for the mask: 0.4355149466200393
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.10291632820960084
+Accuracy for the mask: 0.09693371390482537
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.22141705293012154
+Accuracy for the mask: 0.16778084547920374
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.2993373290655705
+Accuracy for the mask: 0.17709809267813378
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.2879670765497152
+Accuracy for the mask: 0.17954324202592675
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7656252655003148
+Accuracy for the mask: 0.373512752338444
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8141794801327806
+Accuracy for the mask: 0.4038547226636114
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.764723618540897
+Accuracy for the mask: 0.37604135032581243
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7724096993248522
+Accuracy for the mask: 0.4305668630876629
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7252546279394705
+Accuracy for the mask: 0.4268260834960169
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.14316228351062507
+Accuracy for the mask: 0.13453115480005312
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.25223563181158487
+Accuracy for the mask: 0.20371964959182023
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.32959349660646353
+Accuracy for the mask: 0.19464426037812227
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.3051793819373068
+Accuracy for the mask: 0.18965498176360424
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7851399721926701
+Accuracy for the mask: 0.3767378630482116
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8128034462681061
+Accuracy for the mask: 0.3931143598670987
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7531844185178562
+Accuracy for the mask: 0.3676983987664296
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7675698005222918
+Accuracy for the mask: 0.4121308110898069
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.725741612534712
+Accuracy for the mask: 0.41162710695133375
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.15946385722915696
+Accuracy for the mask: 0.14463687405002804
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.25348763269023505
+Accuracy for the mask: 0.19268294018210383
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.36232125564358775
+Accuracy for the mask: 0.1972574378030302
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.318950617585758
+Accuracy for the mask: 0.1914317532567217
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7934256767937317
+Accuracy for the mask: 0.37430241912838913
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8025480359459289
+Accuracy for the mask: 0.3920453392485214
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7164542883790287
+Accuracy for the mask: 0.35589259464162376
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7518845204300655
+Accuracy for the mask: 0.40913627259738716
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7404206526938972
+Accuracy for the mask: 0.40862760738435533
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.11257414211831154
+Accuracy for the mask: 0.10575870403953769
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.230505653967119
+Accuracy for the mask: 0.18081163167929662
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.28654995807697203
+Accuracy for the mask: 0.18117300609922304
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.2756548343365404
+Accuracy for the mask: 0.19414698288001678
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7645604576147524
+Accuracy for the mask: 0.35715639705780233
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8151918956725055
+Accuracy for the mask: 0.38986691235656484
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7631688587376855
+Accuracy for the mask: 0.3547445636805973
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7486512973023391
+Accuracy for the mask: 0.3919114684971422
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.6947888831562405
+Accuracy for the mask: 0.39077666914979936
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.12789886053123178
+Accuracy for the mask: 0.12726312848075633
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.24330962041337312
+Accuracy for the mask: 0.18923755557907787
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.32845661591107234
+Accuracy for the mask: 0.19555651318695752
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.30255081182811816
+Accuracy for the mask: 0.18567665773658268
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7909240051271923
+Accuracy for the mask: 0.3592989694583607
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8119778074357571
+Accuracy for the mask: 0.38008861958272533
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7423545459584746
+Accuracy for the mask: 0.36392675792822937
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.7472088275698973
+Accuracy for the mask: 0.3960592363918335
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7109875857704339
+Accuracy for the mask: 0.3778379745559747
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.15148689068491264
+Accuracy for the mask: 0.1425311895584223
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.25040663387018824
+Accuracy for the mask: 0.19008887493604862
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.3658065752745815
+Accuracy for the mask: 0.1936635402062077
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.3214770251241492
+Accuracy for the mask: 0.19034452752013548
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7930840645738696
+Accuracy for the mask: 0.34637407089372835
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.8058246989427038
+Accuracy for the mask: 0.370050645560937
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.7186030610197185
+Accuracy for the mask: 0.3371356326957072
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.742278519787176
+Accuracy for the mask: 0.3773040059283147
+
+Hyperparameters combinations:
+EMBED_DIM: 32                        
+NUM_HEAD: 8                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.7145889110242403
+Accuracy for the mask: 0.385063317420655
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.17765100632035094
+Accuracy for the mask: 0.14987583097867171
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.31329365220916455
+Accuracy for the mask: 0.19298815314431753
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.5104572951312913
+Accuracy for the mask: 0.2085062570630461
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.47210268548891376
+Accuracy for the mask: 0.22982217045502465
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.8113053206891232
+Accuracy for the mask: 0.4249627679092808
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.7760247241946832
+Accuracy for the mask: 0.4247809694658623
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.4685337660161114
+Accuracy for the mask: 0.1836963172578537
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.48274730592031395
+Accuracy for the mask: 0.23555233221208477
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.4186510063436845
+Accuracy for the mask: 0.22377621221316576
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.20461173132822932
+Accuracy for the mask: 0.1792652483895108
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.3588147645972136
+Accuracy for the mask: 0.19534690135272756
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.6416493135859705
+Accuracy for the mask: 0.30961181641458124
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.5380490759949228
+Accuracy for the mask: 0.28425198844072264
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7906990550873212
+Accuracy for the mask: 0.409307172126731
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.7485393910798604
+Accuracy for the mask: 0.40209749287355284
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.3576896724741362
+Accuracy for the mask: 0.19310265235792673
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.4442152103777561
+Accuracy for the mask: 0.22717095672126497
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.49661195789979135
+Accuracy for the mask: 0.23308343208954482
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.20888316393219405
+Accuracy for the mask: 0.1768251274858958
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.40532524167049633
+Accuracy for the mask: 0.20652874650808134
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.6890066873597447
+Accuracy for the mask: 0.3477933851334782
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.5381659401131216
+Accuracy for the mask: 0.27563399633097385
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7899657316213794
+Accuracy for the mask: 0.41091437320298463
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.7291805767379138
+Accuracy for the mask: 0.39239324872671155
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.2391491928583378
+Accuracy for the mask: 0.17830023080469426
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.48002518429790386
+Accuracy for the mask: 0.1866063605815031
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 2                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.48475343651795244
+Accuracy for the mask: 0.21512695061643247
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.17505107435413475
+Accuracy for the mask: 0.15873957587384613
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.32051205408562516
+Accuracy for the mask: 0.20200698244590076
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.5473766631177914
+Accuracy for the mask: 0.25634448471572174
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.4879166707967394
+Accuracy for the mask: 0.2073192058104531
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.8067887249915842
+Accuracy for the mask: 0.40488615504988035
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.7423662483450594
+Accuracy for the mask: 0.3879399395124589
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.395535578845855
+Accuracy for the mask: 0.26317781646335126
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.4634402333943055
+Accuracy for the mask: 0.2943359549369623
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 32                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.48080202263868166
+Accuracy for the mask: 0.2774718425050023
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.20483783609371256
+Accuracy for the mask: 0.1722392440949065
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.3758160225155094
+Accuracy for the mask: 0.19013183708624332
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.6435148401454238
+Accuracy for the mask: 0.3044006967292652
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.5180649593134041
+Accuracy for the mask: 0.26754950366264696
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7887513968616349
+Accuracy for the mask: 0.40528631841102525
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.7338130754591763
+Accuracy for the mask: 0.3801241851540521
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.3725442370667874
+Accuracy for the mask: 0.25291292397009013
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.4378378022231747
+Accuracy for the mask: 0.2594667335083898
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 128                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 100
+Accuracy for the sequence: 0.38601180499254184
+Accuracy for the mask: 0.28697127661133304
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 10
+Accuracy for the sequence: 0.21423833010888438
+Accuracy for the mask: 0.18002773505554465
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 50
+Accuracy for the sequence: 0.422027474847359
+Accuracy for the mask: 0.21375563299110417
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.0001                        
+EPOCH: 100
+Accuracy for the sequence: 0.6841341003812983
+Accuracy for the mask: 0.3424958924022333
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 10
+Accuracy for the sequence: 0.5499003457221325
+Accuracy for the mask: 0.28141040675040524
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 50
+Accuracy for the sequence: 0.7826343489017401
+Accuracy for the mask: 0.39177848662158354
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.001                        
+EPOCH: 100
+Accuracy for the sequence: 0.7198061936416239
+Accuracy for the mask: 0.38224295037630196
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 10
+Accuracy for the sequence: 0.3340473573497767
+Accuracy for the mask: 0.21577357474615524
+
+Hyperparameters combinations:
+EMBED_DIM: 128                        
+NUM_HEAD: 4                        
+FF_DIM: 256                        
+NUM_LAYERS: 1                        
+LR: 0.01                        
+EPOCH: 50
+Accuracy for the sequence: 0.4733638175224996
+Accuracy for the mask: 0.24782953049473413
+
