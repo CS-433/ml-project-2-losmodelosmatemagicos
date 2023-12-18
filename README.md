@@ -24,22 +24,31 @@ python script_oversample.py --mode [baseline | labels | augmentation]
 The `--mode` argument allows you to choose the method you want to use to oversample the data. 
 
 # Folders and files
+List of all the files we implemented or modified for the scope of this project. (modified files are marked with a *)
+
 ## `src/`
 Contains the source code of the project
-
-### `script_oversample.py`
 
 ### `bert_hyperparameter_tuning.py`
 10-fold cross validation to find the best hyperparameters for the BERT model. Can be run to test hyperparameters one by one or by running a grid search.
 
-## `ml/BERT/`
-Contains our implementation of the BERT model
+### `save_data.py`
+Script to save the data in a pickle file.
+
+## `src/configs/`
+Contains the configuration file.
+
+### `config.yaml`*
+Configuration parameters to be loaded in `script_oversample.py`.
+
+## `src/ml/BERT/`
+Contains our implementation of the BERT model.
 
 ### `BERT.py`
-Contains the functions that create the BERT model
+Functions that create the BERT model.
 
 ### `BERTPipeline.py`
-Contains the functions to train and predict with the BERT model such that it can be implemented in the main pipeline.
+Functions to train and predict with the BERT model such that it can be implemented in the main pipeline.
 
 ### `Config.py`
 Configuration class for centralised management of simulation parameters.
@@ -60,5 +69,11 @@ Generate masked input and corresponding labels for masked language modeling.
 ### `BertHyperparametersTuningTest.ipynb`
 Notebook to test the implementation of the crossvalidation for BERT hyperparameters tuning.
 
+## `src/ml/samplers/`
+Contains the different oversampling methods.
+
+### `synthetic_oversampler.py`*
+This class oversamples the minority class to rebalance the distribution at 50/50. 
+It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
 # Figures
