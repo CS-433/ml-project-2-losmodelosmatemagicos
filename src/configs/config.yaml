@@ -1,6 +1,6 @@
 ---
 experiment:
-  root_name: baseline/break_sequence
+  root_name: labels/break_sequence
   name: x
   type: 1 # 1 to 4
 data:
