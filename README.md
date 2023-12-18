@@ -25,7 +25,7 @@ The `--mode` argument allows you to choose the method you want to use to oversam
 
 When choosing `augmentation`, there are 4 different strategies:
 | type | Description | Example |
-|  | ----------- | ------- |
+| -- | ----------- | ------- |
 | 1. | Balanced demographics with 50% original data and 50% synthetic data | [oo] [---] -> [oooOOO] [---...] |
 | 2. | Balanced demographics with 100% synthetic data | [oo] [---] -> [OOO] [...] |
 | 3. | Original demographics with 100% synthetic data | [oo] [---] -> [OO] [...] |
