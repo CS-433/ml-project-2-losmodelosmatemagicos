@@ -31,7 +31,7 @@ class SyntheticOversampler(Sampler):
     def _oversample(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
         """Oversamples x based on oversampler, according to the sampling_strategy. 
         There are 4 possible experiments; 
-        o: sequence of demographic 1, O: synthetic sequence of demographic 1, -: sequence of demographic 2, .: synthetic sequence of demographic 2
+        o: sequence of demographic 1, O: SYNTHETIC sequence of demographic 1 // -: sequence of demographic 2, .: SYNTHETIC sequence of demographic 2
         1. [ooo] [-----] -> [oooooOOOOO] [-----.....] -> balanced demographics, 50% synthetic, 50% original -> os_half_half
         2. [ooo] [-----] -> [OOOOO] [.....]           -> balanced demographics, 100% synthetic              -> os_full_balanced
         3. [ooo] [-----] -> [OOO] [.....]             -> original demographics distribution, 100% synthetic -> os_full_og
@@ -41,14 +41,12 @@ class SyntheticOversampler(Sampler):
             sequences (list): sequences of interaction
             labels (list): target
             oversampler (list): list of the attributes by which to oversample, corresponding to the entries in x
-            sampling_strategy (dict): dictionary with the keys as classes, and the values as number of samples to get, or str = 'all' if
-            equally balanced
-            only: if oversampling one class only, name of the class to retain
+            sampling_strategy (dict): dictionary with the keys as classes, and the values as number of samples to get, or str = 'all' if equally balanced
 
         Returns:
             shuffled_sequences: all the data you want to train with (right now, original data + synthetic data)
             shuffled labels: associated labels to the shuffled sequences
-            shuffled indices: indices of the shuffled sequences (just to keep track what data comes from where. Optional, for reproducibility)
+            shuffled indices: indices of the shuffled sequences (just to keep track what data comes from where. ( Optional, for reproducibility )
         """
         experiment = self._settings['experiment']['type']
         print(f'Running experiment {experiment}')
@@ -279,12 +277,8 @@ class SyntheticOversampler(Sampler):
             decoded_pred = vec.decode(pred)
             decoded_pred = vec.add_time_info(decoded_pred, pred_sequences)
 
-            # Need to decide how deal with the info of labes and indices of the new sequences
-            # We replace the original sequence by some of the new one ? Or we add them at the end ?
+            # Adding synthetic sequences
             shuffled_sequences.extend(decoded_pred)
-
-            ### End EDIT BLOCK
-            # Saving the data
             shuffled_labels.append(labels[idx])
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])

@@ -4,11 +4,10 @@
 experiment:
   root_name: augmentation/break_sequence
   name: x
-  type: 4 # 1 - 4
+  type: 4 # 1 to 4
 data:
   key: break_sequence
-  # available keys: 1hot-sequence, nobreak, nobreak-1hot-sequence, sequence
-   # if you insert a new sequence in the student's dictionary, change the key here
+  # available keys: 1hot-sequence, nobreak, nobreak-1hot-sequence, sequence, break_sequence
 ml:
   nfolds: 10
   # test_size: 0.1
