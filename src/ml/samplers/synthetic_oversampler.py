@@ -180,13 +180,7 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        # Adding the original sequences
-        [shuffled_sequences.append(sequences[idx]) for idx in range(len(sequences))]
-        [shuffled_labels.append(labels[idx]) for idx in range(len(labels))]
-        [shuffled_indices.append(idx) for idx in range(len(labels))]
-        [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
-
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def _os_full_og(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
         ''' 3. [ooo] [-----] -> [OOO] [.....] -> original demographics distribution, 100% synthetic -> os_full_og'''
@@ -233,7 +227,7 @@ class SyntheticOversampler(Sampler):
             shuffled_indices.append(idx)
             shuffled_oversampler.append(oversampler[idx])
 
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def _os_synth_rebalance(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
         '''4. [ooo] [-----] -> [oooOO] [-----] -> balanced demographics, rebalanced with synthetic   -> os_synth_rebalanced'''
@@ -301,7 +295,7 @@ class SyntheticOversampler(Sampler):
         [shuffled_indices.append(idx) for idx in range(len(labels))]
         [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
-        return shuffled_sequences, shuffled_labels, shuffled_indices
+        return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
     def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
