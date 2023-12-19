@@ -1,7 +1,7 @@
 class Config:
     '''Configuration class for centralised management of simulation parameters'''
     
-    def __init__(self, MAX_LEN=512, BATCH_SIZE=16, EMBED_DIM=32, NUM_HEAD=2, FF_DIM=32, NUM_LAYERS=1, LR=0.01, EPOCH=50):
+    def __init__(self, MAX_LEN=512, BATCH_SIZE=16, EMBED_DIM=32, NUM_HEAD=2, FF_DIM=32, NUM_LAYERS=1, LR=0.01, EPOCH=50,):
         self.MAX_LEN = MAX_LEN
         self.BATCH_SIZE = BATCH_SIZE
         self.TOKEN_DICT = {"[PAD]": 0, "[MASK]": 1, "[SEP]": 2}
@@ -26,3 +26,6 @@ class Config:
             self.NUM_LAYERS = NUM_LAYERS
             self.LR = LR
             self.epoch = EPOCH
+            self.train_per_mask = 0.15
+            self.pred_per_mask = 0.15
+

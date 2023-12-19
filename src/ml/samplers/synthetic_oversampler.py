@@ -93,7 +93,7 @@ class SyntheticOversampler(Sampler):
         train_seps = vec.sep_from_seq(train_sequences)
         encoded_sequences = vec.encode(train_sequences, train_seps)
 
-        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
+        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.train_per_mask)
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
 
         bert = BERTPipeline(config)
@@ -105,7 +105,7 @@ class SyntheticOversampler(Sampler):
             pred_seps = vec.sep_from_seq(pred_sequences)
             pred_encoded_sequences = vec.encode(pred_sequences, pred_seps)
 
-            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT)
+            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.pred_per_mask)
 
             # Predicting the new sequences
             pred = bert.predict(x_pred)
@@ -153,7 +153,7 @@ class SyntheticOversampler(Sampler):
         train_seps = vec.sep_from_seq(train_sequences)
         encoded_sequences = vec.encode(train_sequences, train_seps)
 
-        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
+        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.train_per_mask)
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
 
         bert = BERTPipeline(config)
@@ -165,7 +165,7 @@ class SyntheticOversampler(Sampler):
             pred_seps = vec.sep_from_seq(pred_sequences)
             pred_encoded_sequences = vec.encode(pred_sequences, pred_seps)
 
-            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT)
+            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.pred_per_mask)
 
             # Predicting the new sequences
             pred = bert.predict(x_pred)
@@ -200,7 +200,7 @@ class SyntheticOversampler(Sampler):
         train_seps = vec.sep_from_seq(train_sequences)
         encoded_sequences = vec.encode(train_sequences, train_seps)
 
-        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
+        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.train_per_mask)
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
 
         bert = BERTPipeline(config)
@@ -212,7 +212,7 @@ class SyntheticOversampler(Sampler):
             pred_seps = vec.sep_from_seq(pred_sequences)
             pred_encoded_sequences = vec.encode(pred_sequences, pred_seps)
 
-            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT)
+            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.pred_per_mask)
 
             # Predicting the new sequences
             pred = bert.predict(x_pred)
@@ -256,7 +256,7 @@ class SyntheticOversampler(Sampler):
         train_seps = vec.sep_from_seq(train_sequences)
         encoded_sequences = vec.encode(train_sequences, train_seps)
 
-        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq=0.3)
+        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.train_per_mask)
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
 
         bert = BERTPipeline(config)
@@ -268,7 +268,7 @@ class SyntheticOversampler(Sampler):
             pred_seps = vec.sep_from_seq(pred_sequences)
             pred_encoded_sequences = vec.encode(pred_sequences, pred_seps)
 
-            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq=0.45)
+            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.train_per_mask)
 
             # Predicting the new sequences
             pred = bert.predict(x_pred)
