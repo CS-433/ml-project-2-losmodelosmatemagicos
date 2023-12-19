@@ -27,7 +27,7 @@ The configuration parameters are in the `config.yaml` file. You can change the p
 Make sure to change the `root_name` according to what you are testing in the run. For example, if you make a simple run using the `baseline` mode, you should write `baseline` as the `root_name`.
 
 When choosing `augmentation`, there are 4 different strategies:
-| type | Description | Example |
+| Type | Description | Example |
 | -- | ----------- | ------- |
 | 1. | Balanced demographics with 50% original data and 50% synthetic data | [oo] [---] -> [oooOOO] [---...] |
 | 2. | Balanced demographics with 100% synthetic data | [oo] [---] -> [OOO] [...] |
@@ -38,6 +38,24 @@ o: sequence of demographic 1, O: SYNTHETIC sequence of demographic 1 \
 -: sequence of demographic 2, .: SYNTHETIC sequence of demographic 2 
 
 which can be selected in the `config.yaml` file by modifying the `type` value under `experiment` with values between 1-4 respectively (default to 1).
+
+## External libraries
+The following libraries are required to run our project:
+- `imbalanced-learn`
+- `imblearn`
+- `keras`
+- `matplotlib`
+- `numpy`
+- `pandas`
+- `pyyaml`
+- `seaborn`
+- `scikit-learn`
+- `tensorflow`
+
+Install them using the following command:
+```
+pip install -r requirements.txt
+```
 
 # Folders and files
 List of all the files we implemented or modified for the scope of this project. (modified files are marked with a *)
