@@ -256,7 +256,7 @@ class SyntheticOversampler(Sampler):
         train_seps = vec.sep_from_seq(train_sequences)
         encoded_sequences = vec.encode(train_sequences, train_seps)
 
-        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT)
+        x_tr, y_tr, w_tr = masking.mask_input_and_labels(encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq=0.3)
         mlm_ds = tf.data.Dataset.from_tensor_slices((x_tr, y_tr, w_tr))
 
         bert = BERTPipeline(config)
@@ -268,7 +268,7 @@ class SyntheticOversampler(Sampler):
             pred_seps = vec.sep_from_seq(pred_sequences)
             pred_encoded_sequences = vec.encode(pred_sequences, pred_seps)
 
-            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT)
+            x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq=0.45)
 
             # Predicting the new sequences
             pred = bert.predict(x_pred)
@@ -289,6 +289,12 @@ class SyntheticOversampler(Sampler):
 
         return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
     
+    def _os_random(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
+        
+        for sequence in sequences:
+            pass
+
+
     def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:
         """Chooses the mode of oversampling
         Functions are right now in the sampler.py file

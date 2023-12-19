@@ -1,8 +1,8 @@
 ---
 experiment:
-  root_name: labels/break_sequence
+  root_name: test3045
   name: x
-  type: 1 # 1 to 4
+  type: 4 # 1 to 4
 data:
   key: break_sequence
   # available keys: 1hot-sequence, nobreak, nobreak-1hot-sequence, sequence, break_sequence
