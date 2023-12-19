@@ -23,6 +23,9 @@ python script_oversample.py --mode [baseline | labels | augmentation]
 ```
 The `--mode` argument allows you to choose the method you want to use to oversample the data. 
 
+The configuration parameters are in the `config.yaml` file. You can change the parameters in this file according to your needs. \
+Make sure to change the `root_name` according to what you are testing in the run. For example, if you make a simple run using the `baseline` mode, you should write `baseline` as the `root_name`.
+
 When choosing `augmentation`, there are 4 different strategies:
 | type | Description | Example |
 | -- | ----------- | ------- |
