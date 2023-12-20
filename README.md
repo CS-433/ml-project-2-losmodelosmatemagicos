@@ -64,13 +64,16 @@ Contains the source code of the project
 #### `script_oversample.ipynb`*
 
 ## `src/results/`
+Contains files and notebooks used to fine-tune the model and plot the results.
 
 #### `bert_hyperparameter_tuning.py`
-10-fold cross validation to find the best hyperparameters for the BERT model. Can be run to test hyperparameters one by one or by running a grid search.
+10-fold cross validation to find the best hyperparameters for the BERT model. Can be run to test hyperparameters individually or by running a grid search.
 
 #### `bert_tuning_viz.ipynb`
+Notebook to load the results of the hyperparameter tuning and plot them.
 
 #### `results_plots.ipynb`
+Notebook to load the results of the experiments and plot them.
 
 ## `src/configs/`
 Contains the configuration file.
@@ -79,14 +82,19 @@ Contains the configuration file.
 Configuration parameters to be loaded in `script_oversample.py`.
 
 ## `src/test/`
+Contains notebooks used for testing some implementations.
 
 #### `test_BertHyperparametersTuning.ipynb`
+Notebook to test the implementation of the crossvalidation for BERT hyperparameters tuning.
 
 #### `test_BERTPipeline.ipynb`
+Notebook to test the implementation of the BERTPipeline class.
 
 #### `test_BERTs_Playground.ipynb`
+Notebook to run and test the BERT model.
 
 #### `test_Vectorisation_masking.ipynb`
+Notebook to test the implementation of the Vectorisation and masking classes.
 
 ## `src/ml/BERT/`
 Contains our implementation of the BERT model.
@@ -112,9 +120,6 @@ Every state-action sequence is transformed into a unique token, taking care of s
 
 #### `masking.py`
 Generate masked input and corresponding labels for masked language modeling.
-
-#### `BertHyperparametersTuningTest.ipynb`
-Notebook to test the implementation of the crossvalidation for BERT hyperparameters tuning.
 
 ## `src/ml/samplers/`
 Contains the different oversampling methods.
