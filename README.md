@@ -61,14 +61,16 @@ List of all the files we implemented or modified for the scope of this project. 
 ## `src/`
 Contains the source code of the project
 
+#### `script_oversample.ipynb`*
+
+## `src/results/`
+
 #### `bert_hyperparameter_tuning.py`
 10-fold cross validation to find the best hyperparameters for the BERT model. Can be run to test hyperparameters one by one or by running a grid search.
 
 #### `bert_tuning_viz.ipynb`
 
 #### `results_plots.ipynb`
-
-#### `script_oversample.ipynb`*
 
 ## `src/configs/`
 Contains the configuration file.
