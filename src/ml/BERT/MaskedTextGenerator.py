@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "End-to-end Masked Language Modeling with BERT" 
+originally authored by Ankur Singh, available at https://github.com/keras-team/keras-io/blob/master/examples/nlp/masked_language_modeling.py
+and is licensed under the Apache License, Version 2.0.
+"""
+
 from tensorflow import keras
 import numpy as np
 
@@ -43,10 +49,6 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         #print('best results shape:', best_results.shape)
         best_results_probs = mask_prediction[np.arange(self.n_masks).reshape(-1, 1), best_results] # getting the probabilities for the 5 first masked predictions
 
-        '''print("\ninput_seq\n", self.sample_tokens[0])
-        print("\npredictions\n", best_results)
-        print("\nprobabilities\n", best_results_probs.round(2))'''
-
         # Print header
         print("\nmasked nb: \t ", end="")
         for i in range(self.n_masks):
@@ -64,4 +66,3 @@ class MaskedTextGenerator(keras.callbacks.Callback):
         for i in range(self.n_masks):
             print(f"{best_results_probs[i].round(2)} ", end="")
         print('\n')
-

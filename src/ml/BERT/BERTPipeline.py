@@ -6,15 +6,20 @@ import numpy as np
 
 
 class BERTPipeline:
+    """
+    BERTPipeline class represents a pipeline for training and predicting with BERT models.
+    """
 
     def __init__(self, config: Config):
         self.config = config
 
     def train(self, mlm_ds: tf.data.Dataset, verbose=0):
         """
-        This function trains the model on the masked language model task.
+        Trains the BERT model on the masked language model task.
+        
         Args:
-            sequences (list): list of sequences 
+            mlm_ds (tf.data.Dataset): The dataset for masked language model task.
+            verbose (int, optional): Verbosity mode. Defaults to 0.
         """
 
         if self.config.bert.RANDOM_BERT: return # If we want to use a random BERT, we don't need to train it
@@ -22,24 +27,28 @@ class BERTPipeline:
         mlm_ds = mlm_ds.batch(self.config.BATCH_SIZE)
 
         bert_masked_model = BERT.create_masked_language_bert_model(self.config)
-        #bert_masked_model.summary() # We make 10 CV so is too much to print the summary
 
         bert_masked_model.fit(mlm_ds, epochs=self.config.bert.epoch, verbose=verbose) # No need of callbacks 
-        # verbose=0 to not print anything ; verbose=2 to see the progress bar 
-        
-        # If we want to save the model
-        # bert_masked_model.save("bert_models/bert_mlm.keras") 
 
         self.model = bert_masked_model
     
     def predict(self, sequences: np.array, only_masked=True, verbose=0):
         """
-        This function predicts (or at least try...) the masked tokens in the sequences, to create synthetic data.
+        Predicts the masked tokens in the sequences or the full sequence to create synthetic data.
+
+        With "self.config.bert.RANDOM_BERT" defined by the instance Config we can also
+        determines a random baselines to compare the performance of the BERT model.
+        0 : normal BERT ; 1 : uniform random BERT ; 2 : random BERT with sequence distribution density function
+        
         Args:
-            sequences (array): masked and vectorised sequences
+            sequences (np.array): Masked and vectorized sequences.
+            only_masked (bool, optional): Whether to predict only the masked tokens or the full sequence, defaults to True.
+            verbose (int, optional): Verbosity mode, defaults to 0.
+        
         Returns:
-            predictions (list): list of predictions for the masked tokens
+            np.array: Predictions for the masked tokens or full sequence
         """
+
         # normal BERT
         if self.config.bert.RANDOM_BERT == 0: 
             predictions = self.model.predict(sequences, verbose=verbose)

@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "End-to-end Masked Language Modeling with BERT" 
+originally authored by Ankur Singh, available at https://github.com/keras-team/keras-io/blob/master/examples/nlp/masked_language_modeling.py
+and is licensed under the Apache License, Version 2.0.
+"""
+
 import tensorflow as tf
 from tensorflow import keras
 
@@ -9,8 +15,6 @@ class MaskedLanguageModel(tf.keras.Model):
         inputs (tf.Tensor): The input tensor for the model.
         outputs (tf.Tensor): The output tensor for the model.
         name (str): The name of the model.
-        loss_fn (function): The loss function used for training.
-        loss_tracker (tf.keras.metrics.Metric): The loss tracker metric.
     """
     
     def __init__(self, inputs, outputs, name):

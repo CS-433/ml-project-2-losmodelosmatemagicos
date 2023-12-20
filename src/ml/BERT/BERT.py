@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "End-to-end Masked Language Modeling with BERT" 
+originally authored by Ankur Singh, available at https://github.com/keras-team/keras-io/blob/master/examples/nlp/masked_language_modeling.py
+and is licensed under the Apache License, Version 2.0.
+"""
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -95,6 +101,3 @@ def create_masked_language_bert_model(config: Config):
     mlm_model.compile(optimizer=optimizer)
 
     return mlm_model
-
-
-
