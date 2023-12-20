@@ -1,0 +1,45 @@
+NUM_LAYERS: 1
+Accuracy for the sequence: 0.7966936558366715
+Accuracy for the mask: 0.46840090913127896
+Time elapsed: 340.73820189283418
+
+NUM_LAYERS: 2
+Accuracy for the sequence: 0.7871140797871956
+Accuracy for the mask: 0.45499672990038054
+Time elapsed: 691.27164738291876
+
+NUM_LAYERS: 4
+Accuracy for the sequence: 0.42908546404990855
+Accuracy for the mask: 0.33773916163821266
+Time elapsed: 1581.7362518461218
+
+NUM_LAYERS: 1
+Accuracy for the sequence: 0.7915049486355048
+Accuracy for the mask: 0.4679711565739435
+Time elapsed: 339.5549817085266
+
+NUM_LAYERS: 2
+Accuracy for the sequence: 0.7908863380162245
+Accuracy for the mask: 0.47693807029272606
+Time elapsed: 684.6538832187653
+
+NUM_LAYERS: 4
+Accuracy for the sequence: 0.42614438663370047
+Accuracy for the mask: 0.29767304368433656
+Time elapsed: 1520.5050327777863
+
+NUM_LAYERS: 1
+Accuracy for the sequence: 0.802688596994729
+Accuracy for the mask: 0.4727783701086777
+Time elapsed: 345.92688155174255
+
+NUM_LAYERS: 2
+Accuracy for the sequence: 0.7867787971205431
+Accuracy for the mask: 0.4660739212530549
+Time elapsed: 711.3281812667847
+
+NUM_LAYERS: 4
+Accuracy for the sequence: 0.5470513298265919
+Accuracy for the mask: 0.4215807928418293
+Time elapsed: 1716.738266468048
+

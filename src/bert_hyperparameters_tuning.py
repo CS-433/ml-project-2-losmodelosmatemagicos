@@ -1,6 +1,7 @@
 import pickle
 import numpy as np
 import json
+import time
 
 # This adds the BERT path to the python path, needed for the imports inside BERT modules
 import sys
@@ -18,12 +19,12 @@ from itertools import product
 def cross_validation(param=True):
 
     hyperparameters = {
-        "EMBED_DIM": [32, 128, 256],
-        "NUM_HEAD": [2, 4, 8],
-        "FF_DIM": [32, 128, 256],
-        "NUM_LAYERS": [1],
-        "LR": [0.0001, 0.001, 0.01],
-        "EPOCH": [10, 50, 100]
+        #"EMBED_DIM": [32, 128, 256],
+        #"NUM_HEAD": [2, 4, 8],
+        #"FF_DIM": [32, 128, 256],
+        "NUM_LAYERS": [1, 2, 4],
+        #"LR": [0.0001, 0.001, 0.01],
+        #"EPOCH": [10, 50, 100]
     }
     num_folds = 10
 
@@ -42,6 +43,7 @@ def cross_validation(param=True):
 
             for value in hyperparameter[1]:
                 print(f"\n\nTesting {hyperparameter[0]} with value {value}")
+                start = time.time()
 
                 match hyperparameter[0]:
                     case "EMBED_DIM":
@@ -96,6 +98,14 @@ def cross_validation(param=True):
                 accuracy_seq_list.append(np.mean(accuracies_seq))
                 accuracy_mask_list.append(np.mean(accuracies_mask))
 
+                end = time.time()
+
+                with open("ml/BERT/hyperparameters_no_combinations", "a") as file:
+                    file.write(f"{hyperparameter[0]}: {value}\n")
+                    file.write(f"Accuracy for the sequence: {np.mean(accuracies_seq)}\n")
+                    file.write(f"Accuracy for the mask: {np.mean(accuracies_mask)}\n")
+                    file.write(f"Time elapsed: {end - start}\n\n")
+
             best_value_seq = hyperparameter[1][np.argmax(accuracy_seq_list)]
             best_accuracy_seq = np.max(accuracy_seq_list)
             best_value_mask = hyperparameter[1][np.argmax(accuracy_mask_list)]
@@ -115,7 +125,7 @@ def cross_validation(param=True):
             print(f"{key}: {value['value_mask']} with an accuracy of {value['accuracy_mask']}, and all accuracies: {value['all_accuracies_mask']}")
 
         # Save best hyperparameters to a file
-        with open("ml/BERT/best_hyperparameters_no_combinations_best_param_default.json", "w") as file:
+        with open("ml/BERT/best_hyperparameters_no_combinations_best_param_default.json", "a") as file:
             json.dump(best_hyperparameters, file, indent=4)
 
     else:
@@ -194,4 +204,4 @@ def cross_validation(param=True):
 
 
 if __name__ == "__main__":
-    cross_validation(param=False)
+    cross_validation()
