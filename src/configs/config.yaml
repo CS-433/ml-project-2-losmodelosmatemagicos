@@ -1,6 +1,6 @@
 ---
 experiment:
-  root_name: testpurerandom
+  root_name: testunifrandmasked
   name: x
   type: 2 # 1 to 4
 data:
