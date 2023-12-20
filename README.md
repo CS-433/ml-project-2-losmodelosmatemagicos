@@ -24,7 +24,7 @@ The `--mode` argument allows you to choose the method you want to use to oversam
 The configuration parameters are in the [`config.yaml`](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/src/configs/config.yaml). You can change the parameters in this file according to your needs. \
 Make sure to change the `root_name` according to what you are testing in the run. For example, if you make a simple run using the `baseline` mode, you should write `baseline` as the `root_name`.
 
-When choosing `augmentation`, there are 4 different strategies (see [`Fig.1`]):
+When choosing `augmentation`, there are 4 different strategies (see [Fig.1](#fig1-original-distribution-of-the-data-and-the-4-oversampling-strategies)):
 | Type | Description | Example |
 | -- | ----------- | ------- |
 | 1. | Balanced demographics with 50% original data and 50% synthetic data | [oo] [---] -> [oooOOO] [---...] |
