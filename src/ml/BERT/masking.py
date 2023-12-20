@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "End-to-end Masked Language Modeling with BERT" 
+originally authored by Ankur Singh, available at https://github.com/keras-team/keras-io/blob/master/examples/nlp/masked_language_modeling.py
+and is licensed under the Apache License, Version 2.0.
+"""
+
 import numpy as np
 
 
@@ -24,6 +30,8 @@ def mask_input_and_labels(
         The ratio of masked tokens to be replaced with the [MASK] token, by default 0.9.
     ratio_random_seq :
         The ratio of masked tokens to be replaced with a random token, by default 0.1.
+    seed :
+        Random seed for reproducibility, by default None.
 
     Returns
     -------
@@ -52,10 +60,10 @@ def mask_input_and_labels(
     mask_idx_2mask = mask_idx & (np.random.rand(*encoded_data.shape) < ratio_seq_masked)
     encoded_data_masked[mask_idx_2mask] = special_token_dict["[MASK]"]
 
-    # Set 10% to a random token of the total tokens but form the 90% tokens modified, aka 10%/90% = 1/9 (values by default)
+    # Set 10% to a random token of the total tokens but form the 90% tokens modified -> 10%/90% = 1/9 (values by default)
     mask_idx_2random = mask_idx_2mask & (np.random.rand(*encoded_data.shape) < (ratio_random_seq / ratio_seq_masked))
     encoded_data_masked[mask_idx_2random] = np.random.randint(
-        len(special_token_dict),  # low = len(special_token_dict) ( included, is not a problem because special_token_dict starts at 0 )
+        len(special_token_dict),  # low = len(special_token_dict) ( included, special_token_dict starts at 0 )
         np.max(encoded_data) + 1,  # high = last_token + 1 (not included)
         mask_idx_2random.sum(),
     )
