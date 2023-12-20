@@ -17,6 +17,12 @@ from sklearn.model_selection import KFold
 from itertools import product
 
 def cross_validation(param=True):
+    """
+    Perform cross-validation to tune hyperparameters for BERT model and saves results.
+
+    Args:
+        param (bool): If True, tune hyperparameters individually. If False, tune hyperparameters in combinations.
+    """
 
     hyperparameters = {
         #"EMBED_DIM": [32, 128, 256],
