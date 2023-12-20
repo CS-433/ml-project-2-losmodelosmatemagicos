@@ -28,6 +28,6 @@ class Config:
             self.epoch = EPOCH
             self.train_per_mask = 0.15
             self.pred_per_mask = 0.15
-            self.pred_only_masked = False # Whether to predict only the masked tokens or the full sequence
-            self.RANDOM_BERT = 1 # for normal BERT, 1 for uniform random BERT, 2 for random BERT with sequence distribution density function
+            self.pred_only_masked = True # Whether to predict only the masked tokens or the full sequence
+            self.RANDOM_BERT = 0 # 0 for normal BERT, 1 for uniform random BERT, 2 for random BERT with sequence distribution density function
 
