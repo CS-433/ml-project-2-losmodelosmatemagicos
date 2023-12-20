@@ -61,14 +61,16 @@ List of all the files we implemented or modified for the scope of this project. 
 ## `src/`
 Contains the source code of the project
 
+#### `script_oversample.ipynb`*
+
+## `src/results/`
+
 #### `bert_hyperparameter_tuning.py`
 10-fold cross validation to find the best hyperparameters for the BERT model. Can be run to test hyperparameters one by one or by running a grid search.
 
 #### `bert_tuning_viz.ipynb`
 
 #### `results_plots.ipynb`
-
-#### `script_oversample.ipynb`*
 
 ## `src/configs/`
 Contains the configuration file.
@@ -122,4 +124,4 @@ This class oversamples the minority class to rebalance the distribution at 50/50
 It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
 # Figures
-Original distribution of the aata and the 4 oversampling strategies.![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
+Original distribution of the data and the 4 oversampling strategies.![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
