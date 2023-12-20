@@ -124,4 +124,4 @@ This class oversamples the minority class to rebalance the distribution at 50/50
 It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
 # Figures
-Original distribution of the aata and the 4 oversampling strategies.![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
+Original distribution of the data and the 4 oversampling strategies.![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
