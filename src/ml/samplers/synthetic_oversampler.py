@@ -288,11 +288,6 @@ class SyntheticOversampler(Sampler):
         [shuffled_oversampler.append(oversampler[idx]) for idx in range(len(oversampler))]
 
         return shuffled_sequences, shuffled_labels, shuffled_indices, shuffled_oversampler
-    
-    def _os_random(self, sequences: list, labels: list, oversampler: list, sampling_strategy: dict) -> Tuple[list, list, list]:
-        
-        for sequence in sequences:
-            pass
 
 
     def sample(self, sequences: list, oversampler: list, labels: list, demographics: list) -> Tuple[list, list]:

@@ -28,4 +28,5 @@ class Config:
             self.epoch = EPOCH
             self.train_per_mask = 0.15
             self.pred_per_mask = 0.15
+            self.RANDOM_BERT = 0 # for normal BERT, 1 for uniform random BERT, 2 for random BERT with sequence distribution density function
 
