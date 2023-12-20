@@ -1,8 +1,8 @@
 ---
 experiment:
-  root_name: exp1L1515
+  root_name: exp2L1515
   name: x
-  type: 1 # 1 - 4
+  type: 2 # 1 - 4
 data:
   key: break_sequence
   # available keys: 1hot-sequence, nobreak, nobreak-1hot-sequence, sequence, break_sequence
