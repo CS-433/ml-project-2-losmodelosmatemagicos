@@ -21,7 +21,7 @@ python script_oversample.py --mode [baseline | labels | augmentation]
 ```
 The `--mode` argument allows you to choose the method you want to use to oversample the data. 
 
-The configuration parameters are in the `config.yaml` file. You can change the parameters in this file according to your needs. \
+The configuration parameters are in the `config.yaml` file located in `src/configs/`. You can change the parameters in this file according to your needs. \
 Make sure to change the `root_name` according to what you are testing in the run. For example, if you make a simple run using the `baseline` mode, you should write `baseline` as the `root_name`.
 
 When choosing `augmentation`, there are 4 different strategies:
@@ -35,7 +35,9 @@ When choosing `augmentation`, there are 4 different strategies:
 o: sequence of demographic 1, O: SYNTHETIC sequence of demographic 1 \
 -: sequence of demographic 2, .: SYNTHETIC sequence of demographic 2 
 
-which can be selected in the `config.yaml` file by modifying the `type` value under `experiment` with values between 1-4 respectively (default to 1).
+which can be selected in the [`config.yaml`](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/src/configs/config.yaml) file by modifying the `type` value under `experiment` with values between 1-4 respectively (default to 1).
+
+To change parameters for the BERT model, head in the [`Config.py`](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/src/ml/BERT/Config.py) file. You can change the parameters in this file according to your needs.
 
 ## External libraries
 The following libraries are required to run our project:
