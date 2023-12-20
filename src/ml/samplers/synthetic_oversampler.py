@@ -108,7 +108,7 @@ class SyntheticOversampler(Sampler):
             x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.pred_per_mask)
 
             # Predicting the new sequences
-            pred = bert.predict(x_pred)
+            pred = bert.predict(x_pred, only_masked=config.bert.pred_only_masked)
             decoded_pred = vec.decode(pred)
             decoded_pred = vec.add_time_info(decoded_pred, pred_sequences)
 
@@ -168,7 +168,7 @@ class SyntheticOversampler(Sampler):
             x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.pred_per_mask)
 
             # Predicting the new sequences
-            pred = bert.predict(x_pred)
+            pred = bert.predict(x_pred, only_masked=config.bert.pred_only_masked)
             decoded_pred = vec.decode(pred)
             decoded_pred = vec.add_time_info(decoded_pred, pred_sequences)
 
@@ -215,7 +215,7 @@ class SyntheticOversampler(Sampler):
             x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.pred_per_mask)
 
             # Predicting the new sequences
-            pred = bert.predict(x_pred)
+            pred = bert.predict(x_pred, only_masked=config.bert.pred_only_masked)
             decoded_pred = vec.decode(pred)
             decoded_pred = vec.add_time_info(decoded_pred, pred_sequences)
 
@@ -271,7 +271,7 @@ class SyntheticOversampler(Sampler):
             x_pred, *_ = masking.mask_input_and_labels(pred_encoded_sequences, config.TOKEN_DICT, ratio_mask_per_seq = config.bert.train_per_mask)
 
             # Predicting the new sequences
-            pred = bert.predict(x_pred)
+            pred = bert.predict(x_pred, only_masked=config.bert.pred_only_masked)
             decoded_pred = vec.decode(pred)
             decoded_pred = vec.add_time_info(decoded_pred, pred_sequences)
 

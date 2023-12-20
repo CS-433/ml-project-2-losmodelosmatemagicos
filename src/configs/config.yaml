@@ -1,8 +1,8 @@
 ---
 experiment:
-  root_name: test3045
+  root_name: testpurerandom
   name: x
-  type: 4 # 1 to 4
+  type: 2 # 1 to 4
 data:
   key: break_sequence
   # available keys: 1hot-sequence, nobreak, nobreak-1hot-sequence, sequence, break_sequence
