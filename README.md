@@ -131,14 +131,14 @@ This class oversamples the minority class to rebalance the distribution at 50/50
 It takes all of the minority samples, and then randomly picks the other to fulfill the 50/50 criterion
 
 # Figures
-## `Fig.1` Original distribution of the data and the 4 oversampling strategies.
+## `Fig.1` Pipeline used for the creation of synthetic data
+![bertpipline](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/BERT.png?raw=true)
+
+## `Fig.2` Original distribution of the data and the 4 oversampling strategies.
 ![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
 
-## `Fig.2` ROC score and FPR across experiments oversampling based on labels.
+## `Fig.3` ROC score and FPR across experiments oversampling based on labels.
 ![ROC score and FPR across experiments oversampling based on labels](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
 
-## `Fig.3` FPR with respect the language demographics across experiments.
+## `Fig.4` FPR with respect the language demographics across experiments.
 ![FPR with respect the language demographics across experiments](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/FPR_language.png?raw=true)
-
-## `Fig.4`
-![INSERT image bertpipline](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
