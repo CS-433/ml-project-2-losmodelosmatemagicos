@@ -132,10 +132,10 @@ It takes all of the minority samples, and then randomly picks the other to fulfi
 
 # Figures
 ## `Fig.1` Pipeline used for the creation of synthetic data
-![bertpipline](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/BERT.png)
+<img src="https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/BERT.png" style="background-color:white;">
 
 ## `Fig.2` Original distribution of the data and the 4 oversampling strategies.
-<img src="https://github.com/your-username/your-repo/blob/main/path-to-your-image.png?raw=true" style="background-color:white;">
+![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
 
 ## `Fig.3` ROC score and FPR across experiments oversampling based on labels.
 ![ROC score and FPR across experiments oversampling based on labels](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
