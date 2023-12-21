@@ -1,4 +1,4 @@
-# ml4science-synthetic-data
+# BERT-based Synthetic Time Series Generation for Classification Tasks
 # Project 2: Machine Learning (CS-433)
 
 Behavioural Data Synthesis for better fairness performances
