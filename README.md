@@ -156,3 +156,10 @@ It takes all of the minority samples, and then randomly picks the other to fulfi
 
 ## `Fig.4` FPR with respect the language demographics across experiments.
 ![FPR with respect the language demographics across experiments](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/FPR_language.png?raw=true)
+
+# Mentions
+"""
+This code uses modified code from the "End-to-end Masked Language Modeling with BERT" (`BERT.py`,`MaskedLanguageModel.py`,`MaskedTextGenerator.py` and `masking.py`)
+originally authored by Ankur Singh, available at https://github.com/keras-team/keras-io/blob/master/examples/nlp/masked_language_modeling.py
+and is licensed under the Apache License, Version 2.0.
+"""
