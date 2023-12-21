@@ -138,7 +138,7 @@ It takes all of the minority samples, and then randomly picks the other to fulfi
 ![ROC score and FPR across experiments oversampling based on labels](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
 
 ## Fig.3
-![FPR with respect the language demographics across experiments]([https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/FPR_language.png))
+![FPR with respect the language demographics across experiments](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/FPR_language.png?raw=true)
 
 ## Fig.4
 ![INSERT image bertpipline](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
