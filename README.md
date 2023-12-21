@@ -132,8 +132,7 @@ It takes all of the minority samples, and then randomly picks the other to fulfi
 
 # Figures
 ## `Fig.1` Pipeline used for the creation of synthetic data
-<img src="https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/BERT.png?raw=true" width="500" height="200">
-![Pipeline used for the creation of synthetic data](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/BERT.png?raw=true)
+<img src="https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/BERT.png?raw=true" width="300" height="100">
 
 ## `Fig.2` Original distribution of the data and the 4 oversampling strategies.
 ![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
