@@ -1,4 +1,16 @@
 # BERT-based Synthetic Time Series Generation for Classification Tasks
+
+Abstract—This project explores the use of BERT-based syn-
+thetic time series generation for enhancing classification tasks
+in educational contexts. By generating synthetic data to repre-
+sent minority groups, the study aims to improve the fairness
+of machine learning models in real-time student performance
+assessment, while also increasing the performance of the model.
+While synthetic oversampling with BERT improved fairness and
+performance metrics on multiple baselines, it is not yet able
+to understand and compensate for the underlying behavioural
+differences of different demographic groups.
+
 # Project 2: Machine Learning (CS-433)
 
 Behavioural Data Synthesis for better fairness performances
