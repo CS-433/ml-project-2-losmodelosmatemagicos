@@ -64,6 +64,9 @@ List of all the files we implemented or modified for the scope of this project. 
 ## `src/`
 Contains the source code of the project
 
+#### `script_oversample.py`*
+Script used to run all experiments using the BERT synthetic oversampler.
+
 ## `src/ml/BERT/`
 Contains our implementation of the BERT model.
 
@@ -89,8 +92,6 @@ Every state-action sequence is transformed into a unique token, taking care of s
 #### `masking.py`
 Generate masked input and corresponding labels for masked language modeling.
 
-
-#### `script_oversample.ipynb`*
 
 ## `src/results/`
 Contains files and notebooks used to fine-tune the model and plot the results.
