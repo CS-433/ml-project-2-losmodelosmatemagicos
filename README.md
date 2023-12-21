@@ -58,10 +58,37 @@ pip install -r requirements.txt
 ```
 
 # Folders and files
-List of all the files we implemented or modified for the scope of this project. (modified files are marked with a *)
+List of all the files we implemented or modified for the scope of this project. (modified files from the original pipeline are marked with a *)
+
 
 ## `src/`
 Contains the source code of the project
+
+## `src/ml/BERT/`
+Contains our implementation of the BERT model.
+
+#### `BERT.py`
+Functions that create the BERT model.
+
+#### `BERTPipeline.py`
+Functions to train and predict with the BERT model such that it can be implemented in the main pipeline.
+
+#### `Config.py`
+Configuration class for centralised management of simulation parameters.
+
+#### `MaskedLanguageModel.py`
+A masked language model that extends the `tf.keras.Model` class.
+
+#### `MaskedTextGenerator.py`
+Callback class for generating masked text predictions during training.
+
+#### `Vectorisation.py`
+Manages the vectorisation encoding and decoding of state-action sequences.
+Every state-action sequence is transformed into a unique token, taking care of special tokens (padding, breaks). Encode-decode using either a dictionary or a numpy array.
+
+#### `masking.py`
+Generate masked input and corresponding labels for masked language modeling.
+
 
 #### `script_oversample.ipynb`*
 
@@ -98,30 +125,6 @@ Notebook to run and test the BERT model.
 #### `test_Vectorisation_masking.ipynb`
 Notebook to test the implementation of the Vectorisation and masking classes.
 
-## `src/ml/BERT/`
-Contains our implementation of the BERT model.
-
-#### `BERT.py`
-Functions that create the BERT model.
-
-#### `BERTPipeline.py`
-Functions to train and predict with the BERT model such that it can be implemented in the main pipeline.
-
-#### `Config.py`
-Configuration class for centralised management of simulation parameters.
-
-#### `MaskedLanguageModel.py`
-A masked language model that extends the `tf.keras.Model` class.
-
-#### `MaskedTextGenerator.py`
-Callback class for generating masked text predictions during training.
-
-#### `Vectorisation.py`
-Manages the vectorisation encoding and decoding of state-action sequences.
-Every state-action sequence is transformed into a unique token, taking care of special tokens (padding, breaks). Encode-decode using either a dictionary or a numpy array.
-
-#### `masking.py`
-Generate masked input and corresponding labels for masked language modeling.
 
 ## `src/ml/samplers/`
 Contains the different oversampling methods.
