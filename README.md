@@ -134,10 +134,10 @@ It takes all of the minority samples, and then randomly picks the other to fulfi
 ## `Fig.1` Original distribution of the data and the 4 oversampling strategies.
 ![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
 
-## Fig.2
+## Fig.2 ROC score and FPR across experiments oversampling based on labels
 ![ROC score and FPR across experiments oversampling based on labels](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
 
-## Fig.3
+## Fig.3 FPR with respect the language demographics across experiments
 ![FPR with respect the language demographics across experiments](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/FPR_language.png?raw=true)
 
 ## Fig.4
