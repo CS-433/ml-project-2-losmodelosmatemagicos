@@ -21,7 +21,7 @@ python script_oversample.py --mode [baseline | labels | augmentation]
 ```
 The `--mode` argument allows you to choose the method you want to use to oversample the data. 
 
-The configuration parameters are in the [`config.yaml`](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/src/configs/config.yaml). You can change the parameters in this file according to your needs. \
+The configuration parameters are in the [`src/config.yaml`](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/src/configs/config.yaml). You can change the parameters in this file according to your needs. \
 Make sure to change the `root_name` according to what you are testing in the run. For example, if you make a simple run using the `baseline` mode, you should write `baseline` as the `root_name`.
 
 When choosing `augmentation`, there are 4 different strategies (see [Fig.1](#fig1-original-distribution-of-the-data-and-the-4-oversampling-strategies)):
@@ -135,7 +135,10 @@ It takes all of the minority samples, and then randomly picks the other to fulfi
 ![Distribution of the Data and the oversampling strategies](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/Oversampling_distribution.png?raw=true)
 
 ## Fig.2
+![ROC score and FPR across experiments oversampling based on labels](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
 
 ## Fig.3
+![FPR with respect the language demographics across experiments]([https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/FPR_language.png))
 
 ## Fig.4
+![INSERT image bertpipline](https://github.com/CS-433/ml-project-2-losmodelosmatemagicos/blob/main/figures/ROC%20scores%20and%20FPR%20Across%20Experiments.png?raw=true)
